@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="WaveCompass">
+  <defs>
+    <linearGradient id="sea" x1="80" y1="70" x2="430" y2="460" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7df9d4"/>
+      <stop offset="0.52" stop-color="#00aab0"/>
+      <stop offset="1" stop-color="#06323a"/>
+    </linearGradient>
+    <linearGradient id="foam" x1="130" y1="150" x2="400" y2="350" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#dff7f5"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#sea)"/>
+  <circle cx="256" cy="256" r="182" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.46)" stroke-width="14"/>
+  <path fill="url(#foam)" d="M122 297c55-101 161-151 264-122-32 15-51 39-56 70 37 2 68 20 91 53-90-25-158-4-205 63-25-38-56-59-94-64Z"/>
+  <path fill="none" stroke="#06323a" stroke-linecap="round" stroke-width="26" d="M256 112v68M256 332v68M112 256h68M332 256h68"/>
+  <path fill="#06323a" d="M175 198h39l26 111 30-111h34l30 111 26-111h38l-43 156h-39l-29-104-29 104h-39l-44-156Z"/>
+</svg>

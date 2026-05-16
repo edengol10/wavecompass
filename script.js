@@ -1920,14 +1920,14 @@ destinations.push(
       quality: 5,
       bottom: ["reef"],
       wavePower: "chargers only",
-      crowdFactor: "High when good",
+      crowdFactor: "Very high when firing",
       waterTemp: "Warm, usually 26-29C",
       wave: "Long, hollow left reef with high consequence",
       season: "May to October",
       vibe: "Remote Lombok mission, shallow reef, and barrel obsession",
       tagline: "Best Lombok barrel",
       description:
-        "Desert Point is one of Indonesia's most famous left barrels. It can be fickle, crowded, and shallow, but when it works the quality is elite.",
+        "Desert Point is one of Indonesia's most famous left barrels. It can be fickle, very crowded, and shallow, but when it works the quality is elite.",
       image:
         "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1800&q=86",
       caption: "A long Indonesian left barrel over shallow reef.",
@@ -3298,6 +3298,10 @@ function spotGuideDescription(spotName, destination, index) {
   const base = `${bottomLabel(destination.bottom).toLowerCase()} bottom, ${powerDescription(
     destination.wavePower,
   )}, and ${directionLabel(destination.directions).toLowerCase()}.`;
+
+  if (name.includes("desert point")) {
+    return `${spotName} is a famous left reef barrel that gets very crowded when it is properly on. Expect ${base}`;
+  }
 
   if (/(outer|box|jaws|peahi|silverbacks|pico alto|shipstern|teahupoo|skeleton|mullaghmore|greenbush|speedies)/i.test(name)) {
     return `${spotName} is one of the serious options in this area. Expect ${base} Treat it as advanced-only when swell is up.`;

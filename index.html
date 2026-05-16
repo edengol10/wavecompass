@@ -239,6 +239,63 @@
                   </span>
                   <span class="switch" aria-hidden="true"></span>
                 </label>
+
+                <div class="condition-panel" role="group" aria-labelledby="conditionLabel">
+                  <span class="control-title" id="conditionLabel">Optional conditions</span>
+                  <div class="condition-grid">
+                    <label class="condition-field">
+                      <span>Consistency</span>
+                      <select name="minConsistency" aria-label="Minimum consistency percentage">
+                        <option value="0">Any</option>
+                        <option value="40">More than 40%</option>
+                        <option value="55">More than 55%</option>
+                        <option value="70">More than 70%</option>
+                        <option value="85">More than 85%</option>
+                      </select>
+                    </label>
+
+                    <div class="condition-field">
+                      <span>Swell size</span>
+                      <div class="range-pair">
+                        <label>
+                          <small>From</small>
+                          <select name="swellMin" aria-label="Minimum swell size">
+                            <option value="0">Any</option>
+                            <option value="1">1 ft</option>
+                            <option value="2">2 ft</option>
+                            <option value="3">3 ft</option>
+                            <option value="4">4 ft</option>
+                            <option value="6">6 ft</option>
+                            <option value="8">8 ft</option>
+                          </select>
+                        </label>
+                        <label>
+                          <small>To</small>
+                          <select name="swellMax" aria-label="Maximum swell size">
+                            <option value="12">Any</option>
+                            <option value="3">3 ft</option>
+                            <option value="4">4 ft</option>
+                            <option value="6">6 ft</option>
+                            <option value="8">8 ft</option>
+                            <option value="10">10 ft</option>
+                            <option value="12">12 ft</option>
+                          </select>
+                        </label>
+                      </div>
+                    </div>
+
+                    <label class="condition-field">
+                      <span>Crowds</span>
+                      <select name="maxCrowd" aria-label="Maximum crowd level">
+                        <option value="0">Any</option>
+                        <option value="1">Very low only</option>
+                        <option value="2">Low or better</option>
+                        <option value="3">Medium or better</option>
+                        <option value="4">Busy or better</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
               </div>
             </form>
           </div>

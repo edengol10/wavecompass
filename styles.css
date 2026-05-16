@@ -327,7 +327,8 @@ h1 {
 .month-picker,
 .segmented,
 .direction-card,
-.toggle-card {
+.toggle-card,
+.condition-panel {
   border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.84);
@@ -360,6 +361,67 @@ h1 {
   margin: 0;
   min-inline-size: 0;
   padding: 0.85rem;
+}
+
+.condition-panel {
+  display: grid;
+  gap: 0.66rem;
+  padding: 0.85rem;
+}
+
+.condition-grid {
+  display: grid;
+  gap: 0.52rem;
+}
+
+.condition-field {
+  display: grid;
+  gap: 0.36rem;
+  min-width: 0;
+}
+
+.condition-field > span {
+  color: #50666c;
+  font-size: 0.76rem;
+  font-weight: 850;
+}
+
+.condition-field select {
+  width: 100%;
+  min-height: 2.45rem;
+  border: 1px solid rgba(7, 19, 23, 0.08);
+  border-radius: 14px;
+  padding: 0 0.7rem;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.88);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.condition-field select:focus-visible {
+  border-color: rgba(0, 125, 143, 0.44);
+  box-shadow: 0 0 0 0.2rem rgba(0, 170, 174, 0.16);
+}
+
+.range-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.42rem;
+}
+
+.range-pair label {
+  display: grid;
+  gap: 0.26rem;
+}
+
+.range-pair small {
+  color: #6b7c80;
+  font-size: 0.68rem;
+  font-weight: 850;
 }
 
 .month-grid {

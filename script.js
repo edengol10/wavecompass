@@ -2772,6 +2772,10 @@ function getFilters() {
     budget: formData.get("budget"),
     direction: directionFromValue(formData.get("direction")),
     tropical: elements.tropical.checked,
+    minConsistency: Number(formData.get("minConsistency") || 0),
+    swellMin: Number(formData.get("swellMin") || 0),
+    swellMax: Number(formData.get("swellMax") || 12),
+    maxCrowd: Number(formData.get("maxCrowd") || 0),
   };
 }
 
@@ -2817,15 +2821,38 @@ function matchPercentage(destination, filters) {
   const budgetGap = Math.abs(
     budgetOrder.indexOf(destination.budget) - budgetOrder.indexOf(filters.budget),
   );
-  let percent = 0;
+  const conditions = monthlyConditionMetrics(destination, filters.month);
+  let score = 0;
+  let total = 100;
 
-  if (destination.months.includes(filters.month)) percent += 25;
-  if (destination.levels.includes(filters.level)) percent += 25;
-  percent += Math.max(0, 20 - budgetGap * 10);
-  if (filters.direction === "any" || destination.directions.includes(filters.direction)) percent += 15;
-  if (!filters.tropical || destination.tropical) percent += 15;
+  if (destination.months.includes(filters.month)) score += 25;
+  if (destination.levels.includes(filters.level)) score += 25;
+  score += Math.max(0, 20 - budgetGap * 10);
+  if (filters.direction === "any" || destination.directions.includes(filters.direction)) score += 15;
+  if (!filters.tropical || destination.tropical) score += 15;
 
-  return percent;
+  if (filters.minConsistency > 0) {
+    total += 15;
+    score += thresholdScore(conditions.consistencyPercent, filters.minConsistency, 15, 0.45);
+  }
+
+  if (hasSwellFilter(filters)) {
+    total += 15;
+    score += rangeOverlapScore(
+      conditions.waveMin,
+      conditions.waveMax,
+      filters.swellMin || 0,
+      filters.swellMax || 12,
+      15,
+    );
+  }
+
+  if (filters.maxCrowd > 0) {
+    total += 10;
+    score += Math.max(0, 10 - Math.max(0, conditions.crowdLevel - filters.maxCrowd) * 4);
+  }
+
+  return Math.round((score / total) * 100);
 }
 
 function destinationMatchesFilters(destination, filters) {
@@ -2839,6 +2866,35 @@ function destinationMatchesFilters(destination, filters) {
     (!filters.tropical || destination.tropical) &&
     directionMatches
   );
+}
+
+function hasSwellFilter(filters) {
+  return filters.swellMin > 0 || filters.swellMax < 12;
+}
+
+function hasOptionalConditionFilters(filters) {
+  return filters.minConsistency > 0 || hasSwellFilter(filters) || filters.maxCrowd > 0;
+}
+
+function thresholdScore(value, minimum, weight, missPenalty) {
+  if (value >= minimum) return weight;
+
+  return Math.max(0, weight - (minimum - value) * missPenalty);
+}
+
+function rangeOverlapScore(rangeMin, rangeMax, preferredMin, preferredMax, weight) {
+  const low = Math.min(preferredMin, preferredMax);
+  const high = Math.max(preferredMin, preferredMax);
+  const overlap = Math.max(0, Math.min(rangeMax, high) - Math.max(rangeMin, low));
+  const rangesTouch = Math.min(rangeMax, high) >= Math.max(rangeMin, low);
+
+  if (rangesTouch) {
+    return Math.min(weight, Math.max(weight * 0.35, weight * (overlap / Math.max(1, high - low))));
+  }
+
+  const distance = rangeMax < low ? low - rangeMax : rangeMin - high;
+
+  return Math.max(0, Math.min(weight, weight - Math.max(0, distance) * 4));
 }
 
 function setBackground(destination) {
@@ -2966,10 +3022,15 @@ function renderPhotoDots(total, activeIndex) {
 function renderCards(ranked, filters) {
   const exactMatches = ranked.filter((destination) => destinationMatchesFilters(destination, filters));
   const visibleDestinations = sortDestinations(ranked, getSortMode());
+  const optionalConditionsActive = hasOptionalConditionFilters(filters);
 
   elements.resultsCount.textContent = exactMatches.length
-    ? `${exactMatches.length} exact ${exactMatches.length === 1 ? "match" : "matches"} found. Showing all ${ranked.length} areas with match percentages.`
-    : `No exact matches yet. Showing all ${ranked.length} areas with match percentages.`;
+    ? optionalConditionsActive
+      ? `${exactMatches.length} core ${exactMatches.length === 1 ? "match" : "matches"} found. Optional condition choices are reflected in the percentages.`
+      : `${exactMatches.length} exact ${exactMatches.length === 1 ? "match" : "matches"} found. Showing all ${ranked.length} areas with match percentages.`
+    : optionalConditionsActive
+      ? `No exact core matches yet. Showing all ${ranked.length} areas ranked by your optional condition choices.`
+      : `No exact matches yet. Showing all ${ranked.length} areas with match percentages.`;
 
   elements.cardStrip.innerHTML = visibleDestinations
     .map(
@@ -3056,6 +3117,18 @@ function buildReason(destination, filters) {
     extras.push(destination.tropical ? "warm-water mornings" : "not a tropical pick, but still worth comparing");
   }
 
+  if (filters.minConsistency > 0) {
+    extras.push(`a preference for ${filters.minConsistency}%+ consistency`);
+  }
+
+  if (hasSwellFilter(filters)) {
+    extras.push(`${swellRangeLabel(filters)} surf`);
+  }
+
+  if (filters.maxCrowd > 0) {
+    extras.push(`crowds around ${crowdChoiceLabel(filters.maxCrowd).toLowerCase()} or calmer`);
+  }
+
   const extraSentence = extras.length ? ` You also get ${extras.join(" and ")}.` : "";
 
   return `${seasonPhrase} with ${levelPhrase}, ${budgetPhrase}, and a ${destination.vibe.toLowerCase()} vibe.${extraSentence}`;
@@ -3098,6 +3171,27 @@ function budgetVibe(budget) {
   };
 
   return labels[budget] || budget;
+}
+
+function swellRangeLabel(filters) {
+  const min = filters.swellMin || 0;
+  const max = filters.swellMax || 12;
+
+  if (min > 0 && max < 12) return `${Math.min(min, max)}-${Math.max(min, max)} ft`;
+  if (min > 0) return `${min} ft+`;
+  return `up to ${max} ft`;
+}
+
+function crowdChoiceLabel(level) {
+  const labels = {
+    1: "Very low",
+    2: "Low",
+    3: "Medium",
+    4: "Busy",
+    5: "Very busy",
+  };
+
+  return labels[level] || "Any";
 }
 
 function displayTagline(tagline) {
@@ -3255,17 +3349,31 @@ function monthlyGuide(destination, selectedMonth) {
 }
 
 function monthlyConditions(destination, month) {
-  const inSeason = destination.months.includes(month);
-  const nearSeason = !inSeason && monthDistanceToSeason(destination.months, month) <= 1;
+  const metrics = monthlyConditionMetrics(destination, month);
 
   return {
     month,
-    inSeason,
+    inSeason: metrics.inSeason,
     waterTemp: monthlyWaterTemp(destination, month),
-    crowds: monthlyCrowds(destination, inSeason, nearSeason),
-    waveSize: monthlyWaveSize(destination, inSeason, nearSeason),
+    crowds: monthlyCrowds(destination, metrics.inSeason, metrics.nearSeason),
+    waveSize: monthlyWaveSize(destination, metrics.inSeason, metrics.nearSeason),
     airTemp: monthlyAirTemp(destination, month),
-    consistency: monthlyConsistency(destination, inSeason, nearSeason),
+    consistency: monthlyConsistency(destination, metrics.inSeason, metrics.nearSeason),
+  };
+}
+
+function monthlyConditionMetrics(destination, month) {
+  const inSeason = destination.months.includes(month);
+  const nearSeason = !inSeason && monthDistanceToSeason(destination.months, month) <= 1;
+  const [waveMin, waveMax] = monthlyWaveRange(destination, inSeason, nearSeason);
+
+  return {
+    inSeason,
+    nearSeason,
+    crowdLevel: monthlyCrowdLevel(destination, inSeason, nearSeason),
+    waveMin,
+    waveMax,
+    consistencyPercent: monthlyConsistencyPercent(destination, inSeason, nearSeason),
   };
 }
 
@@ -3296,13 +3404,24 @@ function monthlyAirTemp(destination, month) {
 }
 
 function monthlyCrowds(destination, inSeason, nearSeason) {
-  const base = crowdScore(destination);
-  const score = Math.max(1, Math.min(5, base + (inSeason ? 1 : nearSeason ? 0 : -1)));
+  const score = monthlyCrowdLevel(destination, inSeason, nearSeason);
 
   return ["Very low", "Low", "Medium", "Busy", "Very busy"][score - 1];
 }
 
+function monthlyCrowdLevel(destination, inSeason, nearSeason) {
+  const base = crowdScore(destination);
+
+  return Math.max(1, Math.min(5, base + (inSeason ? 1 : nearSeason ? 0 : -1)));
+}
+
 function monthlyWaveSize(destination, inSeason, nearSeason) {
+  const [low, high] = monthlyWaveRange(destination, inSeason, nearSeason);
+
+  return `${low}-${high} ft`;
+}
+
+function monthlyWaveRange(destination, inSeason, nearSeason) {
   const powerRanges = {
     mellow: [2, 4],
     decent: [3, 6],
@@ -3314,18 +3433,20 @@ function monthlyWaveSize(destination, inSeason, nearSeason) {
   const low = Math.max(1, baseLow + seasonBoost + Math.floor(qualityBoost / 2));
   const high = Math.max(low + 1, baseHigh + seasonBoost + qualityBoost);
 
-  return `${low}-${high} ft`;
+  return [low, high];
 }
 
 function monthlyConsistency(destination, inSeason, nearSeason) {
-  const percent = inSeason
-    ? Math.min(96, 62 + destination.quality * 6)
-    : nearSeason
-      ? Math.min(72, 42 + destination.quality * 5)
-      : Math.min(48, 18 + destination.quality * 5);
+  const percent = monthlyConsistencyPercent(destination, inSeason, nearSeason);
   const label = percent >= 78 ? "High" : percent >= 58 ? "Good" : percent >= 40 ? "Possible" : "Low";
 
   return `${label} (${percent}%)`;
+}
+
+function monthlyConsistencyPercent(destination, inSeason, nearSeason) {
+  if (inSeason) return Math.min(96, 62 + destination.quality * 6);
+  if (nearSeason) return Math.min(72, 42 + destination.quality * 5);
+  return Math.min(48, 18 + destination.quality * 5);
 }
 
 function tempRange(value, fallback) {
@@ -3543,11 +3664,10 @@ function render(preferredIndex = null) {
   updateDirectionControl();
   const filters = getFilters();
   const ranked = getRankedDestinations();
-  const exactMatches = ranked.filter((destination) => destinationMatchesFilters(destination, filters));
   const selected =
     preferredIndex === null
-      ? exactMatches[0] || ranked[0]
-      : ranked.find((item) => item.index === preferredIndex) || exactMatches[0] || ranked[0];
+      ? ranked[0]
+      : ranked.find((item) => item.index === preferredIndex) || ranked[0];
 
   state.selected = selected.index;
   setBackground(selected);

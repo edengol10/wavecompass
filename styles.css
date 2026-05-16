@@ -683,6 +683,17 @@ select {
   line-height: 1.35;
 }
 
+.quality-rating {
+  display: grid;
+  gap: 0.24rem;
+}
+
+.stars {
+  color: var(--sea);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;

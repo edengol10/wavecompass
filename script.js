@@ -7,6 +7,8 @@ const destinations = [
     budget: "medium",
     tropical: true,
     directions: ["left", "right"],
+    quality: 5,
+    bottom: ["sand"],
     wave: "Heavy beach-break barrels with mellower points nearby",
     season: "April to October",
     vibe: "Big-wave beach town, mezcal evenings, warm Pacific energy",
@@ -27,6 +29,8 @@ const destinations = [
     budget: "medium",
     tropical: true,
     directions: ["left"],
+    quality: 3,
+    bottom: ["sand", "rock"],
     wave: "Long, soft left point ideal for trimming and turns",
     season: "November to July",
     vibe: "Longboard laps, quiet stays, sunsets over a sleepy point",
@@ -47,6 +51,8 @@ const destinations = [
     budget: "medium",
     tropical: false,
     directions: ["left", "right"],
+    quality: 4,
+    bottom: ["sand", "reef"],
     wave: "Beach breaks, reef corners, and wind-protected options",
     season: "September to May",
     vibe: "Atlantic mornings, surf camps, seafood, and quick spot checks",
@@ -67,6 +73,8 @@ const destinations = [
     budget: "low",
     tropical: true,
     directions: ["right"],
+    quality: 4,
+    bottom: ["sand", "rock"],
     wave: "Long right points with easy sections and faster walls",
     season: "May to September",
     vibe: "Warm-water points, beach cafes, tuk-tuks, and sunrise paddles",
@@ -87,6 +95,8 @@ const destinations = [
     budget: "low",
     tropical: true,
     directions: ["left", "right"],
+    quality: 3,
+    bottom: ["reef", "sand"],
     wave: "Reef and beach options close to a busy beach town",
     season: "November to April",
     vibe: "Easy guesthouses, warm water, turtles, and lively evenings",
@@ -107,6 +117,8 @@ const destinations = [
     budget: "low",
     tropical: true,
     directions: ["left", "right"],
+    quality: 3,
+    bottom: ["sand", "reef", "rock"],
     wave: "Beginner-friendly bay with reefs nearby",
     season: "November to April",
     vibe: "Warm water, curry stops, scooter missions, and steady reps",
@@ -127,6 +139,8 @@ const destinations = [
     budget: "medium",
     tropical: true,
     directions: ["left", "right"],
+    quality: 3,
+    bottom: ["sand", "rock"],
     wave: "Tropical beach breaks with punchy peaks and coves",
     season: "April to September",
     vibe: "Rainforest beaches, acai, capoeira nights, and compact surf checks",
@@ -147,6 +161,8 @@ const destinations = [
     budget: "medium",
     tropical: true,
     directions: ["left", "right"],
+    quality: 2,
+    bottom: ["sand", "reef"],
     wave: "Playful beach and reef waves near dramatic cliffs",
     season: "November to May",
     vibe: "Clifftop views, beach bars, dolphins, and warm-water cruising",
@@ -167,6 +183,8 @@ const destinations = [
     budget: "medium",
     tropical: true,
     directions: ["right"],
+    quality: 4,
+    bottom: ["rock"],
     wave: "Long cobblestone right points with power and open faces",
     season: "March to October",
     vibe: "Compact surf towns, volcano backdrops, and point-break mornings",
@@ -187,6 +205,8 @@ const destinations = [
     budget: "medium",
     tropical: true,
     directions: ["left", "right"],
+    quality: 4,
+    bottom: ["reef", "sand", "rock"],
     wave: "Reefs, slabs, beach breaks, and consistent offshore winds",
     season: "March to November",
     vibe: "Remote coastline, dawn winds, simple stays, and lots of wave variety",
@@ -207,6 +227,8 @@ const destinations = [
     budget: "high",
     tropical: true,
     directions: ["left", "right"],
+    quality: 5,
+    bottom: ["reef", "rock"],
     wave: "Remote reef waves, ledges, and powerful desert-coast setups",
     season: "April to October",
     vibe: "Long drives, empty horizons, camping logistics, and serious waves",
@@ -227,6 +249,8 @@ const destinations = [
     budget: "high",
     tropical: true,
     directions: ["left", "right"],
+    quality: 5,
+    bottom: ["reef"],
     wave: "World-class reef breaks with machine-like consistency",
     season: "April to October",
     vibe: "Boat trips, island camps, blue water, and bucket-list waves",
@@ -247,6 +271,8 @@ const destinations = [
     budget: "high",
     tropical: true,
     directions: ["left"],
+    quality: 5,
+    bottom: ["reef"],
     wave: "Long, powerful left reef with multiple sections",
     season: "May to October",
     vibe: "Jungle camp, reef focus, and a legendary left-hand wall",
@@ -267,6 +293,8 @@ const destinations = [
     budget: "medium",
     tropical: true,
     directions: ["left"],
+    quality: 5,
+    bottom: ["reef"],
     wave: "Iconic left-hand reef breaks with long walls",
     season: "May to October",
     vibe: "Cliff views, scooter missions, warm water, and late sunsets",
@@ -287,6 +315,8 @@ const destinations = [
     budget: "medium",
     tropical: true,
     directions: ["left", "right"],
+    quality: 4,
+    bottom: ["reef", "sand"],
     wave: "Bays, reefs, and point-style setups for different levels",
     season: "April to November",
     vibe: "Scooter routes, quieter villages, warm water, and varied reef sessions",
@@ -391,6 +421,8 @@ function renderFeature(destination, filters) {
     elements.caption.textContent = destination.caption;
 
     elements.facts.innerHTML = [
+      ["Wave quality", qualityRating(destination.quality)],
+      ["Bottom", bottomLabel(destination.bottom)],
       ["Best season", destination.season],
       ["Wave type", destination.wave],
       ["Direction", directionLabel(destination.directions)],
@@ -470,6 +502,32 @@ function buildReason(destination, filters) {
 
 function titleCase(value) {
   return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function qualityRating(quality) {
+  return `
+    <span class="quality-rating">
+      <span class="stars" aria-label="${quality} out of 5 stars">${"★".repeat(quality)}${"☆".repeat(5 - quality)}</span>
+      <span>${quality}/5 · ${qualityLabel(quality)}</span>
+    </span>
+  `;
+}
+
+function qualityLabel(quality) {
+  const labels = {
+    0: "No rating",
+    1: "Fun",
+    2: "Fair",
+    3: "Good",
+    4: "Epic",
+    5: "World class",
+  };
+
+  return labels[quality] || "No rating";
+}
+
+function bottomLabel(bottom) {
+  return bottom.map(titleCase).join(" / ");
 }
 
 function directionFromValue(value) {

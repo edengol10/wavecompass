@@ -2520,6 +2520,7 @@ destinations.forEach((destination) => {
 
 const state = {
   selected: 0,
+  currentPage: 1,
   carouselTimer: null,
   carouselPhotoIndex: 0,
   carouselPhotos: [],
@@ -2552,10 +2553,12 @@ const elements = {
   featureVisual: document.querySelector(".feature-visual"),
   resultsCount: document.querySelector("#resultsCount"),
   cardStrip: document.querySelector("#cardStrip"),
+  pagination: document.querySelector("#pagination"),
 };
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const resultsPerPage = 20;
 const originCoordinates = {
   tlv: [32.0853, 34.7818],
   "tel aviv": [32.0853, 34.7818],
@@ -2937,7 +2940,11 @@ function renderPhotoDots(total, activeIndex) {
 
 function renderCards(ranked, filters) {
   const exactMatches = ranked.filter((destination) => destinationMatchesFilters(destination, filters));
-  const visibleDestinations = sortDestinations(ranked, getSortMode());
+  const sortedDestinations = sortDestinations(ranked, getSortMode());
+  const pageCount = Math.max(1, Math.ceil(sortedDestinations.length / resultsPerPage));
+  state.currentPage = Math.min(Math.max(1, state.currentPage), pageCount);
+  const pageStart = (state.currentPage - 1) * resultsPerPage;
+  const visibleDestinations = sortedDestinations.slice(pageStart, pageStart + resultsPerPage);
   const optionalConditionsActive = hasOptionalConditionFilters(filters);
   const distanceSortNeedsOrigin = getSortMode() === "distance" && !originCoordinate(filters.origin);
 
@@ -2950,6 +2957,8 @@ function renderCards(ranked, filters) {
     : optionalConditionsActive
       ? `No exact core matches yet. Showing all ${ranked.length} areas ranked by your optional condition choices.`
       : `No exact matches yet. Showing all ${ranked.length} areas with match percentages.`;
+
+  elements.resultsCount.textContent += ` Page ${state.currentPage} of ${pageCount}, showing ${visibleDestinations.length} of ${ranked.length} areas.`;
 
   elements.cardStrip.innerHTML = visibleDestinations
     .map(
@@ -2966,6 +2975,17 @@ function renderCards(ranked, filters) {
       `,
     )
     .join("");
+
+  renderPagination(pageCount);
+}
+
+function renderPagination(pageCount) {
+  elements.pagination.innerHTML = Array.from({ length: pageCount }, (_, index) => {
+    const page = index + 1;
+    const activeClass = page === state.currentPage ? " is-active" : "";
+
+    return `<button class="${activeClass}" type="button" data-page="${page}" aria-label="Go to results page ${page}">${page}</button>`;
+  }).join("");
 }
 
 function sortDestinations(destinationsToSort, sortMode) {
@@ -3761,9 +3781,29 @@ function render(preferredIndex = null) {
   renderCards(ranked, filters);
 }
 
-elements.form.addEventListener("change", () => render());
-elements.sortInputs.forEach((input) => input.addEventListener("change", () => render(state.selected)));
-elements.direction.addEventListener("input", () => render());
+elements.form.addEventListener("change", () => {
+  state.currentPage = 1;
+  render();
+});
+
+elements.form.addEventListener("input", (event) => {
+  if (event.target.name !== "origin") return;
+
+  state.currentPage = 1;
+  render(state.selected);
+});
+
+elements.sortInputs.forEach((input) =>
+  input.addEventListener("change", () => {
+    state.currentPage = 1;
+    render(state.selected);
+  }),
+);
+
+elements.direction.addEventListener("input", () => {
+  state.currentPage = 1;
+  render();
+});
 
 elements.cardStrip.addEventListener("click", (event) => {
   const card = event.target.closest(".spot-card");
@@ -3771,6 +3811,15 @@ elements.cardStrip.addEventListener("click", (event) => {
 
   render(Number(card.dataset.index));
   document.querySelector(".results-band").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+elements.pagination.addEventListener("click", (event) => {
+  const pageButton = event.target.closest("button[data-page]");
+  if (!pageButton) return;
+
+  state.currentPage = Number(pageButton.dataset.page);
+  render(state.selected);
+  elements.cardStrip.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 elements.spotGuide.addEventListener("click", (event) => {

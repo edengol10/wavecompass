@@ -171,9 +171,9 @@ a {
   margin: auto;
   padding: 4rem 0 5rem;
   display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(360px, 0.72fr);
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 520px);
   gap: clamp(1.5rem, 4vw, 4rem);
-  align-items: end;
+  align-items: center;
 }
 
 .intro {
@@ -218,9 +218,11 @@ h1 {
 }
 
 .filter-panel {
-  padding: 1rem;
+  width: min(100%, 540px);
+  justify-self: end;
+  padding: 0.82rem;
   border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 28px;
+  border-radius: 24px;
   background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(28px) saturate(1.45);
   box-shadow: 0 32px 90px rgba(0, 0, 0, 0.24);
@@ -228,30 +230,32 @@ h1 {
 
 .control-grid {
   display: grid;
-  gap: 0.8rem;
+  gap: 0.68rem;
 }
 
 .field,
 .segmented,
 .toggle-card {
   border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.78);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.84);
   color: var(--ink);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.68);
 }
 
 .field {
   display: grid;
-  gap: 0.45rem;
-  padding: 0.95rem;
+  gap: 0.5rem;
+  padding: 0.85rem;
 }
 
 .field span,
 .segmented legend,
 .toggle-copy > span {
+  display: block;
   font-size: 0.78rem;
   font-weight: 800;
+  line-height: 1.1;
   color: #32525a;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -270,15 +274,25 @@ select {
 }
 
 .segmented {
+  display: grid;
+  gap: 0.58rem;
   margin: 0;
+  min-inline-size: 0;
   padding: 0.85rem;
+}
+
+.segmented legend {
+  float: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .segment-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.42rem;
-  margin-top: 0.55rem;
+  gap: 0.36rem;
+  margin-top: 0;
   padding: 0.28rem;
   border-radius: 16px;
   background: rgba(7, 19, 23, 0.06);
@@ -298,12 +312,13 @@ select {
 .segment-row span {
   display: grid;
   place-items: center;
-  min-height: 2.45rem;
-  padding: 0 0.5rem;
+  min-height: 2.35rem;
+  padding: 0 0.42rem;
   border-radius: 12px;
   color: #50666c;
-  font-size: 0.86rem;
+  font-size: 0.82rem;
   font-weight: 800;
+  white-space: nowrap;
   transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
   cursor: pointer;
 }
@@ -320,7 +335,8 @@ select {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.95rem;
+  min-height: 4.75rem;
+  padding: 0.85rem;
   cursor: pointer;
 }
 
@@ -627,18 +643,35 @@ select {
   }
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1120px) {
   .hero {
     min-height: auto;
   }
 
-  .hero-content,
-  .destination-feature {
+  .hero-content {
     grid-template-columns: 1fr;
+    align-items: start;
+    padding-top: 5rem;
   }
 
-  .hero-content {
-    padding-top: 6rem;
+  .intro {
+    max-width: 48rem;
+  }
+
+  h1 {
+    max-width: 10ch;
+    font-size: clamp(3.5rem, 10vw, 6.5rem);
+  }
+
+  .filter-panel {
+    justify-self: start;
+    width: min(100%, 640px);
+  }
+}
+
+@media (max-width: 980px) {
+  .destination-feature {
+    grid-template-columns: 1fr;
   }
 
   .section-heading {

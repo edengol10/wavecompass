@@ -6,6 +6,7 @@ const destinations = [
     levels: ["beginner", "intermediate", "advanced"],
     budget: "low",
     tropical: false,
+    directions: ["right"],
     wave: "Long right points, mellow beach breaks nearby",
     season: "October to April",
     vibe: "Mint tea, rooftop sunsets, and point-break road trips",
@@ -25,6 +26,7 @@ const destinations = [
     levels: ["beginner", "intermediate", "advanced"],
     budget: "medium",
     tropical: false,
+    directions: ["left", "right"],
     wave: "Reef breaks, beach breaks, and powerful Atlantic setups",
     season: "September to May",
     vibe: "Cobblestone town, seafood dinners, serious surf culture",
@@ -44,6 +46,7 @@ const destinations = [
     levels: ["intermediate", "advanced"],
     budget: "medium",
     tropical: true,
+    directions: ["left"],
     wave: "Iconic left-hand reef breaks with long walls",
     season: "May to October",
     vibe: "Cliff views, scooter missions, warm water, late sunsets",
@@ -63,6 +66,7 @@ const destinations = [
     levels: ["beginner", "intermediate"],
     budget: "high",
     tropical: true,
+    directions: ["left", "right"],
     wave: "Consistent beach break with friendly peaks",
     season: "November to August",
     vibe: "Jungle mornings, yoga studios, barefoot cafes",
@@ -82,6 +86,7 @@ const destinations = [
     levels: ["beginner", "intermediate"],
     budget: "low",
     tropical: true,
+    directions: ["left", "right"],
     wave: "Beginner-friendly bay with reefs nearby",
     season: "November to April",
     vibe: "Warm water, rice and curry, easy scooter exploration",
@@ -101,6 +106,7 @@ const destinations = [
     levels: ["beginner", "intermediate"],
     budget: "medium",
     tropical: true,
+    directions: ["right"],
     wave: "Soft point and beach waves close to town",
     season: "November to April",
     vibe: "Colorful streets, taco stops, mellow longboard sessions",
@@ -120,6 +126,7 @@ const destinations = [
     levels: ["intermediate", "advanced"],
     budget: "high",
     tropical: false,
+    directions: ["left", "right"],
     wave: "Fast, hollow beach breaks with serious power",
     season: "September to November",
     vibe: "Pine forests, French bakeries, contest-level sandbars",
@@ -139,6 +146,7 @@ const destinations = [
     levels: ["beginner", "intermediate", "advanced"],
     budget: "high",
     tropical: false,
+    directions: ["right"],
     wave: "Long points, beach breaks, and protected corners",
     season: "February to September",
     vibe: "Longboard lines, good coffee, lighthouse walks",
@@ -161,6 +169,8 @@ const elements = {
   heroMedia: document.querySelector("#heroMedia"),
   form: document.querySelector("#filters"),
   month: document.querySelector("#month"),
+  direction: document.querySelector("#direction"),
+  directionValue: document.querySelector("#directionValue"),
   tropical: document.querySelector("#tropical"),
   matchTitle: document.querySelector("#matchTitle"),
   matchReason: document.querySelector("#matchReason"),
@@ -181,6 +191,7 @@ function getFilters() {
     month: formData.get("month"),
     level: formData.get("level"),
     budget: formData.get("budget"),
+    direction: directionFromValue(formData.get("direction")),
     tropical: elements.tropical.checked,
   };
 }
@@ -193,6 +204,9 @@ function scoreDestination(destination, filters) {
   if (destination.budget === filters.budget) score += 3;
   if (!filters.tropical || destination.tropical) score += 3;
   if (filters.tropical && !destination.tropical) score -= 4;
+  if (filters.direction === "any") score += 1;
+  if (filters.direction !== "any" && destination.directions.includes(filters.direction)) score += 3;
+  if (filters.direction !== "any" && !destination.directions.includes(filters.direction)) score -= 2;
 
   const budgetOrder = ["low", "medium", "high"];
   const budgetGap = Math.abs(
@@ -239,6 +253,7 @@ function renderFeature(destination, filters) {
     elements.facts.innerHTML = [
       ["Best season", destination.season],
       ["Wave type", destination.wave],
+      ["Direction", directionLabel(destination.directions)],
       ["Budget", titleCase(destination.budget)],
       ["Vibe", destination.vibe],
     ]
@@ -300,6 +315,10 @@ function buildReason(destination, filters) {
     parts.push(`${filters.budget} budget fit`);
   }
 
+  if (filters.direction !== "any" && destination.directions.includes(filters.direction)) {
+    parts.push(`${filters.direction}s available`);
+  }
+
   if (filters.tropical && destination.tropical) {
     parts.push("tropical water");
   }
@@ -313,7 +332,35 @@ function titleCase(value) {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
+function directionFromValue(value) {
+  if (value === "-1") return "left";
+  if (value === "1") return "right";
+  return "any";
+}
+
+function directionLabel(directions) {
+  if (directions.includes("left") && directions.includes("right")) return "Lefts and rights";
+  if (directions.includes("left")) return "Mostly lefts";
+  return "Mostly rights";
+}
+
+function directionChoiceLabel(direction) {
+  if (direction === "left") return "Lefts";
+  if (direction === "right") return "Rights";
+  return "Any wave";
+}
+
+function updateDirectionControl() {
+  const direction = directionFromValue(elements.direction.value);
+  const fill = `${(Number(elements.direction.value) + 1) * 50}%`;
+
+  elements.directionValue.textContent = directionChoiceLabel(direction);
+  elements.direction.setAttribute("aria-valuetext", directionChoiceLabel(direction));
+  elements.direction.style.setProperty("--direction-fill", fill);
+}
+
 function render(preferredIndex = null) {
+  updateDirectionControl();
   const filters = getFilters();
   const ranked = getRankedDestinations();
   const selected =
@@ -326,6 +373,7 @@ function render(preferredIndex = null) {
 }
 
 elements.form.addEventListener("change", () => render());
+elements.direction.addEventListener("input", () => render());
 
 elements.cardStrip.addEventListener("click", (event) => {
   const card = event.target.closest(".spot-card");

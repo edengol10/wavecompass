@@ -273,6 +273,7 @@ h1 {
 
 .field,
 .segmented,
+.direction-card,
 .toggle-card {
   border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 18px;
@@ -289,6 +290,7 @@ h1 {
 
 .field span,
 .segmented legend,
+.direction-head > span,
 .toggle-copy > span {
   display: block;
   font-size: 0.78rem;
@@ -341,6 +343,7 @@ select {
 }
 
 .segment-row input,
+.direction-card input,
 .toggle-card input {
   position: absolute;
   opacity: 0;
@@ -366,6 +369,101 @@ select {
   color: var(--ink);
   box-shadow: 0 8px 22px rgba(0, 45, 61, 0.12);
   transform: translateY(-1px);
+}
+
+.direction-card {
+  display: grid;
+  gap: 0.72rem;
+  padding: 0.85rem;
+}
+
+.direction-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.direction-head small {
+  color: var(--sea);
+  font-size: 0.88rem;
+  font-weight: 850;
+}
+
+.direction-card input[type="range"] {
+  position: static;
+  width: 100%;
+  height: 2.5rem;
+  margin: 0;
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+  appearance: none;
+  background: transparent;
+}
+
+.direction-card input[type="range"]::-webkit-slider-runnable-track {
+  height: 0.78rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(0, 182, 167, 0.95), rgba(0, 125, 143, 0.95))
+      0 / var(--direction-fill, 50%) 100% no-repeat,
+    rgba(7, 19, 23, 0.08);
+}
+
+.direction-card input[type="range"]::-webkit-slider-thumb {
+  width: 2.2rem;
+  height: 2.2rem;
+  margin-top: -0.71rem;
+  border: 0.34rem solid white;
+  border-radius: 50%;
+  background: var(--sea);
+  box-shadow: 0 10px 26px rgba(0, 45, 61, 0.24);
+  appearance: none;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.direction-card input[type="range"]:hover::-webkit-slider-thumb,
+.direction-card input[type="range"]:focus-visible::-webkit-slider-thumb {
+  transform: scale(1.06);
+  box-shadow: 0 14px 34px rgba(0, 45, 61, 0.3);
+}
+
+.direction-card input[type="range"]::-moz-range-track {
+  height: 0.78rem;
+  border-radius: 999px;
+  background: rgba(7, 19, 23, 0.08);
+}
+
+.direction-card input[type="range"]::-moz-range-progress {
+  height: 0.78rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(0, 182, 167, 0.95), rgba(0, 125, 143, 0.95));
+}
+
+.direction-card input[type="range"]::-moz-range-thumb {
+  width: 1.55rem;
+  height: 1.55rem;
+  border: 0.34rem solid white;
+  border-radius: 50%;
+  background: var(--sea);
+  box-shadow: 0 10px 26px rgba(0, 45, 61, 0.24);
+}
+
+.direction-labels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  color: #50666c;
+  font-size: 0.76rem;
+  font-weight: 850;
+}
+
+.direction-labels span:nth-child(2) {
+  text-align: center;
+}
+
+.direction-labels span:nth-child(3) {
+  text-align: right;
 }
 
 .toggle-card {

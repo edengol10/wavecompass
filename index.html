@@ -108,6 +108,29 @@
                   </div>
                 </fieldset>
 
+                <label class="direction-card" for="direction">
+                  <span class="direction-head">
+                    <span>Direction</span>
+                    <small id="directionValue">Any wave</small>
+                  </span>
+                  <input
+                    type="range"
+                    id="direction"
+                    name="direction"
+                    min="-1"
+                    max="1"
+                    step="1"
+                    value="0"
+                    aria-label="Preferred wave direction"
+                    aria-valuetext="Any wave"
+                  />
+                  <span class="direction-labels" aria-hidden="true">
+                    <span>Lefts</span>
+                    <span>Any</span>
+                    <span>Rights</span>
+                  </span>
+                </label>
+
                 <label class="toggle-card">
                   <input type="checkbox" id="tropical" name="tropical" />
                   <span class="toggle-copy">

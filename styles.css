@@ -806,6 +806,53 @@ h1 {
   font-weight: 800;
 }
 
+.results-tools {
+  display: grid;
+  gap: 0.58rem;
+  margin-top: 1rem;
+  padding: 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 16px 44px rgba(0, 45, 61, 0.08);
+}
+
+.sort-row {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.36rem;
+  padding: 0.28rem;
+  border-radius: 16px;
+  background: rgba(7, 19, 23, 0.06);
+}
+
+.sort-row input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sort-row span {
+  display: grid;
+  place-items: center;
+  min-height: 2.35rem;
+  padding: 0 0.55rem;
+  border-radius: 12px;
+  color: #50666c;
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-align: center;
+  transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  cursor: pointer;
+}
+
+.sort-row input:checked + span {
+  color: var(--ink);
+  background: white;
+  box-shadow: 0 8px 22px rgba(0, 45, 61, 0.12);
+  transform: translateY(-1px);
+}
+
 .spot-card {
   position: relative;
   min-height: 230px;
@@ -818,6 +865,21 @@ h1 {
   cursor: pointer;
   box-shadow: 0 18px 52px rgba(0, 45, 61, 0.14);
   transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 220ms ease;
+}
+
+.match-badge {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 2;
+  padding: 0.42rem 0.58rem;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 999px;
+  color: white;
+  background: rgba(2, 18, 24, 0.42);
+  backdrop-filter: blur(14px);
+  font-size: 0.75rem;
+  font-weight: 900;
 }
 
 .spot-card:hover,
@@ -930,6 +992,10 @@ h1 {
   .card-strip {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .sort-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -982,6 +1048,10 @@ h1 {
   .facts,
   .card-strip {
     grid-template-columns: 1fr;
+  }
+
+  .sort-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .feature-visual img {

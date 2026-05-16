@@ -2630,6 +2630,7 @@ const elements = {
   heroMedia: document.querySelector("#heroMedia"),
   form: document.querySelector("#filters"),
   monthInputs: document.querySelectorAll('input[name="month"]'),
+  sortInputs: document.querySelectorAll('input[name="sort"]'),
   direction: document.querySelector("#direction"),
   directionValue: document.querySelector("#directionValue"),
   tropical: document.querySelector("#tropical"),
@@ -2660,6 +2661,10 @@ function getFilters() {
   };
 }
 
+function getSortMode() {
+  return [...elements.sortInputs].find((input) => input.checked)?.value || "match";
+}
+
 function scoreDestination(destination, filters) {
   let score = 0;
 
@@ -2688,8 +2693,25 @@ function getRankedDestinations() {
       ...destination,
       index,
       score: scoreDestination(destination, filters),
+      matchPercent: matchPercentage(destination, filters),
     }))
-    .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+    .sort((a, b) => b.matchPercent - a.matchPercent || b.score - a.score || a.name.localeCompare(b.name));
+}
+
+function matchPercentage(destination, filters) {
+  const budgetOrder = ["low", "medium", "high"];
+  const budgetGap = Math.abs(
+    budgetOrder.indexOf(destination.budget) - budgetOrder.indexOf(filters.budget),
+  );
+  let percent = 0;
+
+  if (destination.months.includes(filters.month)) percent += 25;
+  if (destination.levels.includes(filters.level)) percent += 25;
+  percent += Math.max(0, 20 - budgetGap * 10);
+  if (filters.direction === "any" || destination.directions.includes(filters.direction)) percent += 15;
+  if (!filters.tropical || destination.tropical) percent += 15;
+
+  return percent;
 }
 
 function destinationMatchesFilters(destination, filters) {
@@ -2773,16 +2795,17 @@ function renderFeature(destination, filters) {
 
 function renderCards(ranked, filters) {
   const exactMatches = ranked.filter((destination) => destinationMatchesFilters(destination, filters));
-  const visibleDestinations = exactMatches.length ? exactMatches : ranked.slice(0, 12);
+  const visibleDestinations = sortDestinations(ranked, getSortMode());
 
   elements.resultsCount.textContent = exactMatches.length
-    ? `${exactMatches.length} surf ${exactMatches.length === 1 ? "area matches" : "areas match"} your filters.`
-    : "No exact matches yet, so these are the closest options.";
+    ? `${exactMatches.length} exact ${exactMatches.length === 1 ? "match" : "matches"} found. Showing all ${ranked.length} areas with match percentages.`
+    : `No exact matches yet. Showing all ${ranked.length} areas with match percentages.`;
 
   elements.cardStrip.innerHTML = visibleDestinations
     .map(
       (destination) => `
         <button class="spot-card" type="button" data-index="${destination.index}" aria-label="Choose ${destination.name}">
+          <span class="match-badge">${destination.matchPercent}% match</span>
           <img src="${placePhotoUrl(destination)}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${destination.image}'" />
           <span class="spot-card-content">
             <strong>${destination.name}</strong>
@@ -2793,6 +2816,44 @@ function renderCards(ranked, filters) {
       `,
     )
     .join("");
+}
+
+function sortDestinations(destinationsToSort, sortMode) {
+  const sorted = [...destinationsToSort];
+
+  sorted.sort((a, b) => {
+    if (sortMode === "quality") return b.quality - a.quality || b.matchPercent - a.matchPercent;
+    if (sortMode === "crowds") return crowdScore(a) - crowdScore(b) || b.matchPercent - a.matchPercent;
+    if (sortMode === "consistency") return consistencyScore(b) - consistencyScore(a) || b.quality - a.quality;
+    if (sortMode === "budget") return budgetScore(a) - budgetScore(b) || b.matchPercent - a.matchPercent;
+    if (sortMode === "power") return powerScore(b) - powerScore(a) || b.quality - a.quality;
+
+    return b.matchPercent - a.matchPercent || b.score - a.score || a.name.localeCompare(b.name);
+  });
+
+  return sorted;
+}
+
+function crowdScore(destination) {
+  const crowd = destination.crowdFactor.toLowerCase();
+
+  if (crowd.includes("very high")) return 5;
+  if (crowd.includes("high")) return 4;
+  if (crowd.includes("medium")) return 3;
+  if (crowd.includes("low")) return 1;
+  return 2;
+}
+
+function consistencyScore(destination) {
+  return destination.months.length * 10 + destination.quality;
+}
+
+function budgetScore(destination) {
+  return { low: 1, medium: 2, high: 3 }[destination.budget] || 2;
+}
+
+function powerScore(destination) {
+  return { mellow: 1, decent: 2, "chargers only": 3 }[destination.wavePower] || 2;
 }
 
 function buildReason(destination, filters) {
@@ -2949,6 +3010,7 @@ function render(preferredIndex = null) {
 }
 
 elements.form.addEventListener("change", () => render());
+elements.sortInputs.forEach((input) => input.addEventListener("change", () => render(state.selected)));
 elements.direction.addEventListener("input", () => render());
 
 elements.cardStrip.addEventListener("click", (event) => {

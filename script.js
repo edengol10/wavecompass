@@ -1101,6 +1101,271 @@ const destinations = [
   },
 ];
 
+const surfDetailsByName = {
+  "Puerto Escondido": {
+    wavePower: "chargers only",
+    crowdFactor: "High at Zicatela, medium nearby",
+    waterTemp: "Warm, usually 26-30C",
+  },
+  "La Saladita": {
+    wavePower: "mellow",
+    crowdFactor: "Medium on good longboard days",
+    waterTemp: "Warm, usually 26-29C",
+  },
+  Peniche: {
+    wavePower: "decent",
+    crowdFactor: "Medium to high",
+    waterTemp: "Cool, usually 14-19C",
+  },
+  "Arugam Bay": {
+    wavePower: "decent",
+    crowdFactor: "High in peak season",
+    waterTemp: "Tropical, usually 27-30C",
+  },
+  Hikkaduwa: {
+    wavePower: "decent",
+    crowdFactor: "Medium",
+    waterTemp: "Tropical, usually 27-30C",
+  },
+  "Midigama / Weligama": {
+    wavePower: "mellow",
+    crowdFactor: "Medium to high in Weligama",
+    waterTemp: "Tropical, usually 27-30C",
+  },
+  Itacare: {
+    wavePower: "decent",
+    crowdFactor: "Medium",
+    waterTemp: "Warm, usually 25-28C",
+  },
+  Pipa: {
+    wavePower: "mellow",
+    crowdFactor: "Medium",
+    waterTemp: "Warm, usually 26-29C",
+  },
+  "El Tunco / La Libertad": {
+    wavePower: "decent",
+    crowdFactor: "Medium to high at main points",
+    waterTemp: "Warm, usually 27-30C",
+  },
+  Popoyo: {
+    wavePower: "chargers only",
+    crowdFactor: "Medium",
+    waterTemp: "Warm, usually 26-29C",
+  },
+  "Northwest Australia": {
+    wavePower: "chargers only",
+    crowdFactor: "Low, but remote and exposed",
+    waterTemp: "Warm, usually 24-28C",
+  },
+  Mentawai: {
+    wavePower: "chargers only",
+    crowdFactor: "Medium at famous reefs",
+    waterTemp: "Tropical, usually 27-30C",
+  },
+  "G-Land": {
+    wavePower: "chargers only",
+    crowdFactor: "Medium",
+    waterTemp: "Warm, usually 26-29C",
+  },
+  Uluwatu: {
+    wavePower: "chargers only",
+    crowdFactor: "Very high",
+    waterTemp: "Warm, usually 26-29C",
+  },
+  Lombok: {
+    wavePower: "decent",
+    crowdFactor: "Medium",
+    waterTemp: "Warm, usually 26-29C",
+  },
+  "Tofo / Tofinho": {
+    wavePower: "decent",
+    crowdFactor: "Low to medium",
+    waterTemp: "Warm, usually 24-28C",
+  },
+  "Ponta do Ouro": {
+    wavePower: "mellow",
+    crowdFactor: "Low to medium",
+    waterTemp: "Warm, usually 23-27C",
+  },
+  "Ponta Preta / Sal": {
+    wavePower: "chargers only",
+    crowdFactor: "Medium when it breaks",
+    waterTemp: "Warm, usually 22-25C",
+  },
+  "Fuerteventura North": {
+    wavePower: "decent",
+    crowdFactor: "Medium to high",
+    waterTemp: "Mild, usually 18-23C",
+  },
+  "Famara / Lanzarote": {
+    wavePower: "decent",
+    crowdFactor: "Medium",
+    waterTemp: "Mild, usually 18-23C",
+  },
+  "Playa de las Americas": {
+    wavePower: "decent",
+    crowdFactor: "High at main reefs",
+    waterTemp: "Mild, usually 19-24C",
+  },
+  Taghazout: {
+    wavePower: "decent",
+    crowdFactor: "High in winter",
+    waterTemp: "Cool to mild, usually 17-22C",
+  },
+  Imsouane: {
+    wavePower: "mellow",
+    crowdFactor: "High on clean small days",
+    waterTemp: "Cool to mild, usually 17-22C",
+  },
+  Safi: {
+    wavePower: "chargers only",
+    crowdFactor: "Medium, expert crowd",
+    waterTemp: "Cool to mild, usually 17-22C",
+  },
+  "Razo / Pantin": {
+    wavePower: "decent",
+    crowdFactor: "Low to medium",
+    waterTemp: "Cool, usually 13-19C",
+  },
+  Hossegor: {
+    wavePower: "chargers only",
+    crowdFactor: "Very high when good",
+    waterTemp: "Cool to mild, usually 12-22C",
+  },
+  Biarritz: {
+    wavePower: "mellow",
+    crowdFactor: "High in summer",
+    waterTemp: "Cool to mild, usually 13-22C",
+  },
+  Mundaka: {
+    wavePower: "chargers only",
+    crowdFactor: "High when it works",
+    waterTemp: "Cool, usually 12-20C",
+  },
+  Ericeira: {
+    wavePower: "decent",
+    crowdFactor: "Medium to high",
+    waterTemp: "Cool, usually 14-19C",
+  },
+  Nazare: {
+    wavePower: "chargers only",
+    crowdFactor: "Low in the water, huge on the cliff",
+    waterTemp: "Cool, usually 14-18C",
+  },
+  Bundoran: {
+    wavePower: "chargers only",
+    crowdFactor: "Medium",
+    waterTemp: "Cold, usually 8-15C",
+  },
+  Thurso: {
+    wavePower: "chargers only",
+    crowdFactor: "Low to medium",
+    waterTemp: "Cold, usually 7-13C",
+  },
+  "Jeffreys Bay": {
+    wavePower: "chargers only",
+    crowdFactor: "High when firing",
+    waterTemp: "Cool to mild, usually 15-22C",
+  },
+  Durban: {
+    wavePower: "decent",
+    crowdFactor: "Medium",
+    waterTemp: "Warm, usually 21-26C",
+  },
+  "Skeleton Bay": {
+    wavePower: "chargers only",
+    crowdFactor: "Low, but expert-only",
+    waterTemp: "Cold to cool, usually 12-18C",
+  },
+  Nosara: {
+    wavePower: "mellow",
+    crowdFactor: "High in dry season",
+    waterTemp: "Warm, usually 27-30C",
+  },
+  "Santa Teresa": {
+    wavePower: "decent",
+    crowdFactor: "High",
+    waterTemp: "Warm, usually 27-30C",
+  },
+  Pavones: {
+    wavePower: "decent",
+    crowdFactor: "High when south swell hits",
+    waterTemp: "Warm, usually 27-30C",
+  },
+  Montanita: {
+    wavePower: "decent",
+    crowdFactor: "Medium to high",
+    waterTemp: "Warm, usually 23-27C",
+  },
+  Chicama: {
+    wavePower: "mellow",
+    crowdFactor: "Medium",
+    waterTemp: "Cool, usually 16-21C",
+  },
+  "Punta de Lobos": {
+    wavePower: "chargers only",
+    crowdFactor: "Medium to high",
+    waterTemp: "Cold, usually 11-16C",
+  },
+  Rincon: {
+    wavePower: "decent",
+    crowdFactor: "Medium to high",
+    waterTemp: "Warm, usually 26-28C",
+  },
+  "Soup Bowl": {
+    wavePower: "chargers only",
+    crowdFactor: "Medium to high",
+    waterTemp: "Warm, usually 26-28C",
+  },
+  "Bocas del Toro": {
+    wavePower: "decent",
+    crowdFactor: "Medium",
+    waterTemp: "Warm, usually 27-29C",
+  },
+  Raglan: {
+    wavePower: "decent",
+    crowdFactor: "Medium to high",
+    waterTemp: "Cool, usually 13-19C",
+  },
+  "Gold Coast": {
+    wavePower: "decent",
+    crowdFactor: "Very high",
+    waterTemp: "Mild to warm, usually 20-26C",
+  },
+  "Margaret River": {
+    wavePower: "chargers only",
+    crowdFactor: "Medium",
+    waterTemp: "Cool to mild, usually 16-22C",
+  },
+  Cloudbreak: {
+    wavePower: "chargers only",
+    crowdFactor: "Medium, boat-access crowd",
+    waterTemp: "Tropical, usually 26-29C",
+  },
+  Teahupoo: {
+    wavePower: "chargers only",
+    crowdFactor: "Medium, expert-only",
+    waterTemp: "Tropical, usually 26-29C",
+  },
+  Siargao: {
+    wavePower: "decent",
+    crowdFactor: "High around Cloud 9",
+    waterTemp: "Tropical, usually 27-30C",
+  },
+};
+
+destinations.forEach((destination) => {
+  Object.assign(
+    destination,
+    {
+      wavePower: "decent",
+      crowdFactor: "Medium",
+      waterTemp: "Seasonal",
+    },
+    surfDetailsByName[destination.name] || {},
+  );
+});
+
 const state = {
   selected: 0,
 };
@@ -1172,7 +1437,7 @@ function setBackground(destination) {
   elements.heroMedia.classList.add("is-changing");
 
   window.setTimeout(() => {
-    elements.heroMedia.style.backgroundImage = `url("${destination.image}")`;
+    elements.heroMedia.style.backgroundImage = `url("${placePhotoUrl(destination)}"), url("${destination.image}")`;
     elements.heroMedia.classList.remove("is-changing");
   }, 180);
 }
@@ -1186,12 +1451,19 @@ function renderFeature(destination, filters) {
     elements.tagline.textContent = destination.tagline;
     elements.name.textContent = destination.name;
     elements.description.textContent = destination.description;
-    elements.image.src = destination.image;
+    elements.image.onerror = () => {
+      elements.image.onerror = null;
+      elements.image.src = destination.image;
+    };
+    elements.image.src = placePhotoUrl(destination);
     elements.image.alt = `${destination.name} surf destination`;
     elements.caption.textContent = destination.caption;
 
     elements.facts.innerHTML = [
       ["Wave quality", qualityRating(destination.quality)],
+      ["Wave power", titleCase(destination.wavePower)],
+      ["Crowd factor", destination.crowdFactor],
+      ["Water temp", destination.waterTemp],
       ["Bottom", bottomLabel(destination.bottom)],
       ["Best season", destination.season],
       ["Wave type", destination.wave],
@@ -1231,7 +1503,7 @@ function renderCards(ranked) {
     .map(
       (destination) => `
         <button class="spot-card" type="button" data-index="${destination.index}" aria-label="Choose ${destination.name}">
-          <img src="${destination.image}" alt="" loading="lazy" />
+          <img src="${placePhotoUrl(destination)}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${destination.image}'" />
           <span class="spot-card-content">
             <strong>${destination.name}</strong>
             <span>${destination.area} / ${destination.season}</span>
@@ -1298,6 +1570,12 @@ function qualityLabel(quality) {
 
 function bottomLabel(bottom) {
   return bottom.map(titleCase).join(" / ");
+}
+
+function placePhotoUrl(destination) {
+  const terms = encodeURIComponent(`${destination.query} waves surf spot`);
+
+  return `https://source.unsplash.com/1800x1200/?${terms}`;
 }
 
 function directionFromValue(value) {

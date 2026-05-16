@@ -3032,31 +3032,72 @@ function reviewScore(destination) {
 }
 
 function buildReason(destination, filters) {
-  const parts = [];
+  const seasonPhrase = destination.months.includes(filters.month)
+    ? `${seasonMood(filters.month)} surf window`
+    : `close-match season for ${filters.month}`;
+  const levelPhrase = destination.levels.includes(filters.level)
+    ? `${levelVibe(filters.level)} wave choice`
+    : "a stretch option if conditions line up";
+  const budgetPhrase =
+    destination.budget === filters.budget
+      ? `${budgetVibe(filters.budget)} trip feel`
+      : `${titleCase(destination.budget)}-budget area with a different spend than your filter`;
+  const extras = [];
 
-  if (destination.months.includes(filters.month)) {
-    parts.push(`${filters.month} is in season`);
+  if (filters.direction !== "any") {
+    extras.push(
+      destination.directions.includes(filters.direction)
+        ? `${filters.direction}-hand walls in the mix`
+        : "less exact on wave direction",
+    );
   }
 
-  if (destination.levels.includes(filters.level)) {
-    parts.push(`good for ${filters.level} surfers`);
+  if (filters.tropical) {
+    extras.push(destination.tropical ? "warm-water mornings" : "not a tropical pick, but still worth comparing");
   }
 
-  if (destination.budget === filters.budget) {
-    parts.push(`${filters.budget} budget fit`);
-  }
+  const extraSentence = extras.length ? ` You also get ${extras.join(" and ")}.` : "";
 
-  if (filters.direction !== "any" && destination.directions.includes(filters.direction)) {
-    parts.push(`${filters.direction}s available`);
-  }
+  return `${seasonPhrase} with ${levelPhrase}, ${budgetPhrase}, and a ${destination.vibe.toLowerCase()} vibe.${extraSentence}`;
+}
 
-  if (filters.tropical && destination.tropical) {
-    parts.push("tropical water");
-  }
+function seasonMood(month) {
+  const moods = {
+    Jan: "winter",
+    Feb: "winter",
+    Mar: "early spring",
+    Apr: "spring",
+    May: "late spring",
+    Jun: "early summer",
+    Jul: "summer",
+    Aug: "summer",
+    Sep: "fall",
+    Oct: "fall",
+    Nov: "late fall",
+    Dec: "winter",
+  };
 
-  return parts.length
-    ? `Matched because it has ${parts.join(", ")}.`
-    : "Closest overall match from the current destination set.";
+  return moods[month] || month;
+}
+
+function levelVibe(level) {
+  const labels = {
+    beginner: "friendly progression",
+    intermediate: "room-to-improve",
+    advanced: "more serious",
+  };
+
+  return labels[level] || level;
+}
+
+function budgetVibe(budget) {
+  const labels = {
+    low: "simple and affordable",
+    medium: "comfortable but not crazy",
+    high: "premium",
+  };
+
+  return labels[budget] || budget;
 }
 
 function displayTagline(tagline) {

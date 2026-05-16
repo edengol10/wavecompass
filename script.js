@@ -2848,6 +2848,7 @@ function renderFeature(destination, filters) {
       ["Bottom", bottomLabel(destination.bottom)],
       ["Season", destination.season],
       ["Wave type", destination.wave],
+      ["Wave length", waveLengthLabel(destination)],
       ["Direction", directionLabel(destination.directions)],
       ["Budget", titleCase(destination.budget)],
       ["Vibe", destination.vibe],
@@ -3218,8 +3219,9 @@ function waveDescription(destination) {
   const quality = qualityLabel(destination.quality).toLowerCase();
   const bottom = bottomLabel(destination.bottom).toLowerCase();
   const power = powerDescription(destination.wavePower);
+  const length = waveLengthDescription(destination);
 
-  return `${destination.name} is a ${quality} ${direction} setup with ${power} over ${bottom}. ${destination.wave}.`;
+  return `${destination.name} is a ${quality} ${direction} setup with ${power} over ${bottom}. ${destination.wave}. ${length}`;
 }
 
 function spotDescription(destination) {
@@ -3566,6 +3568,45 @@ function accessDescription(destination) {
 
 function cardWaveDescription(destination) {
   return `${qualityLabel(destination.quality)} / ${titleCase(destination.wavePower)} / ${bottomLabel(destination.bottom)}`;
+}
+
+function waveLengthLabel(destination) {
+  const text = `${destination.name} ${destination.wave} ${destination.description}`.toLowerCase();
+
+  if (/chicama|scorpion|pavones|raglan|saladita|imsouane|longest|very long|long lefts|long right|long walls|long rides|point/.test(text)) {
+    return "Long rides";
+  }
+
+  if (/bay|beginner|soft|mellow|friendly|forgiving|longboard/.test(text)) {
+    return "Long mellow sections";
+  }
+
+  if (/barrel|slab|fast|heavy|powerful|zicatela|padang|desert point|super|reef/.test(text)) {
+    return "Short to medium, intense";
+  }
+
+  if (/beach|peaks|shifting|coves/.test(text)) {
+    return "Short to medium peaks";
+  }
+
+  return "Medium-length rides";
+}
+
+function waveLengthDescription(destination) {
+  const label = waveLengthLabel(destination);
+  const descriptions = {
+    "Long rides": "Expect longer rides when the swell lines up, with enough wall for flow, turns, and time to settle into the wave.",
+    "Long mellow sections":
+      "The rides can run for a while on softer days, making it friendly for trimming, practice, and relaxed sessions.",
+    "Short to medium, intense":
+      "The rides are usually shorter and more intense, so positioning and commitment matter more than cruising distance.",
+    "Short to medium peaks":
+      "Most rides are punchy short-to-medium peaks, with length changing a lot by sandbar, tide, and swell angle.",
+    "Medium-length rides":
+      "Most rides are medium length: enough room for a few good sections without feeling like a marathon point wave.",
+  };
+
+  return descriptions[label] || descriptions["Medium-length rides"];
 }
 
 function distanceLabel(destination, filters) {

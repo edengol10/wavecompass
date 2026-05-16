@@ -2639,6 +2639,7 @@ const elements = {
   tagline: document.querySelector("#destinationTagline"),
   name: document.querySelector("#destinationName"),
   description: document.querySelector("#destinationDescription"),
+  waveDescription: document.querySelector("#waveDescription"),
   facts: document.querySelector("#destinationFacts"),
   actions: document.querySelector("#destinationActions"),
   image: document.querySelector("#destinationImage"),
@@ -2721,6 +2722,7 @@ function renderFeature(destination, filters) {
     elements.tagline.textContent = destination.tagline;
     elements.name.textContent = destination.name;
     elements.description.textContent = destination.description;
+    elements.waveDescription.textContent = waveDescription(destination);
     elements.image.onerror = () => {
       elements.image.onerror = null;
       elements.image.src = destination.image;
@@ -2783,6 +2785,7 @@ function renderCards(ranked, filters) {
           <span class="spot-card-content">
             <strong>${destination.name}</strong>
             <span>${destination.area} / ${destination.season}</span>
+            <small>${cardWaveDescription(destination)}</small>
           </span>
         </button>
       `,
@@ -2816,6 +2819,29 @@ function buildReason(destination, filters) {
   return parts.length
     ? `Matched because it has ${parts.join(", ")}.`
     : "Closest overall match from the current destination set.";
+}
+
+function waveDescription(destination) {
+  const direction = directionLabel(destination.directions).toLowerCase();
+  const quality = qualityLabel(destination.quality).toLowerCase();
+  const bottom = bottomLabel(destination.bottom).toLowerCase();
+  const power = powerDescription(destination.wavePower);
+
+  return `${destination.name} is a ${quality} ${direction} setup with ${power} over ${bottom}. ${destination.wave}.`;
+}
+
+function cardWaveDescription(destination) {
+  return `${qualityLabel(destination.quality)} / ${titleCase(destination.wavePower)} / ${bottomLabel(destination.bottom)}`;
+}
+
+function powerDescription(power) {
+  const descriptions = {
+    mellow: "mellow, forgiving power",
+    decent: "decent push and workable sections",
+    "chargers only": "serious power for confident surfers",
+  };
+
+  return descriptions[power] || power;
 }
 
 function titleCase(value) {

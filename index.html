@@ -240,9 +240,29 @@
                   <span class="switch" aria-hidden="true"></span>
                 </label>
 
+                <label class="toggle-card partner-card">
+                  <input type="checkbox" id="nonSurfPartner" name="nonSurfPartner" />
+                  <span class="toggle-copy">
+                    <span>Going with a non surfing partner 👩</span>
+                    <small>Counts for 35% of the match</small>
+                  </span>
+                  <span class="switch" aria-hidden="true"></span>
+                </label>
+
                 <div class="condition-panel" role="group" aria-labelledby="conditionLabel">
                   <span class="control-title" id="conditionLabel">Optional conditions</span>
                   <div class="condition-grid">
+                    <label class="condition-field">
+                      <span>Arriving from</span>
+                      <input
+                        type="text"
+                        name="origin"
+                        placeholder="Tel Aviv, London, New York..."
+                        autocomplete="off"
+                        aria-label="Arriving from"
+                      />
+                    </label>
+
                     <label class="condition-field">
                       <span>Consistency</span>
                       <select name="minConsistency" aria-label="Minimum consistency percentage">
@@ -360,6 +380,10 @@
               <label>
                 <input type="radio" name="sort" value="reviews" />
                 <span>Reviews</span>
+              </label>
+              <label>
+                <input type="radio" name="sort" value="distance" />
+                <span>Distance</span>
               </label>
             </div>
           </div>

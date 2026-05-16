@@ -11,7 +11,7 @@ const destinations = [
     bottom: ["sand"],
     wave: "Heavy beach-break barrels with mellower points nearby",
     season: "April to October",
-    vibe: "Big-wave beach town, mezcal evenings, warm Pacific energy",
+    vibe: "Powerful beach town, mezcal evenings, warm Pacific energy",
     tagline: "Best Mexican barrel town",
     description:
       "Puerto Escondido is the Oaxaca coast's famous power zone. Zicatela is serious and best for confident surfers, while nearby points and bays give the area more range when the main beach is too heavy.",
@@ -638,28 +638,6 @@ const destinations = [
     map: "Ericeira Portugal",
   },
   {
-    name: "Nazare",
-    area: "Portugal",
-    months: ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
-    levels: ["advanced"],
-    budget: "medium",
-    tropical: false,
-    directions: ["left", "right"],
-    quality: 5,
-    bottom: ["sand", "rock"],
-    wave: "Big-wave canyon energy and powerful beach breaks",
-    season: "October to March",
-    vibe: "Big-wave watching, dramatic cliffs, and expert-only conditions",
-    tagline: "Best big-wave spectacle",
-    description:
-      "Nazare is famous for giant waves, but it is mostly a watch-and-respect destination unless you are in the expert big-wave world. It belongs on the map because its ocean energy is unmatched.",
-    image:
-      "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1800&q=86",
-    caption: "Huge Atlantic energy and dramatic cliffside viewing.",
-    query: "Nazare Portugal surf",
-    map: "Nazare Portugal",
-  },
-  {
     name: "Bundoran",
     area: "Ireland",
     months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"],
@@ -746,28 +724,6 @@ const destinations = [
     caption: "Warm city beach breaks with easy daily access.",
     query: "Durban South Africa surf",
     map: "Durban South Africa",
-  },
-  {
-    name: "Skeleton Bay",
-    area: "Namibia",
-    months: ["May", "Jun", "Jul", "Aug", "Sep"],
-    levels: ["advanced"],
-    budget: "high",
-    tropical: false,
-    directions: ["left"],
-    quality: 5,
-    bottom: ["sand"],
-    wave: "Extremely long, fast desert left barrel",
-    season: "May to September",
-    vibe: "Desert mission, logistics, speed, and serious commitment",
-    tagline: "Best desert left barrel",
-    description:
-      "Skeleton Bay is one of the longest and fastest left barrels on Earth. It is a specialist mission for advanced surfers with the right boards, crew, and timing.",
-    image:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=86",
-    caption: "Desert sand, speed, and one of surfing's longest lefts.",
-    query: "Skeleton Bay Namibia surf",
-    map: "Skeleton Bay Namibia",
   },
   {
     name: "Nosara",
@@ -889,7 +845,7 @@ const destinations = [
     directions: ["left"],
     quality: 5,
     bottom: ["rock", "sand"],
-    wave: "Powerful cold-water left point with big-wave potential",
+    wave: "Powerful cold-water left point with long walls",
     season: "April to September",
     vibe: "Cold Pacific cliffs, dramatic sunsets, and serious Chilean lines",
     tagline: "Best Chilean left",
@@ -1166,7 +1122,7 @@ destinations.push(
       wavePower: "chargers only",
       crowdFactor: "Medium to high",
       waterTemp: "Warm, usually 24-27C",
-      wave: "Powerful west-side right with long walls and big-wave days",
+      wave: "Powerful west-side right with long walls",
       season: "November to March",
       vibe: "Old-school Hawaiian surf culture and powerful winter swell",
       tagline: "Best west-side Oahu classic",
@@ -1929,31 +1885,6 @@ destinations.push(
       map: "Cactus Beach South Australia",
     },
     {
-      name: "Shipstern Bluff",
-      area: "Tasmania, Australia",
-      months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-      levels: ["advanced"],
-      budget: "high",
-      tropical: false,
-      directions: ["right"],
-      quality: 5,
-      bottom: ["reef", "rock"],
-      wavePower: "chargers only",
-      crowdFactor: "Low in water, expert-only",
-      waterTemp: "Cold, usually 10-15C",
-      wave: "Mutant cold-water slab with extreme consequence",
-      season: "March to September",
-      vibe: "Boats, cliffs, cold water, slabs, and elite-level commitment",
-      tagline: "Best slab spectacle",
-      description:
-        "Shipstern Bluff is one of the world's most intimidating waves. It is included as a world-class surf area, but realistically it is for elite slab surfers only.",
-      image:
-        "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1800&q=86",
-      caption: "A cold-water slab below wild Tasmanian cliffs.",
-      query: "Shipstern Bluff Tasmania surf waves",
-      map: "Shipstern Bluff Tasmania",
-    },
-    {
       name: "Nias",
       area: "Indonesia",
       months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
@@ -2328,31 +2259,6 @@ destinations.push(
       query: "Tofino Canada surf waves",
       map: "Tofino Canada",
     },
-    {
-      name: "Peahi / Jaws",
-      area: "Maui, Hawaii",
-      months: ["Nov", "Dec", "Jan", "Feb", "Mar"],
-      levels: ["advanced"],
-      budget: "high",
-      tropical: true,
-      directions: ["right"],
-      quality: 5,
-      bottom: ["reef", "rock"],
-      wavePower: "chargers only",
-      crowdFactor: "Low in water, expert-only",
-      waterTemp: "Warm, usually 24-27C",
-      wave: "Elite big-wave right reef with tow and paddle days",
-      season: "November to March",
-      vibe: "Maui cliffs, huge winter swell, safety teams, and elite commitment",
-      tagline: "Best Maui big-wave arena",
-      description:
-        "Peahi, better known as Jaws, is one of the world's most famous big-wave spots. It is included as a world-class surf area, but it is only for elite big-wave surfers.",
-      image:
-        "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=1800&q=86",
-      caption: "Huge Maui winter swell breaking over a serious reef.",
-      query: "Peahi Jaws Maui Hawaii surf waves",
-      map: "Peahi Maui Hawaii",
-    },
   ],
 );
 
@@ -2502,11 +2408,6 @@ const surfDetailsByName = {
     crowdFactor: "Medium to high",
     waterTemp: "Cool, usually 14-19C",
   },
-  Nazare: {
-    wavePower: "chargers only",
-    crowdFactor: "Low in the water, huge on the cliff",
-    waterTemp: "Cool, usually 14-18C",
-  },
   Bundoran: {
     wavePower: "chargers only",
     crowdFactor: "Medium",
@@ -2526,11 +2427,6 @@ const surfDetailsByName = {
     wavePower: "decent",
     crowdFactor: "Medium",
     waterTemp: "Warm, usually 21-26C",
-  },
-  "Skeleton Bay": {
-    wavePower: "chargers only",
-    crowdFactor: "Low, but expert-only",
-    waterTemp: "Cold to cool, usually 12-18C",
   },
   Nosara: {
     wavePower: "mellow",
@@ -2660,6 +2556,22 @@ const elements = {
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const originCoordinates = {
+  tlv: [32.0853, 34.7818],
+  "tel aviv": [32.0853, 34.7818],
+  israel: [31.0461, 34.8516],
+  london: [51.5072, -0.1276],
+  paris: [48.8566, 2.3522],
+  lisbon: [38.7223, -9.1393],
+  madrid: [40.4168, -3.7038],
+  "new york": [40.7128, -74.006],
+  "los angeles": [34.0522, -118.2437],
+  miami: [25.7617, -80.1918],
+  sydney: [-33.8688, 151.2093],
+  melbourne: [-37.8136, 144.9631],
+  auckland: [-36.8509, 174.7645],
+  bali: [-8.3405, 115.092],
+};
 
 const spotCatalog = {
   "Puerto Escondido": ["Zicatela", "La Punta", "Carrizalillo", "Playa Marinero"],
@@ -2691,12 +2603,10 @@ const spotCatalog = {
   Biarritz: ["Cote des Basques", "Grande Plage", "Marbella", "Milady", "Anglet"],
   Mundaka: ["Mundaka Left", "Laida", "Bakio", "Laga", "Sopelana"],
   Ericeira: ["Ribeira d'Ilhas", "Coxos", "Crazy Left", "Pedra Branca", "Foz do Lizandro", "Sao Juliao"],
-  Nazare: ["Praia do Norte", "Praia da Vila", "South Beach", "Sitio"],
-  Bundoran: ["The Peak", "Tullan Strand", "Rossnowlagh", "Mullaghmore", "Streedagh"],
+  Bundoran: ["The Peak", "Tullan Strand", "Rossnowlagh", "Streedagh"],
   Thurso: ["Thurso East", "Brims Ness", "The Bowl", "Sandside Bay", "Strathy"],
   "Jeffreys Bay": ["Supertubes", "Boneyards", "Impossibles", "Point", "Albatross"],
   Durban: ["New Pier", "North Beach", "Dairy Beach", "Snake Park", "Cave Rock", "Umhlanga"],
-  "Skeleton Bay": ["Skeleton Bay", "Donkey Bay", "Walvis Bay", "Swakopmund"],
   Nosara: ["Playa Guiones", "Playa Pelada", "Ostional", "Garza", "Playa Nosara"],
   "Santa Teresa": ["Playa Santa Teresa", "Suck Rock", "Playa Carmen", "Hermosa", "Mal Pais"],
   Pavones: ["Pavones Point", "Punta Banco", "Rio Claro", "Pilon"],
@@ -2712,7 +2622,7 @@ const spotCatalog = {
   Cloudbreak: ["Cloudbreak", "Restaurants", "Namotu Lefts", "Wilkes", "Swimming Pools"],
   Teahupoo: ["Teahupoo", "Papara", "Taapuna", "Papenoo", "Vairao"],
   Siargao: ["Cloud 9", "Jacking Horse", "Quicksilver", "Stimpy's", "Rock Island", "Daku"],
-  "North Shore Oahu": ["Pipeline", "Backdoor", "Sunset Beach", "Waimea Bay", "Haleiwa", "Rocky Point"],
+  "North Shore Oahu": ["Pipeline", "Backdoor", "Sunset Beach", "Haleiwa", "Rocky Point"],
   Waikiki: ["Canoes", "Queens", "Publics", "Pops", "Ala Moana Bowls"],
   Makaha: ["Makaha Point", "Makaha Bowl", "Lahilahi", "Yokohama"],
   "Ala Moana Bowls": ["Bowls", "Kaisers", "Rockpiles", "Courts", "Concessions"],
@@ -2737,7 +2647,7 @@ const spotCatalog = {
   Lobitos: ["Lobitos", "Piscinas", "El Hueco", "Baterias", "Muelles"],
   Mancora: ["Mancora Point", "Organos", "Punta Ballenas", "Vichayito"],
   "Cabo Blanco": ["Cabo Blanco", "Panic Point", "Lobitos", "Organos"],
-  "Punta Hermosa": ["Pico Alto", "Senoritas", "Caballeros", "La Isla", "Punta Rocas"],
+  "Punta Hermosa": ["Senoritas", "Caballeros", "La Isla", "Punta Rocas"],
   Pacasmayo: ["El Faro", "Pacasmayo Point", "Puemape", "Chicama"],
   "Tamarin Bay": ["Tamarin Bay", "Dal", "Black Stone", "Le Morne"],
   "One Eye / Le Morne": ["One Eye", "Manawa", "Chameau", "Little Reef"],
@@ -2745,7 +2655,6 @@ const spotCatalog = {
   "Bells Beach": ["Bells Bowl", "Winki Pop", "Rincon", "Jan Juc", "Point Addis"],
   Noosa: ["First Point", "Tea Tree", "Granite Bay", "National Park", "Sunshine Beach"],
   "Cactus Beach": ["Cactus", "Castles", "Caves", "Cunns"],
-  "Shipstern Bluff": ["Shipstern Bluff", "Roaring Beach", "Clifton Beach"],
   Nias: ["Lagundri Bay", "Indicators", "Kiddies Corner", "The Machine"],
   "Desert Point": ["Desert Point", "Bangko-Bangko", "Seger", "Mawi"],
   "Lakey Peak": ["Lakey Peak", "Lakey Pipe", "Periscopes", "Nungas", "Cobblestones"],
@@ -2761,7 +2670,6 @@ const spotCatalog = {
   "Punta Mita": ["La Lancha", "Burros", "El Anclote", "Stinky's", "Punta Burros"],
   "Scorpion Bay": ["First Point", "Second Point", "Third Point", "Fourth Point"],
   Tofino: ["Cox Bay", "Chesterman Beach", "Long Beach", "Wickaninnish", "Florencia Bay"],
-  "Peahi / Jaws": ["Peahi", "Hookipa", "Honolua Bay", "Spreckelsville"],
 };
 
 function getFilters() {
@@ -2776,6 +2684,8 @@ function getFilters() {
     swellMin: Number(formData.get("swellMin") || 0),
     swellMax: Number(formData.get("swellMax") || 12),
     maxCrowd: Number(formData.get("maxCrowd") || 0),
+    nonSurfPartner: formData.get("nonSurfPartner") === "on",
+    origin: String(formData.get("origin") || "").trim(),
   };
 }
 
@@ -2852,6 +2762,11 @@ function matchPercentage(destination, filters) {
     score += Math.max(0, 10 - Math.max(0, conditions.crowdLevel - filters.maxCrowd) * 4);
   }
 
+  if (filters.nonSurfPartner) {
+    total += 35;
+    score += partnerFitScore(destination) * 0.35;
+  }
+
   return Math.round((score / total) * 100);
 }
 
@@ -2873,7 +2788,7 @@ function hasSwellFilter(filters) {
 }
 
 function hasOptionalConditionFilters(filters) {
-  return filters.minConsistency > 0 || hasSwellFilter(filters) || filters.maxCrowd > 0;
+  return filters.minConsistency > 0 || hasSwellFilter(filters) || filters.maxCrowd > 0 || filters.nonSurfPartner;
 }
 
 function thresholdScore(value, minimum, weight, missPenalty) {
@@ -2927,7 +2842,7 @@ function renderFeature(destination, filters) {
 
     elements.facts.innerHTML = [
       ["Wave quality", qualityRating(destination.quality)],
-      ["Wave power", titleCase(destination.wavePower)],
+      ["Wave power", powerRating(destination.wavePower)],
       ["Crowd factor", destination.crowdFactor],
       ["Water temp", destination.waterTemp],
       ["Bottom", bottomLabel(destination.bottom)],
@@ -3023,8 +2938,11 @@ function renderCards(ranked, filters) {
   const exactMatches = ranked.filter((destination) => destinationMatchesFilters(destination, filters));
   const visibleDestinations = sortDestinations(ranked, getSortMode());
   const optionalConditionsActive = hasOptionalConditionFilters(filters);
+  const distanceSortNeedsOrigin = getSortMode() === "distance" && !originCoordinate(filters.origin);
 
-  elements.resultsCount.textContent = exactMatches.length
+  elements.resultsCount.textContent = distanceSortNeedsOrigin
+    ? "Enter a known city in Arriving from, like Tel Aviv, London, New York, or Sydney, to sort by distance."
+    : exactMatches.length
     ? optionalConditionsActive
       ? `${exactMatches.length} core ${exactMatches.length === 1 ? "match" : "matches"} found. Optional condition choices are reflected in the percentages.`
       : `${exactMatches.length} exact ${exactMatches.length === 1 ? "match" : "matches"} found. Showing all ${ranked.length} areas with match percentages.`
@@ -3041,7 +2959,7 @@ function renderCards(ranked, filters) {
           <span class="spot-card-content">
             <strong>${destination.name}</strong>
             <span>${destination.area} / ${destination.season}</span>
-            <small>${cardWaveDescription(destination)}</small>
+            <small>${cardWaveDescription(destination)}${distanceLabel(destination, filters)}</small>
           </span>
         </button>
       `,
@@ -3059,6 +2977,7 @@ function sortDestinations(destinationsToSort, sortMode) {
     if (sortMode === "budget") return budgetScore(a) - budgetScore(b) || b.matchPercent - a.matchPercent;
     if (sortMode === "power") return powerScore(b) - powerScore(a) || b.quality - a.quality;
     if (sortMode === "reviews") return reviewScore(b) - reviewScore(a) || b.matchPercent - a.matchPercent;
+    if (sortMode === "distance") return distanceScore(a) - distanceScore(b) || b.matchPercent - a.matchPercent;
 
     return b.matchPercent - a.matchPercent || b.score - a.score || a.name.localeCompare(b.name);
   });
@@ -3090,6 +3009,94 @@ function powerScore(destination) {
 
 function reviewScore(destination) {
   return destination.quality * 2 + consistencyScore(destination) / 12 + (6 - crowdScore(destination));
+}
+
+function distanceScore(destination) {
+  const origin = originCoordinate(getFilters().origin);
+  const target = destinationCoordinate(destination);
+
+  if (!origin || !target) return Number.POSITIVE_INFINITY;
+
+  return haversineDistance(origin, target);
+}
+
+function partnerFitScore(destination) {
+  const text = `${destination.vibe} ${destination.description} ${destination.area}`.toLowerCase();
+  let score = 38;
+
+  if (destination.tropical) score += 14;
+  if (destination.levels.includes("beginner")) score += 12;
+  if (destination.budget !== "high") score += 8;
+  if (crowdScore(destination) <= 3) score += 8;
+  if (destination.wavePower !== "chargers only") score += 12;
+  if (/town|cafe|food|seafood|beach bars|city|culture|sunset|scenic|easy|relaxed|guesthouses|restaurants|resort|island|warm/.test(text)) {
+    score += 18;
+  }
+  if (/remote|isolation|camping|sharks|cold water|elite|slab|serious|logistics|commitment|expert-only/.test(text)) {
+    score -= 24;
+  }
+
+  return Math.max(0, Math.min(100, score));
+}
+
+function originCoordinate(origin) {
+  const normalized = origin.toLowerCase();
+  if (!normalized) return null;
+
+  const match = Object.entries(originCoordinates).find(([name]) => normalized.includes(name));
+
+  return match ? match[1] : null;
+}
+
+function destinationCoordinate(destination) {
+  const value = `${destination.name} ${destination.area} ${destination.map}`.toLowerCase();
+  const regions = [
+    [/sri lanka|arugam|hikkaduwa|weligama|midigama/, [7.8731, 80.7718]],
+    [/portugal|peniche|ericeira|nazare/, [39.3999, -8.2245]],
+    [/france|hossegor|biarritz/, [43.6108, -1.4366]],
+    [/spain|galicia|mundaka/, [42.8, -8.2]],
+    [/canary|fuerteventura|lanzarote|tenerife/, [28.2916, -16.6291]],
+    [/morocco|taghazout|imsouane|safi/, [31.7917, -7.0926]],
+    [/mexico|oaxaca|guerrero|sayulita|salina|punta mita|scorpion/, [23.6345, -102.5528]],
+    [/el salvador|nicaragua|costa rica|panama/, [10.5, -84.5]],
+    [/brazil|bahia|pipa/, [-14.235, -51.9253]],
+    [/peru|lobitos|mancora|cabo blanco|punta hermosa|pacasmayo|chicama/, [-9.19, -75.0152]],
+    [/chile|punta de lobos/, [-35.6751, -71.543]],
+    [/hawaii|oahu|maui|kauai|banyans|honolua|hookipa|waikiki|makaha|hanalei/, [20.7984, -156.3319]],
+    [/indonesia|mentawai|g-land|uluwatu|lombok|nias|sumbawa|sumba|simeulue|rote|nemberala|lakey|desert point/, [-2.5, 118]],
+    [/fiji|cloudbreak|restaurants|namotu|frigates|natadola|sigatoka/, [-17.7134, 178.065]],
+    [/tahiti|teahupoo|papara|taapuna|moorea|haapiti/, [-17.6509, -149.426]],
+    [/new zealand|raglan|piha|taranaki|gisborne|kaikoura|dunedin|maunganui/, [-40.9006, 174.886]],
+    [/australia|gold coast|margaret|bells|noosa|cactus|northwest/, [-25.2744, 133.7751]],
+    [/south africa|jeffreys|durban/, [-30.5595, 22.9375]],
+    [/mozambique|tofo|ponta/, [-18.6657, 35.5296]],
+    [/cape verde|sal/, [16.5388, -23.0418]],
+    [/mauritius|tamarin|le morne|black rocks/, [-20.3484, 57.5522]],
+    [/maldives|male atolls|central atolls/, [3.2028, 73.2207]],
+    [/philippines|siargao/, [12.8797, 121.774]],
+    [/ireland|bundoran/, [53.1424, -7.6921]],
+    [/scotland|thurso/, [56.4907, -4.2026]],
+    [/barbados|soup bowl/, [13.1939, -59.5432]],
+    [/puerto rico|rincon/, [18.2208, -66.5901]],
+    [/canada|tofino/, [56.1304, -106.3468]],
+  ];
+  const match = regions.find(([pattern]) => pattern.test(value));
+
+  return match ? match[1] : null;
+}
+
+function haversineDistance(origin, target) {
+  const toRadians = (degrees) => (degrees * Math.PI) / 180;
+  const earthKm = 6371;
+  const dLat = toRadians(target[0] - origin[0]);
+  const dLon = toRadians(target[1] - origin[1]);
+  const lat1 = toRadians(origin[0]);
+  const lat2 = toRadians(target[0]);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+
+  return earthKm * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
 function buildReason(destination, filters) {
@@ -3127,6 +3134,14 @@ function buildReason(destination, filters) {
 
   if (filters.maxCrowd > 0) {
     extras.push(`crowds around ${crowdChoiceLabel(filters.maxCrowd).toLowerCase()} or calmer`);
+  }
+
+  if (filters.nonSurfPartner) {
+    extras.push(`${Math.round(partnerFitScore(destination))}% non-surfing partner fit`);
+  }
+
+  if (filters.origin && Number.isFinite(distanceScore(destination))) {
+    extras.push(`${Math.round(distanceScore(destination)).toLocaleString("en-US")} km from ${filters.origin}`);
   }
 
   const extraSentence = extras.length ? ` You also get ${extras.join(" and ")}.` : "";
@@ -3553,6 +3568,14 @@ function cardWaveDescription(destination) {
   return `${qualityLabel(destination.quality)} / ${titleCase(destination.wavePower)} / ${bottomLabel(destination.bottom)}`;
 }
 
+function distanceLabel(destination, filters) {
+  const origin = originCoordinate(filters.origin);
+  const target = destinationCoordinate(destination);
+  if (!origin || !target) return "";
+
+  return ` / ${Math.round(haversineDistance(origin, target)).toLocaleString("en-US")} km`;
+}
+
 function powerDescription(power) {
   const descriptions = {
     mellow: "mellow, forgiving power",
@@ -3572,6 +3595,24 @@ function qualityRating(quality) {
     <span class="quality-rating">
       <span class="stars" aria-label="${quality} out of 5 stars">${"★".repeat(quality)}${"☆".repeat(5 - quality)}</span>
       <span>${quality}/5 · ${qualityLabel(quality)}</span>
+    </span>
+  `;
+}
+
+function powerRating(power) {
+  const levels = {
+    mellow: { label: "Mellow", width: "34%" },
+    decent: { label: "Decent", width: "66%" },
+    "chargers only": { label: "Heavy", width: "100%" },
+  };
+  const level = levels[power] || levels.decent;
+
+  return `
+    <span class="power-meter">
+      <span class="power-track" aria-label="${level.label} wave power">
+        <span class="power-fill" style="--power-width: ${level.width}"></span>
+      </span>
+      <small>${level.label}</small>
     </span>
   `;
 }

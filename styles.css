@@ -638,10 +638,12 @@ select {
   margin-bottom: 1rem;
   color: var(--sea);
   font-family: "Rubik Wet Paint", "Permanent Marker", fantasy;
-  font-size: clamp(3.3rem, 8vw, 7.5rem);
-  line-height: 0.9;
+  font-size: clamp(3.1rem, 6.7vw, 6.25rem);
+  line-height: 0.94;
   letter-spacing: 0;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  text-wrap: balance;
+  word-break: normal;
 }
 
 .feature-copy > p:not(.tagline) {
@@ -923,7 +925,7 @@ select {
   }
 
   .feature-copy h3 {
-    font-size: clamp(3rem, 18vw, 4.6rem);
+    font-size: clamp(2.8rem, 15vw, 4.1rem);
   }
 
   .facts,

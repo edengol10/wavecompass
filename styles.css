@@ -342,9 +342,7 @@ h1 {
 }
 
 .field span,
-.month-picker legend,
-.segmented legend,
-.direction-head > span,
+.control-title,
 .toggle-copy > span {
   display: block;
   font-size: 0.78rem;
@@ -362,14 +360,6 @@ h1 {
   margin: 0;
   min-inline-size: 0;
   padding: 0.85rem;
-}
-
-.month-picker legend,
-.segmented legend {
-  float: none;
-  width: 100%;
-  padding: 0;
-  margin: 0;
 }
 
 .month-grid {

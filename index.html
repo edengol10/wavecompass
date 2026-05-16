@@ -63,8 +63,8 @@
 
             <form class="filter-panel" id="filters">
               <div class="control-grid">
-                <fieldset class="month-picker">
-                  <legend>Month</legend>
+                <div class="month-picker" role="group" aria-labelledby="monthLabel">
+                  <span class="control-title" id="monthLabel">Month</span>
                   <div class="month-grid" role="radiogroup" aria-label="Month">
                     <label>
                       <input type="radio" name="month" value="Jan" />
@@ -115,10 +115,10 @@
                       <span>Dec</span>
                     </label>
                   </div>
-                </fieldset>
+                </div>
 
-                <fieldset class="segmented">
-                  <legend>Level</legend>
+                <div class="segmented" role="group" aria-labelledby="levelLabel">
+                  <span class="control-title" id="levelLabel">Level</span>
                   <div class="segment-row" role="radiogroup" aria-label="Surf level">
                     <label>
                       <input type="radio" name="level" value="beginner" checked />
@@ -133,10 +133,10 @@
                       <span>Advanced</span>
                     </label>
                   </div>
-                </fieldset>
+                </div>
 
-                <fieldset class="segmented">
-                  <legend>Budget</legend>
+                <div class="segmented" role="group" aria-labelledby="budgetLabel">
+                  <span class="control-title" id="budgetLabel">Budget</span>
                   <div class="segment-row" role="radiogroup" aria-label="Budget">
                     <label>
                       <input type="radio" name="budget" value="low" checked />
@@ -151,11 +151,11 @@
                       <span>High</span>
                     </label>
                   </div>
-                </fieldset>
+                </div>
 
                 <label class="direction-card" for="direction">
                   <span class="direction-head">
-                    <span>Direction</span>
+                    <span class="control-title">Direction</span>
                     <small id="directionValue">Any wave</small>
                   </span>
                   <input

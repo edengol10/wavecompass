@@ -2624,6 +2624,9 @@ destinations.forEach((destination) => {
 
 const state = {
   selected: 0,
+  carouselTimer: null,
+  carouselPhotoIndex: 0,
+  carouselPhotos: [],
 };
 
 const elements = {
@@ -2643,12 +2646,17 @@ const elements = {
   waveDescription: document.querySelector("#waveDescription"),
   spotDescription: document.querySelector("#spotDescription"),
   facts: document.querySelector("#destinationFacts"),
+  reviews: document.querySelector("#areaReviews"),
   actions: document.querySelector("#destinationActions"),
   image: document.querySelector("#destinationImage"),
   caption: document.querySelector("#destinationCaption"),
+  photoDots: document.querySelector("#photoDots"),
+  featureVisual: document.querySelector(".feature-visual"),
   resultsCount: document.querySelector("#resultsCount"),
   cardStrip: document.querySelector("#cardStrip"),
 };
+
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function getFilters() {
   const formData = new FormData(elements.form);
@@ -2731,15 +2739,18 @@ function setBackground(destination) {
   elements.heroMedia.classList.add("is-changing");
 
   window.setTimeout(() => {
-    elements.heroMedia.style.backgroundImage = `url("${placePhotoUrl(destination)}"), url("${destination.image}")`;
+    elements.heroMedia.style.backgroundImage = `url("${placePhotoUrl(destination, 1)}"), url("${destination.image}")`;
     elements.heroMedia.classList.remove("is-changing");
   }, 180);
 }
 
 function renderFeature(destination, filters) {
   elements.feature.classList.add("is-changing");
+  stopPhotoCarousel();
 
   window.setTimeout(() => {
+    const photos = destinationPhotos(destination);
+
     elements.matchTitle.textContent = `${destination.name}, ${destination.area}`;
     elements.matchReason.textContent = buildReason(destination, filters);
     elements.tagline.textContent = destination.tagline;
@@ -2747,13 +2758,8 @@ function renderFeature(destination, filters) {
     elements.description.textContent = destination.description;
     elements.waveDescription.textContent = waveDescription(destination);
     elements.spotDescription.textContent = spotDescription(destination);
-    elements.image.onerror = () => {
-      elements.image.onerror = null;
-      elements.image.src = destination.image;
-    };
-    elements.image.src = placePhotoUrl(destination);
-    elements.image.alt = `${destination.name} surf destination`;
-    elements.caption.textContent = destination.caption;
+    startPhotoCarousel(destination, photos);
+    elements.reviews.innerHTML = areaReviews(destination);
 
     elements.facts.innerHTML = [
       ["Wave quality", qualityRating(destination.quality)],
@@ -2793,6 +2799,62 @@ function renderFeature(destination, filters) {
   }, 170);
 }
 
+function startPhotoCarousel(destination, photos) {
+  state.carouselPhotos = photos;
+  state.carouselPhotoIndex = 0;
+  showCarouselPhoto(destination, 0, false);
+
+  if (prefersReducedMotion || photos.length < 2) return;
+
+  state.carouselTimer = window.setInterval(() => {
+    const nextIndex = (state.carouselPhotoIndex + 1) % state.carouselPhotos.length;
+    showCarouselPhoto(destination, nextIndex);
+  }, 4200);
+}
+
+function stopPhotoCarousel() {
+  if (!state.carouselTimer) return;
+
+  window.clearInterval(state.carouselTimer);
+  state.carouselTimer = null;
+}
+
+function showCarouselPhoto(destination, photoIndex, animate = true) {
+  const photo = state.carouselPhotos[photoIndex];
+  if (!photo) return;
+
+  const updatePhoto = () => {
+    state.carouselPhotoIndex = photoIndex;
+    elements.image.onerror = () => {
+      elements.image.onerror = null;
+      elements.image.src = destination.image;
+    };
+    elements.image.src = photo.src;
+    elements.image.alt = `${photo.spot} surfing waves`;
+    elements.caption.innerHTML = `
+      <strong>${escapeHtml(photo.spot)}</strong>
+      <small>Source: ${escapeHtml(photo.source)}</small>
+    `;
+    renderPhotoDots(state.carouselPhotos.length, photoIndex);
+    elements.featureVisual.classList.remove("is-photo-changing");
+  };
+
+  if (!animate || prefersReducedMotion) {
+    updatePhoto();
+    return;
+  }
+
+  elements.featureVisual.classList.add("is-photo-changing");
+  window.setTimeout(updatePhoto, 220);
+}
+
+function renderPhotoDots(total, activeIndex) {
+  elements.photoDots.innerHTML = Array.from({ length: total }, (_, index) => {
+    const className = index === activeIndex ? ' class="is-active"' : "";
+    return `<span${className}></span>`;
+  }).join("");
+}
+
 function renderCards(ranked, filters) {
   const exactMatches = ranked.filter((destination) => destinationMatchesFilters(destination, filters));
   const visibleDestinations = sortDestinations(ranked, getSortMode());
@@ -2827,6 +2889,7 @@ function sortDestinations(destinationsToSort, sortMode) {
     if (sortMode === "consistency") return consistencyScore(b) - consistencyScore(a) || b.quality - a.quality;
     if (sortMode === "budget") return budgetScore(a) - budgetScore(b) || b.matchPercent - a.matchPercent;
     if (sortMode === "power") return powerScore(b) - powerScore(a) || b.quality - a.quality;
+    if (sortMode === "reviews") return reviewScore(b) - reviewScore(a) || b.matchPercent - a.matchPercent;
 
     return b.matchPercent - a.matchPercent || b.score - a.score || a.name.localeCompare(b.name);
   });
@@ -2854,6 +2917,10 @@ function budgetScore(destination) {
 
 function powerScore(destination) {
   return { mellow: 1, decent: 2, "chargers only": 3 }[destination.wavePower] || 2;
+}
+
+function reviewScore(destination) {
+  return destination.quality * 2 + consistencyScore(destination) / 12 + (6 - crowdScore(destination));
 }
 
 function buildReason(destination, filters) {
@@ -2902,6 +2969,62 @@ function spotDescription(destination) {
   const accessNote = accessDescription(destination);
 
   return `Spot notes: focus on ${primarySpot} and nearby breaks around ${destination.map}. ${accessNote} Expect ${destination.crowdFactor.toLowerCase()} crowds, ${bottomLabel(destination.bottom).toLowerCase()} bottom, and ${destination.waterTemp.toLowerCase()} water.`;
+}
+
+function areaReviews(destination) {
+  const crowd = crowdScore(destination);
+  const cost = budgetScore(destination);
+  const consistency = consistencyScore(destination);
+  const tripRating = Math.min(5, Math.max(3, Math.round((destination.quality + (6 - cost)) / 2)));
+  const crowdRating = Math.max(1, 6 - crowd);
+  const consistencyRating = Math.min(5, Math.max(2, Math.round(consistency / 18)));
+  const travelNote =
+    destination.budget === "low"
+      ? "Easy to keep costs down if you choose simple rooms and local food."
+      : destination.budget === "medium"
+        ? "Good balance between comfort, food, rentals, and surf access."
+        : "Best with a bigger trip budget, especially for boats, guides, or premium stays.";
+  const crowdNote =
+    crowd >= 4
+      ? "The area can get busy, so dawn sessions and flexible spot checks matter."
+      : crowd <= 2
+        ? "Usually more breathing room than the famous lineups, though the best days still pull people in."
+        : "Expect a normal surf-trip crowd: manageable if you move with the tide and wind.";
+
+  const reviews = [
+    {
+      title: "Trip fit",
+      rating: tripRating,
+      text: `${destination.name} is strongest for ${destination.vibe.toLowerCase()}. ${travelNote}`,
+    },
+    {
+      title: "Crowd reality",
+      rating: crowdRating,
+      text: crowdNote,
+    },
+    {
+      title: "Season confidence",
+      rating: consistencyRating,
+      text: `${destination.season} is the main window. The wider the month range, the easier it is to plan without chasing a perfect forecast.`,
+    },
+  ];
+
+  return `
+    <h4>Area reviews</h4>
+    <div class="review-grid">
+      ${reviews
+        .map(
+          (review) => `
+            <article class="review-card">
+              <span class="review-score">${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}</span>
+              <strong>${escapeHtml(review.title)}</strong>
+              <p>${escapeHtml(review.text)}</p>
+            </article>
+          `,
+        )
+        .join("")}
+    </div>
+  `;
 }
 
 function accessDescription(destination) {
@@ -2960,10 +3083,44 @@ function bottomLabel(bottom) {
   return bottom.map(titleCase).join(" / ");
 }
 
-function placePhotoUrl(destination) {
-  const terms = encodeURIComponent(`${destination.query} waves surf spot`);
+function destinationPhotos(destination) {
+  const queries = [
+    `${destination.query} surfing waves`,
+    `${destination.query} surfer on wave`,
+    `${destination.name} surf break waves`,
+    `${destination.query} lineup ocean wave`,
+  ];
 
-  return `https://source.unsplash.com/1800x1200/?${terms}`;
+  return queries.map((query, index) => ({
+    src: sourcePhotoUrl(query, destination.index, index),
+    spot: destination.name,
+    source: "Unsplash surf photo search",
+  }));
+}
+
+function placePhotoUrl(destination, photoIndex = 0) {
+  return sourcePhotoUrl(`${destination.query} surfing waves`, destination.index, photoIndex);
+}
+
+function sourcePhotoUrl(query, destinationIndex = 0, photoIndex = 0) {
+  const terms = encodeURIComponent(query);
+  const signature = (destinationIndex + 1) * 17 + photoIndex * 101;
+
+  return `https://source.unsplash.com/1800x1200/?${terms}&sig=${signature}`;
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (character) => {
+    const entities = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    };
+
+    return entities[character];
+  });
 }
 
 function directionFromValue(value) {

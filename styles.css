@@ -716,6 +716,89 @@ h1 {
   line-height: 1.35;
 }
 
+.month-panel {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0 0 1.35rem;
+}
+
+.month-panel h4 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.month-scroller {
+  overflow-x: auto;
+  padding-bottom: 0.15rem;
+  scrollbar-width: thin;
+}
+
+.month-table {
+  display: grid;
+  grid-template-columns: 4.5rem repeat(5, minmax(7.4rem, 1fr));
+  min-width: 780px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.month-table > span {
+  min-height: 3.05rem;
+  padding: 0.72rem 0.78rem;
+  border-right: 1px solid rgba(7, 19, 23, 0.08);
+  border-bottom: 1px solid rgba(7, 19, 23, 0.08);
+  color: #3c565d;
+  font-size: 0.78rem;
+  font-weight: 820;
+  line-height: 1.25;
+}
+
+.month-table > span:nth-child(6n) {
+  border-right: 0;
+}
+
+.month-table > span:nth-last-child(-n + 6) {
+  border-bottom: 0;
+}
+
+.month-table .month-head {
+  color: #06323a;
+  background: rgba(0, 182, 167, 0.1);
+  font-size: 0.72rem;
+  font-weight: 920;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.month-table .month-name {
+  color: var(--ink);
+  background: rgba(7, 19, 23, 0.035);
+  font-weight: 930;
+}
+
+.month-table .is-selected {
+  color: #004f5a;
+  background: rgba(0, 170, 174, 0.16);
+}
+
+.month-table .is-offseason {
+  color: #6b7c80;
+  background: rgba(7, 19, 23, 0.025);
+}
+
+.month-note {
+  margin: 0;
+  color: #52686e;
+  font-size: 0.78rem;
+  font-weight: 760;
+  line-height: 1.45;
+}
+
 .review-panel {
   display: grid;
   gap: 0.72rem;

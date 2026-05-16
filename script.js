@@ -2646,6 +2646,7 @@ const elements = {
   waveDescription: document.querySelector("#waveDescription"),
   spotDescription: document.querySelector("#spotDescription"),
   facts: document.querySelector("#destinationFacts"),
+  monthGuide: document.querySelector("#monthGuide"),
   reviews: document.querySelector("#areaReviews"),
   actions: document.querySelector("#destinationActions"),
   image: document.querySelector("#destinationImage"),
@@ -2657,6 +2658,7 @@ const elements = {
 };
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 function getFilters() {
   const formData = new FormData(elements.form);
@@ -2759,6 +2761,7 @@ function renderFeature(destination, filters) {
     elements.waveDescription.textContent = waveDescription(destination);
     elements.spotDescription.textContent = spotDescription(destination);
     startPhotoCarousel(destination, photos);
+    elements.monthGuide.innerHTML = monthlyGuide(destination, filters.month);
     elements.reviews.innerHTML = areaReviews(destination);
 
     elements.facts.innerHTML = [
@@ -2969,6 +2972,147 @@ function spotDescription(destination) {
   const accessNote = accessDescription(destination);
 
   return `Spot notes: focus on ${primarySpot} and nearby breaks around ${destination.map}. ${accessNote} Expect ${destination.crowdFactor.toLowerCase()} crowds, ${bottomLabel(destination.bottom).toLowerCase()} bottom, and ${destination.waterTemp.toLowerCase()} water.`;
+}
+
+function monthlyGuide(destination, selectedMonth) {
+  const rows = months.map((month) => monthlyConditions(destination, month));
+  const cells = rows
+    .map((row) => {
+      const selectedClass = row.month === selectedMonth ? " is-selected" : "";
+      const seasonClass = row.inSeason ? "" : " is-offseason";
+
+      return `
+        <span class="month-name${selectedClass}${seasonClass}">${row.month}</span>
+        <span class="${selectedClass}${seasonClass}">${escapeHtml(row.waterTemp)}</span>
+        <span class="${selectedClass}${seasonClass}">${escapeHtml(row.crowds)}</span>
+        <span class="${selectedClass}${seasonClass}">${escapeHtml(row.waveSize)}</span>
+        <span class="${selectedClass}${seasonClass}">${escapeHtml(row.airTemp)}</span>
+        <span class="${selectedClass}${seasonClass}">${escapeHtml(row.consistency)}</span>
+      `;
+    })
+    .join("");
+
+  return `
+    <h4>Month-by-month conditions</h4>
+    <div class="month-scroller">
+      <div class="month-table">
+        <span class="month-head">Month</span>
+        <span class="month-head">Water</span>
+        <span class="month-head">Crowds</span>
+        <span class="month-head">Waves</span>
+        <span class="month-head">Air</span>
+        <span class="month-head">Consistency</span>
+        ${cells}
+      </div>
+    </div>
+    <p class="month-note">Planning estimates for the wider area. Check a live forecast before booking or paddling out.</p>
+  `;
+}
+
+function monthlyConditions(destination, month) {
+  const inSeason = destination.months.includes(month);
+  const nearSeason = !inSeason && monthDistanceToSeason(destination.months, month) <= 1;
+
+  return {
+    month,
+    inSeason,
+    waterTemp: monthlyWaterTemp(destination, month),
+    crowds: monthlyCrowds(destination, inSeason, nearSeason),
+    waveSize: monthlyWaveSize(destination, inSeason, nearSeason),
+    airTemp: monthlyAirTemp(destination, month),
+    consistency: monthlyConsistency(destination, inSeason, nearSeason),
+  };
+}
+
+function monthDistanceToSeason(seasonMonths, month) {
+  const monthIndex = months.indexOf(month);
+
+  return Math.min(
+    ...seasonMonths.map((seasonMonth) => {
+      const seasonIndex = months.indexOf(seasonMonth);
+      const distance = Math.abs(monthIndex - seasonIndex);
+      return Math.min(distance, 12 - distance);
+    }),
+  );
+}
+
+function monthlyWaterTemp(destination, month) {
+  const [low, high] = tempRange(destination.waterTemp, destination.tropical ? [26, 29] : [14, 21]);
+  const offset = seasonalTempOffset(destination, month, destination.tropical ? 1 : 2);
+
+  return `${Math.round(low + offset)}-${Math.round(high + offset)}C`;
+}
+
+function monthlyAirTemp(destination, month) {
+  const [low, high] = airTempRange(destination);
+  const offset = seasonalTempOffset(destination, month, destination.tropical ? 1 : 4);
+
+  return `${Math.round(low + offset)}-${Math.round(high + offset)}C`;
+}
+
+function monthlyCrowds(destination, inSeason, nearSeason) {
+  const base = crowdScore(destination);
+  const score = Math.max(1, Math.min(5, base + (inSeason ? 1 : nearSeason ? 0 : -1)));
+
+  return ["Very low", "Low", "Medium", "Busy", "Very busy"][score - 1];
+}
+
+function monthlyWaveSize(destination, inSeason, nearSeason) {
+  const powerRanges = {
+    mellow: [2, 4],
+    decent: [3, 6],
+    "chargers only": [5, 10],
+  };
+  const [baseLow, baseHigh] = powerRanges[destination.wavePower] || powerRanges.decent;
+  const qualityBoost = Math.max(0, destination.quality - 3);
+  const seasonBoost = inSeason ? 1 : nearSeason ? 0 : -1;
+  const low = Math.max(1, baseLow + seasonBoost + Math.floor(qualityBoost / 2));
+  const high = Math.max(low + 1, baseHigh + seasonBoost + qualityBoost);
+
+  return `${low}-${high} ft`;
+}
+
+function monthlyConsistency(destination, inSeason, nearSeason) {
+  const percent = inSeason
+    ? Math.min(96, 62 + destination.quality * 6)
+    : nearSeason
+      ? Math.min(72, 42 + destination.quality * 5)
+      : Math.min(48, 18 + destination.quality * 5);
+  const label = percent >= 78 ? "High" : percent >= 58 ? "Good" : percent >= 40 ? "Possible" : "Low";
+
+  return `${label} (${percent}%)`;
+}
+
+function tempRange(value, fallback) {
+  const matches = value.match(/-?\d+/g);
+  if (!matches || matches.length < 2) return fallback;
+
+  return [Number(matches[0]), Number(matches[1])];
+}
+
+function airTempRange(destination) {
+  const area = `${destination.name} ${destination.area}`.toLowerCase();
+
+  if (destination.tropical) return [25, 31];
+  if (area.includes("ireland") || area.includes("thurso") || area.includes("tofin")) return [8, 17];
+  if (area.includes("new zealand") || area.includes("chile") || area.includes("galicia")) return [11, 20];
+  if (area.includes("morocco") || area.includes("canary") || area.includes("portugal")) return [17, 25];
+  if (area.includes("australia") || area.includes("south africa")) return [16, 26];
+
+  return [14, 24];
+}
+
+function seasonalTempOffset(destination, month, amplitude) {
+  if (destination.tropical) return month === "Jan" || month === "Feb" || month === "Aug" ? 0.5 : 0;
+
+  const southern =
+    /australia|new zealand|chile|peru|brazil|south africa|mauritius|tahiti|fiji|mozambique/i.test(
+      `${destination.area} ${destination.name}`,
+    );
+  const warmestMonth = southern ? "Feb" : "Aug";
+  const distance = monthDistanceToSeason([warmestMonth], month);
+
+  return Math.cos((distance / 6) * Math.PI) * amplitude;
 }
 
 function areaReviews(destination) {

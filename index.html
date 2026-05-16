@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WaveCompass | Surf Trip Finder</title>
+    <meta
+      name="description"
+      content="Find a surf town or area by month, level, budget, and tropical vibe."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rubik+Wet+Paint&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+
+      <main class="app">
+        <section class="hero" aria-label="Surf destination picker">
+          <div class="hero-media" id="heroMedia"></div>
+          <div class="hero-scrim"></div>
+
+          <nav class="topbar" aria-label="Main navigation">
+            <a class="brand" href="#" aria-label="WaveCompass home">
+              <span class="brand-mark">W</span>
+              <span>WaveCompass</span>
+            </a>
+            <div class="status-pill">
+              <span class="pulse"></span>
+              Surf trip matcher
+            </div>
+          </nav>
+
+          <div class="hero-content">
+            <div class="intro">
+              <p class="eyebrow">Choose the vibe. Find the break.</p>
+              <h1>Where should you surf next?</h1>
+              <p class="hero-copy">
+                Pick a month, your level, budget, and whether you want tropical
+                water. WaveCompass recommends a real surf town or area, then
+                turns the page into that place.
+              </p>
+            </div>
+
+            <form class="filter-panel" id="filters">
+              <div class="control-grid">
+                <label class="field">
+                  <span>Month</span>
+                  <select id="month" name="month" aria-label="Month">
+                    <option value="Jan">January</option>
+                    <option value="Feb">February</option>
+                    <option value="Mar">March</option>
+                    <option value="Apr">April</option>
+                    <option value="May">May</option>
+                    <option value="Jun">June</option>
+                    <option value="Jul">July</option>
+                    <option value="Aug">August</option>
+                    <option value="Sep">September</option>
+                    <option value="Oct">October</option>
+                    <option value="Nov">November</option>
+                    <option value="Dec">December</option>
+                  </select>
+                </label>
+
+                <fieldset class="segmented">
+                  <legend>Level</legend>
+                  <div class="segment-row" role="radiogroup" aria-label="Surf level">
+                    <label>
+                      <input type="radio" name="level" value="beginner" checked />
+                      <span>Beginner</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="level" value="intermediate" />
+                      <span>Intermediate</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="level" value="advanced" />
+                      <span>Advanced</span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <fieldset class="segmented">
+                  <legend>Budget</legend>
+                  <div class="segment-row" role="radiogroup" aria-label="Budget">
+                    <label>
+                      <input type="radio" name="budget" value="low" checked />
+                      <span>Low</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="budget" value="medium" />
+                      <span>Medium</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="budget" value="high" />
+                      <span>High</span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <label class="toggle-card">
+                  <input type="checkbox" id="tropical" name="tropical" />
+                  <span class="toggle-copy">
+                    <span>Tropical</span>
+                    <small>Warm water only</small>
+                  </span>
+                  <span class="switch" aria-hidden="true"></span>
+                </label>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="results-band" aria-label="Recommended destinations">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow dark">Best match</p>
+              <h2 id="matchTitle">Loading destination...</h2>
+            </div>
+            <p id="matchReason">Tuning the forecast to your filters.</p>
+          </div>
+
+          <article class="destination-feature" id="destinationFeature">
+            <div class="feature-copy">
+              <p class="tagline" id="destinationTagline"></p>
+              <h3 id="destinationName"></h3>
+              <p id="destinationDescription"></p>
+              <dl class="facts" id="destinationFacts"></dl>
+              <div class="actions" id="destinationActions"></div>
+            </div>
+            <div class="feature-visual">
+              <img id="destinationImage" alt="" />
+              <div class="image-caption" id="destinationCaption"></div>
+            </div>
+          </article>
+
+          <div class="card-strip" id="cardStrip" aria-label="Other matching surf spots"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

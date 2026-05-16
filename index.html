@@ -63,23 +63,59 @@
 
             <form class="filter-panel" id="filters">
               <div class="control-grid">
-                <label class="field">
-                  <span>Month</span>
-                  <select id="month" name="month" aria-label="Month">
-                    <option value="Jan">January</option>
-                    <option value="Feb">February</option>
-                    <option value="Mar">March</option>
-                    <option value="Apr">April</option>
-                    <option value="May">May</option>
-                    <option value="Jun">June</option>
-                    <option value="Jul">July</option>
-                    <option value="Aug">August</option>
-                    <option value="Sep">September</option>
-                    <option value="Oct">October</option>
-                    <option value="Nov">November</option>
-                    <option value="Dec">December</option>
-                  </select>
-                </label>
+                <fieldset class="month-picker">
+                  <legend>Month</legend>
+                  <div class="month-grid" role="radiogroup" aria-label="Month">
+                    <label>
+                      <input type="radio" name="month" value="Jan" />
+                      <span>Jan</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="month" value="Feb" />
+                      <span>Feb</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="month" value="Mar" />
+                      <span>Mar</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="month" value="Apr" />
+                      <span>Apr</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="month" value="May" checked />
+                      <span>May</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="month" value="Jun" />
+                      <span>Jun</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="month" value="Jul" />
+                      <span>Jul</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="month" value="Aug" />
+                      <span>Aug</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="month" value="Sep" />
+                      <span>Sep</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="month" value="Oct" />
+                      <span>Oct</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="month" value="Nov" />
+                      <span>Nov</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="month" value="Dec" />
+                      <span>Dec</span>
+                    </label>
+                  </div>
+                </fieldset>
 
                 <fieldset class="segmented">
                   <legend>Level</legend>

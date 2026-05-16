@@ -324,6 +324,7 @@ h1 {
 }
 
 .field,
+.month-picker,
 .segmented,
 .direction-card,
 .toggle-card {
@@ -341,6 +342,7 @@ h1 {
 }
 
 .field span,
+.month-picker legend,
 .segmented legend,
 .direction-head > span,
 .toggle-copy > span {
@@ -353,18 +355,7 @@ h1 {
   letter-spacing: 0.08em;
 }
 
-select {
-  width: 100%;
-  min-height: 2.8rem;
-  border: 0;
-  border-radius: 14px;
-  padding: 0 0.85rem;
-  color: var(--ink);
-  background: white;
-  outline: none;
-  font-weight: 750;
-}
-
+.month-picker,
 .segmented {
   display: grid;
   gap: 0.58rem;
@@ -373,11 +364,25 @@ select {
   padding: 0.85rem;
 }
 
+.month-picker legend,
 .segmented legend {
   float: none;
   width: 100%;
   padding: 0;
   margin: 0;
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.34rem;
+  padding: 0.28rem;
+  border-radius: 16px;
+  background: rgba(7, 19, 23, 0.06);
+}
+
+.month-grid label {
+  min-width: 0;
 }
 
 .segment-row {
@@ -394,12 +399,32 @@ select {
   min-width: 0;
 }
 
+.month-grid input,
 .segment-row input,
 .direction-card input,
 .toggle-card input {
   position: absolute;
   opacity: 0;
   pointer-events: none;
+}
+
+.month-grid span {
+  display: grid;
+  place-items: center;
+  min-height: 2.16rem;
+  border-radius: 12px;
+  color: #50666c;
+  font-size: 0.78rem;
+  font-weight: 850;
+  transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  cursor: pointer;
+}
+
+.month-grid input:checked + span {
+  color: var(--sea);
+  background: white;
+  box-shadow: 0 8px 22px rgba(0, 45, 61, 0.12);
+  transform: translateY(-1px);
 }
 
 .segment-row span {
@@ -909,6 +934,10 @@ select {
 
   .segment-row {
     grid-template-columns: 1fr;
+  }
+
+  .month-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .results-band {

@@ -338,7 +338,7 @@ const state = {
 const elements = {
   heroMedia: document.querySelector("#heroMedia"),
   form: document.querySelector("#filters"),
-  month: document.querySelector("#month"),
+  monthInputs: document.querySelectorAll('input[name="month"]'),
   direction: document.querySelector("#direction"),
   directionValue: document.querySelector("#directionValue"),
   tropical: document.querySelector("#tropical"),
@@ -582,8 +582,7 @@ elements.cardStrip.addEventListener("click", (event) => {
 });
 
 const currentMonth = new Date().toLocaleString("en-US", { month: "short" });
-if ([...elements.month.options].some((option) => option.value === currentMonth)) {
-  elements.month.value = currentMonth;
-}
+const currentMonthInput = [...elements.monthInputs].find((input) => input.value === currentMonth);
+if (currentMonthInput) currentMonthInput.checked = true;
 
 render();

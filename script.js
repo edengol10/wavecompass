@@ -2755,7 +2755,7 @@ function renderFeature(destination, filters) {
 
     elements.matchTitle.textContent = `${destination.name}, ${destination.area}`;
     elements.matchReason.textContent = buildReason(destination, filters);
-    elements.tagline.textContent = destination.tagline;
+    elements.tagline.textContent = displayTagline(destination.tagline);
     elements.name.textContent = destination.name;
     elements.description.textContent = destination.description;
     elements.waveDescription.textContent = waveDescription(destination);
@@ -2770,7 +2770,7 @@ function renderFeature(destination, filters) {
       ["Crowd factor", destination.crowdFactor],
       ["Water temp", destination.waterTemp],
       ["Bottom", bottomLabel(destination.bottom)],
-      ["Best season", destination.season],
+      ["Season", destination.season],
       ["Wave type", destination.wave],
       ["Direction", directionLabel(destination.directions)],
       ["Budget", titleCase(destination.budget)],
@@ -2954,6 +2954,10 @@ function buildReason(destination, filters) {
     : "Closest overall match from the current destination set.";
 }
 
+function displayTagline(tagline) {
+  return tagline.replace(/^Best\s+/i, "");
+}
+
 function waveDescription(destination) {
   const direction = directionLabel(destination.directions).toLowerCase();
   const quality = qualityLabel(destination.quality).toLowerCase();
@@ -3127,7 +3131,7 @@ function areaReviews(destination) {
       ? "Easy to keep costs down if you choose simple rooms and local food."
       : destination.budget === "medium"
         ? "Good balance between comfort, food, rentals, and surf access."
-        : "Best with a bigger trip budget, especially for boats, guides, or premium stays.";
+        : "Works better with a bigger trip budget, especially for boats, guides, or premium stays.";
   const crowdNote =
     crowd >= 4
       ? "The area can get busy, so dawn sessions and flexible spot checks matter."

@@ -2640,6 +2640,7 @@ const elements = {
   name: document.querySelector("#destinationName"),
   description: document.querySelector("#destinationDescription"),
   waveDescription: document.querySelector("#waveDescription"),
+  spotDescription: document.querySelector("#spotDescription"),
   facts: document.querySelector("#destinationFacts"),
   actions: document.querySelector("#destinationActions"),
   image: document.querySelector("#destinationImage"),
@@ -2723,6 +2724,7 @@ function renderFeature(destination, filters) {
     elements.name.textContent = destination.name;
     elements.description.textContent = destination.description;
     elements.waveDescription.textContent = waveDescription(destination);
+    elements.spotDescription.textContent = spotDescription(destination);
     elements.image.onerror = () => {
       elements.image.onerror = null;
       elements.image.src = destination.image;
@@ -2828,6 +2830,29 @@ function waveDescription(destination) {
   const power = powerDescription(destination.wavePower);
 
   return `${destination.name} is a ${quality} ${direction} setup with ${power} over ${bottom}. ${destination.wave}.`;
+}
+
+function spotDescription(destination) {
+  const spotNames = destination.name
+    .split("/")
+    .map((spot) => spot.trim())
+    .filter(Boolean);
+  const primarySpot = spotNames.length > 1 ? spotNames.join(" and ") : destination.name;
+  const accessNote = accessDescription(destination);
+
+  return `Spot notes: focus on ${primarySpot} and nearby breaks around ${destination.map}. ${accessNote} Expect ${destination.crowdFactor.toLowerCase()} crowds, ${bottomLabel(destination.bottom).toLowerCase()} bottom, and ${destination.waterTemp.toLowerCase()} water.`;
+}
+
+function accessDescription(destination) {
+  if (destination.wavePower === "chargers only") {
+    return "Treat the main spots as advanced lineups and check local rules before paddling out.";
+  }
+
+  if (destination.levels.includes("beginner")) {
+    return "The area has at least one more forgiving spot, but conditions can still change quickly.";
+  }
+
+  return "The main spots suit surfers with solid positioning, board control, and lineup awareness.";
 }
 
 function cardWaveDescription(destination) {

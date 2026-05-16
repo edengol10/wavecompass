@@ -2645,6 +2645,7 @@ const elements = {
   description: document.querySelector("#destinationDescription"),
   waveDescription: document.querySelector("#waveDescription"),
   spotDescription: document.querySelector("#spotDescription"),
+  spotGuide: document.querySelector("#spotGuide"),
   facts: document.querySelector("#destinationFacts"),
   monthGuide: document.querySelector("#monthGuide"),
   reviews: document.querySelector("#areaReviews"),
@@ -2659,6 +2660,109 @@ const elements = {
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+const spotCatalog = {
+  "Puerto Escondido": ["Zicatela", "La Punta", "Carrizalillo", "Playa Marinero"],
+  "La Saladita": ["La Saladita Point", "The Ranch", "Troncones", "Playa Linda"],
+  Peniche: ["Supertubos", "Baleal", "Cantinho da Baia", "Lagide", "Molhe Leste", "Consolacao"],
+  "Arugam Bay": ["Main Point", "Baby Point", "Whiskey Point", "Peanut Farm", "Elephant Rock", "Okanda"],
+  Hikkaduwa: ["Main Reef", "Benny's", "North Jetty", "Beach Break", "Owakanda"],
+  "Midigama / Weligama": ["Weligama Bay", "Lazy Left", "Lazy Right", "Ram's", "Plantations", "Coconuts"],
+  Itacare: ["Tiririca", "Resende", "Ribeira", "Engenhoca", "Itacarezinho"],
+  Pipa: ["Praia do Amor", "Madeiro", "Cacimbinhas", "Lajao", "Curral"],
+  "El Tunco / La Libertad": ["Punta Roca", "Sunzal", "La Bocana", "K59", "El Zonte", "Mizata"],
+  Popoyo: ["Main Reef", "Outer Reef", "Beginner Bay", "Santana", "Lance's Left"],
+  "Northwest Australia": ["Red Bluff", "Gnaraloo", "Tombstones", "The Bluff", "Turtles"],
+  Mentawai: ["HT's / Lance's Right", "Rifles", "Macaronis", "Bankvaults", "Telescopes", "Greenbush"],
+  "G-Land": ["Speedies", "Money Trees", "Launching Pads", "Kongs", "Tiger Tracks"],
+  Uluwatu: ["Temples", "The Peak", "Racetracks", "Outside Corner", "Padang Padang", "Bingin", "Impossibles"],
+  Lombok: ["Desert Point", "Mawi", "Gerupuk Inside", "Gerupuk Outside", "Ekas", "Selong Belanak"],
+  "Tofo / Tofinho": ["Tofinho Point", "Tofo Beach", "Barra", "Guinjata Bay", "Paindane"],
+  "Ponta do Ouro": ["Ponta Point", "Malongane", "Techobanine", "Frederico's"],
+  "Ponta Preta / Sal": ["Ponta Preta", "Kite Beach", "Alibaba", "Santa Maria", "Canoa"],
+  "Fuerteventura North": ["North Shore", "El Hierro", "Majanicho", "Rocky Point", "Lobos"],
+  "Famara / Lanzarote": ["Famara", "San Juan", "La Santa", "El Quemao", "Orzola"],
+  "Playa de las Americas": ["Spanish Left", "La Derecha del Cartel", "El Conquistador", "Fitenia", "Las Palmeras"],
+  Taghazout: ["Anchor Point", "Killer Point", "Hash Point", "Panorama", "Banana Point", "Boilers"],
+  Imsouane: ["The Bay", "Cathedral Point", "Magic Bay", "Tildi"],
+  Safi: ["Safi Point", "Ras Lafaa", "Lalla Fatna"],
+  "Razo / Pantin": ["Razo", "Pantin", "Doninos", "Valdovino", "Sabon"],
+  Hossegor: ["La Graviere", "La Nord", "Les Culs Nus", "La Sud", "Estagnots", "Capbreton"],
+  Biarritz: ["Cote des Basques", "Grande Plage", "Marbella", "Milady", "Anglet"],
+  Mundaka: ["Mundaka Left", "Laida", "Bakio", "Laga", "Sopelana"],
+  Ericeira: ["Ribeira d'Ilhas", "Coxos", "Crazy Left", "Pedra Branca", "Foz do Lizandro", "Sao Juliao"],
+  Nazare: ["Praia do Norte", "Praia da Vila", "South Beach", "Sitio"],
+  Bundoran: ["The Peak", "Tullan Strand", "Rossnowlagh", "Mullaghmore", "Streedagh"],
+  Thurso: ["Thurso East", "Brims Ness", "The Bowl", "Sandside Bay", "Strathy"],
+  "Jeffreys Bay": ["Supertubes", "Boneyards", "Impossibles", "Point", "Albatross"],
+  Durban: ["New Pier", "North Beach", "Dairy Beach", "Snake Park", "Cave Rock", "Umhlanga"],
+  "Skeleton Bay": ["Skeleton Bay", "Donkey Bay", "Walvis Bay", "Swakopmund"],
+  Nosara: ["Playa Guiones", "Playa Pelada", "Ostional", "Garza", "Playa Nosara"],
+  "Santa Teresa": ["Playa Santa Teresa", "Suck Rock", "Playa Carmen", "Hermosa", "Mal Pais"],
+  Pavones: ["Pavones Point", "Punta Banco", "Rio Claro", "Pilon"],
+  Montanita: ["Montanita Point", "La Punta", "Olon", "Manglaralto", "Ayampe"],
+  Chicama: ["El Cape", "The Point", "El Hombre", "El Malpaso", "Huanchaco"],
+  "Punta de Lobos": ["El Mirador", "Los Morros", "Pichilemu", "Infiernillo", "La Puntilla"],
+  Rincon: ["Domes", "Maria's", "Tres Palmas", "Sandy Beach", "Pools"],
+  "Soup Bowl": ["Soup Bowl", "Parlour", "Brandons", "South Point", "Freights"],
+  "Bocas del Toro": ["Paunch", "Bluff", "Carenero", "Silverbacks", "Wizard Beach"],
+  Raglan: ["Manu Bay", "Whale Bay", "Indicators", "Ngarunui Beach", "Ruapuke"],
+  "Gold Coast": ["Snapper Rocks", "Rainbow Bay", "Greenmount", "Kirra", "Burleigh Heads", "Duranbah"],
+  "Margaret River": ["Main Break", "The Box", "North Point", "Gracetown", "Injidup", "Yallingup"],
+  Cloudbreak: ["Cloudbreak", "Restaurants", "Namotu Lefts", "Wilkes", "Swimming Pools"],
+  Teahupoo: ["Teahupoo", "Papara", "Taapuna", "Papenoo", "Vairao"],
+  Siargao: ["Cloud 9", "Jacking Horse", "Quicksilver", "Stimpy's", "Rock Island", "Daku"],
+  "North Shore Oahu": ["Pipeline", "Backdoor", "Sunset Beach", "Waimea Bay", "Haleiwa", "Rocky Point"],
+  Waikiki: ["Canoes", "Queens", "Publics", "Pops", "Ala Moana Bowls"],
+  Makaha: ["Makaha Point", "Makaha Bowl", "Lahilahi", "Yokohama"],
+  "Ala Moana Bowls": ["Bowls", "Kaisers", "Rockpiles", "Courts", "Concessions"],
+  "Honolua Bay": ["Honolua Bay", "Honokohau", "Flemings", "S-Turns"],
+  Hookipa: ["Pavilions", "Middles", "H-Poko", "Lanes", "Mama's"],
+  "Hanalei Bay": ["Hanalei Pier", "Pine Trees", "Tunnels", "Cannons", "Hideaways"],
+  Banyans: ["Banyans", "Lyman's", "Kahaluu", "Pine Trees", "Honolii"],
+  Papara: ["Papara", "Taharuu", "Papenoo", "Sapinus"],
+  Taapuna: ["Taapuna", "Sapinus", "Maraa", "Vairao"],
+  Haapiti: ["Haapiti", "Temae", "Atiha", "Cook's Bay"],
+  Restaurants: ["Restaurants", "Cloudbreak", "Namotu Lefts", "Wilkes"],
+  "Frigates Passage": ["Frigates", "Yanuca", "Beqa Passage", "Serua"],
+  "Namotu Lefts": ["Namotu Lefts", "Wilkes", "Swimming Pools", "Tavarua Rights"],
+  Natadola: ["Natadola Beach", "Hideaway", "Sigatoka Sand Dunes"],
+  Sigatoka: ["Sigatoka Rivermouth", "Natadola", "Hideaway", "Beachhouse"],
+  Piha: ["Lion Rock", "South Piha", "North Piha", "Karekare", "Muriwai"],
+  "Taranaki Surf Highway": ["Stent Road", "Kumara Patch", "Fitzroy Beach", "Back Beach", "Oakura"],
+  Gisborne: ["Wainui Beach", "Makorori", "Roberts Road", "Sponge Bay", "Midway"],
+  Kaikoura: ["Mangamaunu", "Meatworks", "Kahutara", "Oaro"],
+  "St Clair / Dunedin": ["St Clair", "St Kilda", "Blackhead", "Aramoana", "Karitane"],
+  "Mount Maunganui": ["Main Beach", "Tay Street", "Omanu", "Matakana Island", "Papamoa"],
+  Lobitos: ["Lobitos", "Piscinas", "El Hueco", "Baterias", "Muelles"],
+  Mancora: ["Mancora Point", "Organos", "Punta Ballenas", "Vichayito"],
+  "Cabo Blanco": ["Cabo Blanco", "Panic Point", "Lobitos", "Organos"],
+  "Punta Hermosa": ["Pico Alto", "Senoritas", "Caballeros", "La Isla", "Punta Rocas"],
+  Pacasmayo: ["El Faro", "Pacasmayo Point", "Puemape", "Chicama"],
+  "Tamarin Bay": ["Tamarin Bay", "Dal", "Black Stone", "Le Morne"],
+  "One Eye / Le Morne": ["One Eye", "Manawa", "Chameau", "Little Reef"],
+  "Black Rocks": ["Black Rocks", "Tamarin", "La Gaulette", "Poste Lafayette"],
+  "Bells Beach": ["Bells Bowl", "Winki Pop", "Rincon", "Jan Juc", "Point Addis"],
+  Noosa: ["First Point", "Tea Tree", "Granite Bay", "National Park", "Sunshine Beach"],
+  "Cactus Beach": ["Cactus", "Castles", "Caves", "Cunns"],
+  "Shipstern Bluff": ["Shipstern Bluff", "Roaring Beach", "Clifton Beach"],
+  Nias: ["Lagundri Bay", "Indicators", "Kiddies Corner", "The Machine"],
+  "Desert Point": ["Desert Point", "Bangko-Bangko", "Seger", "Mawi"],
+  "Lakey Peak": ["Lakey Peak", "Lakey Pipe", "Periscopes", "Nungas", "Cobblestones"],
+  Nemberala: ["T-Land", "Sucky Mamas", "Boa", "Do'o Island"],
+  "Nihiwatu / Sumba": ["Occy's Left", "Miller's Right", "Pero", "Marosi"],
+  Simeulue: ["Dylan's Right", "Tea Bags", "Thailands", "The Peak", "Mahi Mahi"],
+  "Male Atolls": ["Cokes", "Chickens", "Sultans", "Honky's", "Jailbreaks", "Ninjas"],
+  "Central Atolls": ["Mikado", "Machines", "Refugee's Left", "Finnimas", "Bedhuge"],
+  "Playa Hermosa": ["Playa Hermosa", "Terrazas", "Backyard", "Tulin"],
+  "Witches Rock / Ollies": ["Witch's Rock", "Ollie's Point", "Playa Naranjo", "Playa Grande"],
+  Sayulita: ["Sayulita Left", "Sayulita Right", "La Lancha", "Burros"],
+  "Salina Cruz": ["Punta Conejo", "Chipehua", "Barra de la Cruz", "La Bocana"],
+  "Punta Mita": ["La Lancha", "Burros", "El Anclote", "Stinky's", "Punta Burros"],
+  "Scorpion Bay": ["First Point", "Second Point", "Third Point", "Fourth Point"],
+  Tofino: ["Cox Bay", "Chesterman Beach", "Long Beach", "Wickaninnish", "Florencia Bay"],
+  "Peahi / Jaws": ["Peahi", "Hookipa", "Honolua Bay", "Spreckelsville"],
+};
 
 function getFilters() {
   const formData = new FormData(elements.form);
@@ -2760,6 +2864,7 @@ function renderFeature(destination, filters) {
     elements.description.textContent = destination.description;
     elements.waveDescription.textContent = waveDescription(destination);
     elements.spotDescription.textContent = spotDescription(destination);
+    elements.spotGuide.innerHTML = spotGuide(destination);
     startPhotoCarousel(destination, photos);
     elements.monthGuide.innerHTML = monthlyGuide(destination, filters.month);
     elements.reviews.innerHTML = areaReviews(destination);
@@ -2976,6 +3081,101 @@ function spotDescription(destination) {
   const accessNote = accessDescription(destination);
 
   return `Spot notes: focus on ${primarySpot} and nearby breaks around ${destination.map}. ${accessNote} Expect ${destination.crowdFactor.toLowerCase()} crowds, ${bottomLabel(destination.bottom).toLowerCase()} bottom, and ${destination.waterTemp.toLowerCase()} water.`;
+}
+
+function spotGuide(destination) {
+  const spots = knownSpots(destination);
+  const firstSpot = spots[0];
+
+  return `
+    <h4>Known spots and map</h4>
+    <div class="spot-guide-grid">
+      <div class="spot-list">
+        ${spots
+          .map(
+            (spot, index) => `
+              <button
+                class="spot-item${index === 0 ? " is-active" : ""}"
+                type="button"
+                data-map-query="${escapeHtml(spot.mapQuery)}"
+                data-spot-title="${escapeHtml(spot.name)}"
+                aria-label="Show ${escapeHtml(spot.name)} on the map"
+              >
+                <strong>${escapeHtml(spot.name)}</strong>
+                <span>${escapeHtml(spot.description)}</span>
+              </button>
+            `,
+          )
+          .join("")}
+      </div>
+      <div class="spot-map">
+        <iframe
+          class="spot-map-frame"
+          title="${escapeHtml(firstSpot.name)} map"
+          src="${escapeHtml(mapEmbedUrl(firstSpot.mapQuery))}"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <a class="map-link" href="${escapeHtml(mapSearchUrl(firstSpot.mapQuery))}" target="_blank" rel="noreferrer">Open map</a>
+      </div>
+    </div>
+  `;
+}
+
+function knownSpots(destination) {
+  const spotNames = spotCatalog[destination.name] || inferSpotNames(destination);
+
+  return spotNames.map((name, index) => ({
+    name,
+    description: spotGuideDescription(name, destination, index),
+    mapQuery: `${name} ${destination.map}`,
+  }));
+}
+
+function inferSpotNames(destination) {
+  const names = destination.name
+    .split("/")
+    .map((name) => name.trim())
+    .filter(Boolean);
+
+  return [...new Set([...names, `${destination.name} main surf break`, `${destination.name} beach breaks`])];
+}
+
+function spotGuideDescription(spotName, destination, index) {
+  const name = spotName.toLowerCase();
+  const base = `${bottomLabel(destination.bottom).toLowerCase()} bottom, ${powerDescription(
+    destination.wavePower,
+  )}, and ${directionLabel(destination.directions).toLowerCase()}.`;
+
+  if (/(outer|box|jaws|peahi|silverbacks|pico alto|shipstern|teahupoo|skeleton|mullaghmore|greenbush|speedies)/i.test(name)) {
+    return `${spotName} is one of the serious options in this area. Expect ${base} Treat it as advanced-only when swell is up.`;
+  }
+
+  if (/(bay|first point|canoes|queens|weligama|baby|beginner|selong|guiones|famara|natadola|sayulita)/i.test(name)) {
+    return `${spotName} is usually the softer or more approachable part of the area. Expect ${base}`;
+  }
+
+  if (/(point|ponta|punta|anchor|sunzal|chicama|manu|snapper|kirra|honolua|pavones|lobitos|raglan|saladita)/i.test(name)) {
+    return `${spotName} is a point-style setup to check for longer lines. Expect ${base}`;
+  }
+
+  if (/(reef|bowls|cloudbreak|restaurants|uluwatu|padang|bingin|coxos|rifles|macaronis|nias|desert|lakey|cokes|sultans)/i.test(name)) {
+    return `${spotName} is a reef-focused spot where tide, size, and lineup awareness matter. Expect ${base}`;
+  }
+
+  if (/(beach|strand|playa|praia|graviere|zicatela|hermosa|piha|cox bay|chesterman)/i.test(name)) {
+    return `${spotName} is a beach-break option with shifting peaks. Expect ${base}`;
+  }
+
+  return `${spotName} is a known option around ${destination.name}. Expect ${base} It is worth checking when wind, tide, and swell direction line up.`;
+}
+
+function mapEmbedUrl(query) {
+  return `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
+}
+
+function mapSearchUrl(query) {
+  return `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
 }
 
 function monthlyGuide(destination, selectedMonth) {
@@ -3324,6 +3524,21 @@ elements.cardStrip.addEventListener("click", (event) => {
 
   render(Number(card.dataset.index));
   document.querySelector(".results-band").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+elements.spotGuide.addEventListener("click", (event) => {
+  const spotButton = event.target.closest(".spot-item");
+  if (!spotButton) return;
+
+  const mapFrame = elements.spotGuide.querySelector(".spot-map-frame");
+  const mapLink = elements.spotGuide.querySelector(".map-link");
+  elements.spotGuide.querySelectorAll(".spot-item").forEach((button) => {
+    button.classList.toggle("is-active", button === spotButton);
+  });
+
+  mapFrame.src = mapEmbedUrl(spotButton.dataset.mapQuery);
+  mapFrame.title = `${spotButton.dataset.spotTitle} map`;
+  mapLink.href = mapSearchUrl(spotButton.dataset.mapQuery);
 });
 
 const currentMonth = new Date().toLocaleString("en-US", { month: "short" });

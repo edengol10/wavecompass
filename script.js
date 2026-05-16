@@ -2643,6 +2643,7 @@ const elements = {
   actions: document.querySelector("#destinationActions"),
   image: document.querySelector("#destinationImage"),
   caption: document.querySelector("#destinationCaption"),
+  resultsCount: document.querySelector("#resultsCount"),
   cardStrip: document.querySelector("#cardStrip"),
 };
 
@@ -2687,6 +2688,19 @@ function getRankedDestinations() {
       score: scoreDestination(destination, filters),
     }))
     .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+}
+
+function destinationMatchesFilters(destination, filters) {
+  const directionMatches =
+    filters.direction === "any" || destination.directions.includes(filters.direction);
+
+  return (
+    destination.months.includes(filters.month) &&
+    destination.levels.includes(filters.level) &&
+    destination.budget === filters.budget &&
+    (!filters.tropical || destination.tropical) &&
+    directionMatches
+  );
 }
 
 function setBackground(destination) {
@@ -2753,9 +2767,15 @@ function renderFeature(destination, filters) {
   }, 170);
 }
 
-function renderCards(ranked) {
-  elements.cardStrip.innerHTML = ranked
-    .slice(0, 4)
+function renderCards(ranked, filters) {
+  const exactMatches = ranked.filter((destination) => destinationMatchesFilters(destination, filters));
+  const visibleDestinations = exactMatches.length ? exactMatches : ranked.slice(0, 12);
+
+  elements.resultsCount.textContent = exactMatches.length
+    ? `${exactMatches.length} surf ${exactMatches.length === 1 ? "area matches" : "areas match"} your filters.`
+    : "No exact matches yet, so these are the closest options.";
+
+  elements.cardStrip.innerHTML = visibleDestinations
     .map(
       (destination) => `
         <button class="spot-card" type="button" data-index="${destination.index}" aria-label="Choose ${destination.name}">
@@ -2865,13 +2885,16 @@ function render(preferredIndex = null) {
   updateDirectionControl();
   const filters = getFilters();
   const ranked = getRankedDestinations();
+  const exactMatches = ranked.filter((destination) => destinationMatchesFilters(destination, filters));
   const selected =
-    preferredIndex === null ? ranked[0] : ranked.find((item) => item.index === preferredIndex) || ranked[0];
+    preferredIndex === null
+      ? exactMatches[0] || ranked[0]
+      : ranked.find((item) => item.index === preferredIndex) || exactMatches[0] || ranked[0];
 
   state.selected = selected.index;
   setBackground(selected);
   renderFeature(selected, filters);
-  renderCards(ranked);
+  renderCards(ranked, filters);
 }
 
 elements.form.addEventListener("change", () => render());

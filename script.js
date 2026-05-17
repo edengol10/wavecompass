@@ -2657,6 +2657,7 @@ destinations.forEach((destination, index) => {
     destination,
     surfDetailsByName[destination.name] || {},
   );
+  destination.waveLevel = destination.waveLevel || waveLevelFromProfile(destination);
 });
 
 const state = {
@@ -2982,13 +2983,14 @@ function renderFeature(destination, filters) {
 
     elements.facts.innerHTML = [
       ["Wave quality", qualityRating(destination.quality)],
+      ["Wave level", destination.waveLevel],
       ["Wave power", powerRating(destination.wavePower)],
       ["Crowd factor", destination.crowdFactor],
       ["Water temp", destination.waterTemp],
       ["Bottom", bottomLabel(destination.bottom)],
       ["Season", destination.season],
       ["Consistency", consistencyFact(destination, filters.month)],
-      ["Level range", levelRangeLabel(destination.levels)],
+      ["Surfer level", levelRangeLabel(destination.levels)],
       ["Wave type", destination.wave],
       ["Wave length", waveLengthLabel(destination)],
       ["Direction", directionLabel(destination.directions)],
@@ -3873,7 +3875,7 @@ function accessDescription(destination) {
 }
 
 function cardWaveDescription(destination) {
-  return `${qualityLabel(destination.quality)} / ${titleCase(destination.wavePower)} / ${bottomLabel(destination.bottom)}`;
+  return `${destination.waveLevel} / ${qualityLabel(destination.quality)} / ${bottomLabel(destination.bottom)}`;
 }
 
 function consistencyFact(destination, selectedMonth) {
@@ -3997,6 +3999,22 @@ function bottomLabel(bottom) {
 
 function levelRangeLabel(levels) {
   return levels.map(titleCase).join(" / ");
+}
+
+function waveLevelFromProfile(destination) {
+  const hasBeginner = destination.levels.includes("beginner");
+  const hasIntermediate = destination.levels.includes("intermediate");
+  const hasAdvanced = destination.levels.includes("advanced");
+
+  if (destination.wavePower === "chargers only") return "Expert / chargers only";
+  if (hasAdvanced && !hasBeginner && destination.quality >= 4) return "Advanced";
+  if (hasAdvanced && hasIntermediate && !hasBeginner) return "Intermediate to advanced";
+  if (hasBeginner && hasAdvanced) return "Mixed levels";
+  if (hasBeginner && hasIntermediate) return "Beginner to intermediate";
+  if (hasBeginner) return "Beginner friendly";
+  if (hasIntermediate) return "Intermediate";
+
+  return "Conditions dependent";
 }
 
 function destinationPhotos(destination) {

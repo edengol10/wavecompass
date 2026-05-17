@@ -2471,6 +2471,7 @@ const surfDetailsByName = {
     waterTemp: "Cool, usually 14-19C",
   },
   "Arugam Bay": {
+    quality: 3,
     wavePower: "decent",
     crowdFactor: "High in peak season",
     waterTemp: "Tropical, usually 27-30C",
@@ -2502,7 +2503,7 @@ const surfDetailsByName = {
   },
   Popoyo: {
     wavePower: "decent",
-    crowdFactor: "Medium, heavier at Outer Reef",
+    crowdFactor: "High at Main Reef, medium at outer and nearby peaks",
     waterTemp: "Warm, usually 26-29C",
     consistencyBase: 82,
   },
@@ -2662,10 +2663,17 @@ const surfDetailsByName = {
     waterTemp: "Warm, usually 26-28C",
   },
   "Bocas del Toro": {
+    levels: ["beginner", "intermediate", "advanced"],
     wavePower: "decent",
     crowdFactor: "High in season and on July pulses",
     waterTemp: "Warm, usually 27-29C",
     consistencyBase: 58,
+  },
+  "Santa Catalina": {
+    levels: ["beginner", "intermediate", "advanced"],
+    wavePower: "decent",
+    crowdFactor: "Medium to high at La Punta, lower at Estero",
+    waterTemp: "Warm, usually 26-29C",
   },
   Raglan: {
     wavePower: "decent",
@@ -2696,6 +2704,9 @@ const surfDetailsByName = {
     wavePower: "decent",
     crowdFactor: "High around Cloud 9",
     waterTemp: "Tropical, usually 27-30C",
+  },
+  "Desert Point": {
+    consistencyBase: 48,
   },
 };
 
@@ -2742,6 +2753,7 @@ const elements = {
   waveDescription: document.querySelector("#waveDescription"),
   spotDescription: document.querySelector("#spotDescription"),
   moreInfo: document.querySelector("#moreInfo"),
+  sourceGuide: document.querySelector("#sourceGuide"),
   spotGuide: document.querySelector("#spotGuide"),
   facts: document.querySelector("#destinationFacts"),
   partnerGuide: document.querySelector("#partnerGuide"),
@@ -3040,6 +3052,7 @@ function renderFeature(destination, filters, renderVersion = state.renderVersion
     startPhotoCarousel(destination, photos);
     elements.moreInfo.hidden = !state.moreInfoOpen;
     elements.moreInfo.classList.toggle("is-open", state.moreInfoOpen);
+    elements.sourceGuide.innerHTML = waveGuideSources(destination);
     elements.spotGuide.innerHTML = spotGuide(destination);
     elements.monthGuide.innerHTML = monthlyGuide(destination, filters.month);
     elements.reviews.innerHTML = areaReviews(destination);
@@ -3591,6 +3604,40 @@ function spotDescription(destination) {
   const accessNote = accessDescription(destination);
 
   return `Area notes: use the ${destination.name} area as your base and check nearby breaks around ${destination.map}. ${accessNote} Expect ${destination.crowdFactor.toLowerCase()} crowds, ${bottomLabel(destination.bottom).toLowerCase()} bottom, and ${destination.waterTemp.toLowerCase()} water.`;
+}
+
+function waveGuideSources(destination) {
+  const sourceLinks = [
+    ["Surfline", `site:surfline.com/travel ${destination.name} ${destination.area} surf guide`],
+    ["Surf Atlas", `site:thesurfatlas.com ${destination.name} ${destination.area} surf guide`],
+    ["Stormrider", `Stormrider surf guide ${destination.name} ${destination.area}`],
+    ["Wannasurf", `site:wannasurf.com ${destination.name} ${destination.area} surf spots`],
+  ];
+
+  return `
+    <div class="source-panel-head">
+      <h4>Wave guide basis</h4>
+      <span>Audit: May 18, 2026</span>
+    </div>
+    <p>
+      Wavewise ratings are area estimates, not live forecasts. They are calibrated against guide-style sources such as Surfline Travel,
+      The Surf Atlas, Stormrider, Wannasurf, and regional surf guides when the area appears there. For areas with several breaks,
+      the rating describes the wider surf zone, not only the famous wave.
+    </p>
+    <div class="source-links">
+      ${sourceLinks
+        .map(
+          ([label, query]) => `
+            <a href="${guideSearchUrl(query)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>
+          `,
+        )
+        .join("")}
+    </div>
+  `;
+}
+
+function guideSearchUrl(query) {
+  return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
 }
 
 function spotGuide(destination) {

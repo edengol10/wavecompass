@@ -773,6 +773,73 @@ h1 {
   display: none;
 }
 
+.source-panel {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0 0 1.35rem;
+  padding: 1rem;
+  border: 1px solid rgba(0, 125, 143, 0.16);
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, rgba(231, 246, 247, 0.95), rgba(255, 255, 255, 0.95)),
+    white;
+}
+
+.source-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.source-panel h4 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.source-panel-head span {
+  color: #607075;
+  font-size: 0.74rem;
+  font-weight: 820;
+}
+
+.source-panel p {
+  margin: 0;
+  color: #405961;
+  font-size: 0.86rem;
+  font-weight: 720;
+  line-height: 1.55;
+}
+
+.source-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.48rem;
+}
+
+.source-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.15rem;
+  padding: 0 0.76rem;
+  border: 1px solid rgba(0, 125, 143, 0.18);
+  border-radius: 999px;
+  color: #006f7d;
+  background: rgba(255, 255, 255, 0.76);
+  font-size: 0.78rem;
+  font-weight: 860;
+  text-decoration: none;
+}
+
+.source-links a:hover {
+  border-color: rgba(0, 125, 143, 0.4);
+  background: white;
+}
+
 .spot-guide {
   display: grid;
   gap: 0.8rem;

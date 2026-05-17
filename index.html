@@ -194,7 +194,7 @@
                   <span class="control-title" id="budgetLabel">Budget</span>
                   <div class="segment-row" role="radiogroup" aria-label="Budget">
                     <label>
-                      <input type="radio" name="budget" value="low" checked />
+                      <input type="radio" name="budget" value="low" />
                       <span>Low</span>
                     </label>
                     <label>
@@ -204,6 +204,10 @@
                     <label>
                       <input type="radio" name="budget" value="high" />
                       <span>High</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="budget" value="any" checked />
+                      <span>Any</span>
                     </label>
                   </div>
                 </div>
@@ -274,36 +278,6 @@
                       </select>
                     </label>
 
-                    <div class="condition-field">
-                      <span>Swell size</span>
-                      <div class="range-pair">
-                        <label>
-                          <small>From</small>
-                          <select name="swellMin" aria-label="Minimum swell size">
-                            <option value="0">Any</option>
-                            <option value="1">1 ft</option>
-                            <option value="2">2 ft</option>
-                            <option value="3">3 ft</option>
-                            <option value="4">4 ft</option>
-                            <option value="6">6 ft</option>
-                            <option value="8">8 ft</option>
-                          </select>
-                        </label>
-                        <label>
-                          <small>To</small>
-                          <select name="swellMax" aria-label="Maximum swell size">
-                            <option value="12">Any</option>
-                            <option value="3">3 ft</option>
-                            <option value="4">4 ft</option>
-                            <option value="6">6 ft</option>
-                            <option value="8">8 ft</option>
-                            <option value="10">10 ft</option>
-                            <option value="12">12 ft</option>
-                          </select>
-                        </label>
-                      </div>
-                    </div>
-
                     <label class="condition-field">
                       <span>Crowds</span>
                       <select name="maxCrowd" aria-label="Maximum crowd level">
@@ -337,11 +311,13 @@
               <p id="destinationDescription"></p>
               <p class="wave-summary" id="waveDescription"></p>
               <p class="spot-summary" id="spotDescription"></p>
-              <div class="spot-guide" id="spotGuide" aria-label="Known surf spots and map"></div>
               <dl class="facts" id="destinationFacts"></dl>
-              <div class="month-panel" id="monthGuide" aria-label="Monthly surf conditions"></div>
-              <div class="review-panel" id="areaReviews" aria-label="Area reviews"></div>
               <div class="actions" id="destinationActions"></div>
+              <div class="more-info" id="moreInfo" hidden>
+                <div class="spot-guide" id="spotGuide" aria-label="Known surf spots and map"></div>
+                <div class="month-panel" id="monthGuide" aria-label="Monthly surf conditions"></div>
+                <div class="review-panel" id="areaReviews" aria-label="Area reviews"></div>
+              </div>
             </div>
             <div class="feature-visual">
               <img id="destinationImage" alt="" />
@@ -374,12 +350,12 @@
                 <span>Lower budget</span>
               </label>
               <label>
-                <input type="radio" name="sort" value="power" />
-                <span>Power</span>
+                <input type="radio" name="sort" value="powerFit" />
+                <span>Power fit</span>
               </label>
               <label>
-                <input type="radio" name="sort" value="reviews" />
-                <span>Reviews</span>
+                <input type="radio" name="sort" value="partner" />
+                <span>Partner fit</span>
               </label>
               <label>
                 <input type="radio" name="sort" value="distance" />

@@ -3,7 +3,7 @@ const destinations = [
     name: "Puerto Escondido",
     area: "Oaxaca, Mexico",
     months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
-    levels: ["intermediate", "advanced"],
+    levels: ["beginner", "intermediate", "advanced"],
     budget: "medium",
     tropical: true,
     directions: ["left", "right"],
@@ -69,7 +69,7 @@ const destinations = [
     name: "Arugam Bay",
     area: "Sri Lanka",
     months: ["May", "Jun", "Jul", "Aug", "Sep"],
-    levels: ["beginner", "intermediate", "advanced"],
+    levels: ["beginner", "intermediate"],
     budget: "low",
     tropical: true,
     directions: ["right"],
@@ -78,9 +78,9 @@ const destinations = [
     wave: "Long right points with easy sections and faster walls",
     season: "May to September",
     vibe: "Warm-water points, beach cafes, tuk-tuks, and sunrise paddles",
-    tagline: "Best Sri Lanka right point",
+    tagline: "Sri Lanka right point season",
     description:
-      "Arugam Bay is Sri Lanka's east-coast classic, with Main Point as the center and a chain of softer or more remote rights nearby. It is a great pick when you want warm water and a social surf town.",
+      "Arugam Bay is Sri Lanka's east-coast classic, with Main Point as the center and a chain of softer or more remote rights nearby. It is better treated as a beginner-to-intermediate warm-water trip than a true advanced-only mission.",
     image:
       "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=1800&q=86",
     caption: "Right-hand walls, warm water, and a relaxed island rhythm.",
@@ -179,7 +179,7 @@ const destinations = [
     name: "El Tunco / La Libertad",
     area: "El Salvador",
     months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
-    levels: ["intermediate", "advanced"],
+    levels: ["beginner", "intermediate", "advanced"],
     budget: "medium",
     tropical: true,
     directions: ["right"],
@@ -201,7 +201,7 @@ const destinations = [
     name: "Popoyo",
     area: "Nicaragua",
     months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov"],
-    levels: ["intermediate", "advanced"],
+    levels: ["beginner", "intermediate", "advanced"],
     budget: "medium",
     tropical: true,
     directions: ["left", "right"],
@@ -212,7 +212,7 @@ const destinations = [
     vibe: "Remote coastline, dawn winds, simple stays, and lots of wave variety",
     tagline: "Best wave-variety camp zone",
     description:
-      "Popoyo is a compact but serious surf zone with different setups close together. It is best for surfers who want consistency, warm water, and a quieter trip focused on sessions.",
+      "Popoyo is a compact surf zone with different setups close together, from softer beach and bay options to heavier reef days. It is best for surfers who want consistency, warm water, and a quieter trip focused on sessions.",
     image:
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=86",
     caption: "Reef corners, beach peaks, and reliable tropical winds.",
@@ -904,19 +904,19 @@ const destinations = [
   {
     name: "Bocas del Toro",
     area: "Panama",
-    months: ["Dec", "Jan", "Feb", "Mar", "Jun", "Jul"],
+    months: ["Dec", "Jan", "Feb", "Mar", "Apr"],
     levels: ["intermediate", "advanced"],
     budget: "medium",
     tropical: true,
     directions: ["left", "right"],
-    quality: 4,
+    quality: 3,
     bottom: ["reef", "sand"],
     wave: "Caribbean reef breaks and punchy tropical setups",
-    season: "December to March and June to July",
-    vibe: "Island hopping, warm water, reef setups, and tropical nightlife",
-    tagline: "Best Panama island surf",
+    season: "December to April",
+    vibe: "Island hopping, warm water, reef setups, crowds in the main windows, and tropical nightlife",
+    tagline: "Panama island reef season",
     description:
-      "Bocas del Toro is a tropical reef playground with short seasonal windows and high upside. It works best for surfers who can handle reef and want a social island base.",
+      "Bocas del Toro is a tropical reef playground with short seasonal windows and high upside. It is not a reliable July top match here; July can get pulses and crowds, but the cleaner planning window is winter into early spring.",
     image:
       "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1800&q=86",
     caption: "Island-hopping logistics and punchy Caribbean reefs.",
@@ -1922,6 +1922,7 @@ destinations.push(
       wavePower: "chargers only",
       crowdFactor: "Very high when firing",
       waterTemp: "Warm, usually 26-29C",
+      consistencyBase: 62,
       wave: "Long, hollow left reef with high consequence",
       season: "May to October",
       vibe: "Remote Lombok mission, shallow reef, and barrel obsession",
@@ -2262,6 +2263,143 @@ destinations.push(
   ],
 );
 
+const additionalSurfAreas = [
+  { name: "Cabo Ledo", area: "Angola", months: ["May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "medium", tropical: true, directions: ["left"], quality: 4, bottom: ["sand", "rock"], wavePower: "mellow", crowdFactor: "Low to medium", waterTemp: "Warm, usually 22-26C", wave: "Long left point with workable walls and forgiving shoulders", vibe: "Angola road-trip energy, warm water, cliffs, and long lefts", spots: ["Cabo Ledo Point", "Miradouro", "Barra do Kwanza"] },
+  { name: "Barra do Kwanza", area: "Angola", months: ["May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate"], budget: "medium", tropical: true, directions: ["left", "right"], quality: 3, bottom: ["sand"], wavePower: "decent", crowdFactor: "Low", waterTemp: "Warm, usually 22-26C", wave: "Rivermouth sandbars with shifting peaks", vibe: "Quiet river-mouth missions, open beaches, and mellow exploration", spots: ["Barra do Kwanza", "Kwanza Rivermouth", "Mussulo"] },
+  { name: "Dakar Peninsula", area: "Senegal", months: ["Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["beginner", "intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["reef", "sand", "rock"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Mild, usually 19-25C", wave: "Reefs and beach breaks around a swell-exposed peninsula", vibe: "City surf, West African music, reef corners, and warm hospitality", spots: ["Ngor Right", "Ouakam", "Yoff", "Virage"] },
+  { name: "Busua", area: "Ghana", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "low", tropical: true, directions: ["left", "right"], quality: 2, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Low", waterTemp: "Warm, usually 25-29C", wave: "Friendly beach break with softer tropical peaks", vibe: "Low-key village surf, warm water, and easygoing lessons", spots: ["Busua Beach", "Black Star", "Dixcove"] },
+  { name: "Robertsport", area: "Liberia", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "medium", tropical: true, directions: ["left"], quality: 3, bottom: ["sand", "rock"], wavePower: "mellow", crowdFactor: "Low", waterTemp: "Warm, usually 26-29C", wave: "Long softer left points and beach sections", vibe: "Palm-lined lefts, quiet lineups, and simple tropical travel", spots: ["Cotton Trees", "Cassava Point", "Fisherman's Point"] },
+  { name: "Cape Town Peninsula", area: "South Africa", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep"], levels: ["beginner", "intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["reef", "sand", "rock"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Cold, usually 10-16C", wave: "Cold-water beach breaks, reefs, and scenic points", vibe: "Mountain views, cold water, coffee, and many wind options", spots: ["Muizenberg", "Long Beach", "Dungeons inside days", "Llandudno"] },
+  { name: "Elands Bay", area: "South Africa", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep"], levels: ["intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left"], quality: 4, bottom: ["rock"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Cold, usually 11-15C", wave: "Long cold-water left point with fast walls", vibe: "West Coast road trip, quiet town, and classic left-point rhythm", spots: ["Elands Bay Point", "Yo-yos", "Lamberts Bay"] },
+  { name: "Victoria Bay", area: "South Africa", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep"], levels: ["intermediate", "advanced"], budget: "medium", tropical: false, directions: ["right"], quality: 4, bottom: ["rock"], wavePower: "decent", crowdFactor: "High when good", waterTemp: "Cool, usually 16-21C", wave: "Compact right point with punch and walls", vibe: "Garden Route beauty, tight takeoffs, and small-bay focus", spots: ["Victoria Bay", "Herolds Bay", "Wilderness"] },
+  { name: "Port Alfred", area: "South Africa", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep"], levels: ["intermediate", "advanced"], budget: "medium", tropical: false, directions: ["right"], quality: 4, bottom: ["sand"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Cool, usually 17-22C", wave: "Rivermouth right with quality sandbar potential", vibe: "Eastern Cape points, river mouths, and raw coastline", spots: ["East Beach", "Kelly's Beach", "Kowie Rivermouth"] },
+  { name: "Coffee Bay", area: "South Africa", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep"], levels: ["intermediate"], budget: "low", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand", "rock"], wavePower: "decent", crowdFactor: "Low", waterTemp: "Mild, usually 18-22C", wave: "Wild Coast beach and point-style options", vibe: "Rural coastline, cliffs, backpacker energy, and open-space sessions", spots: ["Coffee Bay", "Mdumbi", "Hole in the Wall"] },
+  { name: "Tamraght", area: "Morocco", months: ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["beginner", "intermediate", "advanced"], budget: "low", tropical: false, directions: ["right"], quality: 4, bottom: ["sand", "rock"], wavePower: "decent", crowdFactor: "High in winter", waterTemp: "Cool to mild, usually 17-22C", wave: "Right points and beginner beaches beside Taghazout", vibe: "Surf camps, rooftops, tagines, and easy point checks", spots: ["Banana Point", "Devil's Rock", "Cro-Cro", "Panoramas"] },
+  { name: "Sidi Ifni", area: "Morocco", months: ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["intermediate", "advanced"], budget: "low", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand", "rock"], wavePower: "decent", crowdFactor: "Low to medium", waterTemp: "Cool to mild, usually 17-21C", wave: "Remote Atlantic points and beaches with room to move", vibe: "Southern Morocco quiet, desert light, and less polished lineups", spots: ["Sidi Ifni", "Legzira", "Mirleft"] },
+  { name: "Essaouira", area: "Morocco", months: ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["beginner", "intermediate"], budget: "low", tropical: false, directions: ["left", "right"], quality: 2, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Cool to mild, usually 17-22C", wave: "Windy beach breaks and mellow Atlantic peaks", vibe: "Old medina, wind, seafood, and forgiving surf days", spots: ["Essaouira Beach", "Sidi Kaouki", "Moulay"] },
+  { name: "El Palmar", area: "Andalucia, Spain", months: ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Cool to mild, usually 16-21C", wave: "Open beach break with softer Atlantic peaks", vibe: "Spanish beach town, tapas, sunsets, and easy progression", spots: ["El Palmar", "Canos de Meca", "Yerbabuna"] },
+  { name: "Somo / Loredo", area: "Cantabria, Spain", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Cool, usually 13-20C", wave: "Wide beginner-friendly beach with consistent Atlantic peaks", vibe: "Green coast, surf schools, pintxos, and relaxed practice", spots: ["Somo", "Loredo", "Langre"] },
+  { name: "Zarautz", area: "Basque Country, Spain", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"], levels: ["beginner", "intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand"], wavePower: "decent", crowdFactor: "High", waterTemp: "Cool, usually 13-20C", wave: "Consistent town beach break with many peaks", vibe: "Basque food, walkable town, and daily beach-break checks", spots: ["Zarautz", "Getaria", "Orio"] },
+  { name: "San Vicente de la Barquera", area: "Cantabria, Spain", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Cool, usually 13-20C", wave: "Scenic estuary beach peaks with beginner-friendly days", vibe: "Mountain views, green coast, seafood, and calm progression", spots: ["Meron", "Oyambre", "Gerra"] },
+  { name: "Tapia de Casariego", area: "Asturias, Spain", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"], levels: ["intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["reef", "sand"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Cool, usually 13-19C", wave: "Reef and beach options on a rugged coast", vibe: "Cliffs, cider, quiet villages, and colder Atlantic energy", spots: ["Tapia", "Penarronda", "Serantes"] },
+  { name: "Gijon / Rodiles", area: "Asturias, Spain", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["sand"], wavePower: "decent", crowdFactor: "High at Rodiles", waterTemp: "Cool, usually 13-19C", wave: "Powerful beach breaks and a famous rivermouth left", vibe: "Asturian surf culture, city comfort, and serious sandbars", spots: ["Rodiles", "San Lorenzo", "Xago"] },
+  { name: "Costa da Caparica", area: "Lisbon, Portugal", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Medium to high", waterTemp: "Cool to mild, usually 15-20C", wave: "Long beach-break coast with many jetties and peaks", vibe: "Lisbon access, cafes, sunsets, and daily surf-school options", spots: ["CDS", "Fonte da Telha", "Sao Joao"] },
+  { name: "Cascais / Guincho", area: "Portugal", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"], levels: ["intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["reef", "sand"], wavePower: "decent", crowdFactor: "Medium to high", waterTemp: "Cool to mild, usually 15-20C", wave: "Exposed beach breaks and town reefs near Lisbon", vibe: "City comfort, Atlantic wind, cliffs, and polished trip logistics", spots: ["Guincho", "Carcavelos", "Praia Grande"] },
+  { name: "Porto / Matosinhos", area: "Portugal", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Cool, usually 14-19C", wave: "Urban beach break with easy access and steady swell", vibe: "Port wine, city stays, and practical beginner/intermediate sessions", spots: ["Matosinhos", "Leca", "Aterro"] },
+  { name: "Espinho", area: "Portugal", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["sand"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Cool, usually 14-19C", wave: "Powerful sandbar peaks near Porto", vibe: "Northern Portugal grit, beach-town simplicity, and punchy peaks", spots: ["Casino", "Baia", "Paramos"] },
+  { name: "Figueira da Foz", area: "Portugal", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["intermediate", "advanced"], budget: "medium", tropical: false, directions: ["right"], quality: 4, bottom: ["sand"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Cool, usually 14-19C", wave: "Long right-hand sandbar with powerful sections", vibe: "Wide beaches, river-mouth energy, and classic Portuguese rights", spots: ["Cabedelo", "Buarcos", "Murtinheira"] },
+  { name: "Algarve West Coast", area: "Portugal", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"], levels: ["beginner", "intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["sand", "reef"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Cool to mild, usually 15-21C", wave: "Cliff-backed beaches and reef corners with wind options", vibe: "Van routes, golden cliffs, seafood, and flexible daily checks", spots: ["Arrifana", "Amado", "Beliche", "Tonel"] },
+  { name: "Lacanau", area: "France", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["beginner", "intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Cool, usually 12-21C", wave: "Open Atlantic beach break with powerful sandbars", vibe: "Pine forests, beach-town summers, and shifting peaks", spots: ["Lacanau Ocean", "Carcans", "Le Porge"] },
+  { name: "La Torche", area: "Brittany, France", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Cold to cool, usually 10-17C", wave: "Wind-exposed beach and point-style sand setups", vibe: "Brittany weather, crepes, open beaches, and forgiving peaks", spots: ["La Torche", "Pors Carn", "Penhors"] },
+  { name: "Capbreton", area: "France", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["intermediate", "advanced"], budget: "high", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["sand"], wavePower: "decent", crowdFactor: "High", waterTemp: "Cool, usually 12-21C", wave: "Powerful beach breaks beside Hossegor's sandbars", vibe: "French surf-town polish, cafes, and punchy Atlantic sessions", spots: ["Santocha", "La Piste", "VVF"] },
+  { name: "Guethary", area: "France", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["advanced"], budget: "high", tropical: false, directions: ["right"], quality: 4, bottom: ["reef", "rock"], wavePower: "chargers only", crowdFactor: "High", waterTemp: "Cool, usually 12-21C", wave: "Powerful reef rights with size and local knowledge required", vibe: "Basque elegance, reef etiquette, and serious winter lines", spots: ["Parlementia", "Avalanche", "Cenitz"] },
+  { name: "Vendee Coast", area: "France", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Cool, usually 11-20C", wave: "Friendly beach breaks with lots of room", vibe: "Family beach towns, bike paths, and mellow Atlantic surf", spots: ["Les Sables", "Bud Bud", "La Tranche"] },
+  { name: "Cornwall / Newquay", area: "United Kingdom", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["beginner", "intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand", "reef"], wavePower: "decent", crowdFactor: "Medium to high", waterTemp: "Cold, usually 9-16C", wave: "Cold-water beaches and reefs with consistent Atlantic swell", vibe: "Pub evenings, surf schools, cliffs, and classic UK surf culture", spots: ["Fistral", "Watergate Bay", "Porthleven", "Gwithian"] },
+  { name: "Croyde", area: "Devon, United Kingdom", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand"], wavePower: "decent", crowdFactor: "High on good days", waterTemp: "Cold, usually 9-16C", wave: "Punchy beach break with fast low-tide peaks", vibe: "Village pubs, green hills, and powerful short-period sessions", spots: ["Croyde Bay", "Saunton", "Putsborough"] },
+  { name: "Gower Peninsula", area: "Wales, United Kingdom", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand", "reef"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Cold, usually 8-15C", wave: "Scenic beaches with reefs and beginner-friendly options", vibe: "Wild dunes, cold water, and quiet coastal villages", spots: ["Llangennith", "Langland", "Rhossili"] },
+  { name: "Scarborough / Cayton Bay", area: "England, United Kingdom", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["reef", "sand"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Cold, usually 7-14C", wave: "North Sea reefs and beaches with cold, punchy swell", vibe: "Yorkshire grit, winter suits, and compact reef checks", spots: ["Cayton Bay", "North Bay", "South Bay"] },
+  { name: "Lahinch", area: "Ireland", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand", "reef"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Cold, usually 8-14C", wave: "Beginner-friendly beach with reefs nearby", vibe: "Irish pubs, cliffs, green fields, and cold-water progression", spots: ["Lahinch Beach", "Spanish Point", "Doolin"] },
+  { name: "Sligo / Strandhill", area: "Ireland", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["reef", "sand"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Cold, usually 8-14C", wave: "Powerful reefs and beach breaks on a scenic Atlantic coast", vibe: "Cold water, music nights, mountains, and real swell exposure", spots: ["Strandhill", "Easkey", "Enniscrone"] },
+  { name: "Portrush", area: "Northern Ireland", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand", "reef"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Cold, usually 8-14C", wave: "Cold-water beaches and reefs with North Atlantic swell", vibe: "Causeway coast scenery, pubs, and practical surf-town logistics", spots: ["East Strand", "West Strand", "Whiterocks"] },
+  { name: "Hoddevik", area: "Norway", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["beginner", "intermediate"], budget: "high", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Low to medium", waterTemp: "Cold, usually 5-13C", wave: "Protected cold-water beach break beneath steep mountains", vibe: "Nordic scenery, cabins, saunas, and gentle cold-water peaks", spots: ["Hoddevik Beach", "Ervik", "Stadlandet"] },
+  { name: "Lofoten", area: "Norway", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["intermediate"], budget: "high", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["reef", "sand"], wavePower: "decent", crowdFactor: "Low", waterTemp: "Cold, usually 4-11C", wave: "Arctic beach and reef waves in dramatic scenery", vibe: "Northern lights, cold-water adventure, and remote beauty", spots: ["Unstad", "Flakstad", "Eggum"] },
+  { name: "Reykjanes Peninsula", area: "Iceland", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["intermediate", "advanced"], budget: "high", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["reef", "rock"], wavePower: "decent", crowdFactor: "Low", waterTemp: "Cold, usually 3-8C", wave: "Raw North Atlantic reefs with cold water and fast weather changes", vibe: "Volcanic coast, hot springs after surfing, and serious weather calls", spots: ["Sandvik", "Thorli", "Grindavik"] },
+  { name: "Sardinia West Coast", area: "Italy", months: ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand", "reef"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Mild, usually 14-21C", wave: "Mediterranean beach and reef waves during swell windows", vibe: "Clear water, Italian villages, and weather-window chasing", spots: ["Capo Mannu", "Bugerru", "Porto Ferro"] },
+  { name: "Sicily South Coast", area: "Italy", months: ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 2, bottom: ["sand", "reef"], wavePower: "mellow", crowdFactor: "Low to medium", waterTemp: "Mild, usually 15-21C", wave: "Mediterranean wind-swell peaks and reefs", vibe: "Food, history, warm-ish winters, and opportunistic surf windows", spots: ["Isola delle Correnti", "Marina di Ragusa", "Mondello"] },
+  { name: "Canggu", area: "Bali, Indonesia", months: ["May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "medium", tropical: true, directions: ["left", "right"], quality: 3, bottom: ["reef", "sand"], wavePower: "decent", crowdFactor: "Very high", waterTemp: "Warm, usually 27-29C", wave: "Busy reef and beach peaks with many ability levels", vibe: "Cafes, scooters, sunsets, and crowded but convenient Bali sessions", spots: ["Batu Bolong", "Echo Beach", "Berawa", "Pererenan"] },
+  { name: "Keramas", area: "Bali, Indonesia", months: ["Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], levels: ["intermediate", "advanced"], budget: "medium", tropical: true, directions: ["right"], quality: 4, bottom: ["reef"], wavePower: "decent", crowdFactor: "High", waterTemp: "Warm, usually 27-29C", wave: "Fast black-sand right reef with barrels and airs", vibe: "East Bali dawn sessions, resort comforts, and high-performance rights", spots: ["Keramas", "Cucukan", "Pabean"] },
+  { name: "Kuta Bali", area: "Bali, Indonesia", months: ["May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "medium", tropical: true, directions: ["left", "right"], quality: 2, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Very high", waterTemp: "Warm, usually 27-29C", wave: "Beginner-friendly beach break with endless surf schools", vibe: "Easy logistics, nightlife, lessons, and forgiving sand-bottom waves", spots: ["Kuta Beach", "Legian", "Seminyak"] },
+  { name: "Batu Karas", area: "Java, Indonesia", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "low", tropical: true, directions: ["right"], quality: 3, bottom: ["sand", "reef"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Warm, usually 27-29C", wave: "Long mellow right point and beach options", vibe: "Quiet village, longboard energy, and friendly Java progression", spots: ["Batu Karas Point", "Reef", "Legok Pari"] },
+  { name: "Pacitan", area: "Java, Indonesia", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "low", tropical: true, directions: ["left", "right"], quality: 4, bottom: ["reef", "sand"], wavePower: "decent", crowdFactor: "Low to medium", waterTemp: "Warm, usually 27-29C", wave: "Reef slabs, points, and beaches in a quieter Java zone", vibe: "Cave coast scenery, scooters, and less-developed surf exploration", spots: ["Watu Karung", "Srau", "Pancer Door"] },
+  { name: "Krui", area: "Sumatra, Indonesia", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "medium", tropical: true, directions: ["left", "right"], quality: 4, bottom: ["reef"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Warm, usually 27-30C", wave: "Consistent reef breaks with both lefts and rights", vibe: "South Sumatra reefs, guesthouses, and focused surf days", spots: ["Ujung Bocur", "Mandiri", "Way Jambu", "Krui Left"] },
+  { name: "Cimaja", area: "Java, Indonesia", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate"], budget: "low", tropical: true, directions: ["right"], quality: 3, bottom: ["rock"], wavePower: "decent", crowdFactor: "Medium to high", waterTemp: "Warm, usually 27-29C", wave: "Cobblestone right with workable walls", vibe: "Weekend surf town, simple stays, and reliable Java swell", spots: ["Cimaja Point", "Sunset Beach", "Karang Hawu"] },
+  { name: "West Sumbawa", area: "Indonesia", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "medium", tropical: true, directions: ["left", "right"], quality: 4, bottom: ["reef"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Warm, usually 27-29C", wave: "Reef barrels and playful peaks across several bays", vibe: "Remote island roads, blue water, and compact surf camps", spots: ["Yo-Yo's", "Tropical", "Super Sucks", "Scar Reef"] },
+  { name: "Telo Islands", area: "Indonesia", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "high", tropical: true, directions: ["left", "right"], quality: 5, bottom: ["reef"], wavePower: "decent", crowdFactor: "Low to medium", waterTemp: "Warm, usually 27-30C", wave: "High-quality reef setups with boat or resort access", vibe: "Dream-trip reefs, fewer boats, and clear-water island rhythm", spots: ["Pinnacles", "Le Ba", "Max's Left", "GT's"] },
+  { name: "Banyak Islands", area: "Indonesia", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "high", tropical: true, directions: ["left", "right"], quality: 4, bottom: ["reef"], wavePower: "decent", crowdFactor: "Low to medium", waterTemp: "Warm, usually 27-30C", wave: "Remote reef breaks with boat-trip logistics", vibe: "Island camps, quiet lineups, and Indian Ocean swell windows", spots: ["Treasure Island", "Bay of Plenty", "Lolok Point"] },
+  { name: "Rote / Boa", area: "Indonesia", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "medium", tropical: true, directions: ["left"], quality: 4, bottom: ["reef"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Warm, usually 26-29C", wave: "Long left reef with wind and tide sensitivity", vibe: "Dry island landscapes, mellow villages, and left-point focus", spots: ["T-Land", "Boa", "Sucky Mamas"] },
+  { name: "East Timor", area: "Timor-Leste", months: ["May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "medium", tropical: true, directions: ["left", "right"], quality: 3, bottom: ["reef"], wavePower: "decent", crowdFactor: "Low", waterTemp: "Warm, usually 27-30C", wave: "Remote reef setups with exploration-heavy logistics", vibe: "Quiet coast, warm water, and proper adventure planning", spots: ["Dili Reefs", "Com", "Atauro"] },
+  { name: "Baler", area: "Philippines", months: ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["beginner", "intermediate"], budget: "low", tropical: true, directions: ["left", "right"], quality: 3, bottom: ["sand", "reef"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Warm, usually 27-29C", wave: "Beginner-friendly bay with reef points nearby", vibe: "Philippine surf history, warm water, and forgiving practice days", spots: ["Sabang Beach", "Cobra Reef", "Cemento"] },
+  { name: "La Union", area: "Philippines", months: ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["beginner", "intermediate"], budget: "low", tropical: true, directions: ["left", "right"], quality: 2, bottom: ["sand", "rock"], wavePower: "mellow", crowdFactor: "High", waterTemp: "Warm, usually 27-29C", wave: "Social beach-break zone with mellow town waves", vibe: "Weekend scene, cafes, lessons, and warm-water fun", spots: ["Urbiztondo", "Carille", "Monaliza"] },
+  { name: "Guiuan / Samar", area: "Philippines", months: ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["intermediate", "advanced"], budget: "medium", tropical: true, directions: ["left", "right"], quality: 3, bottom: ["reef"], wavePower: "decent", crowdFactor: "Low", waterTemp: "Warm, usually 27-29C", wave: "Pacific-facing reefs with typhoon-season energy", vibe: "Quiet islands, raw reefs, and more exploration than polish", spots: ["Calicoan", "ABCD Beach", "Divinubo"] },
+  { name: "Da Nang", area: "Vietnam", months: ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["beginner", "intermediate"], budget: "low", tropical: true, directions: ["left", "right"], quality: 2, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Low to medium", waterTemp: "Warm, usually 24-29C", wave: "Wind-swell beach breaks with forgiving sand bottom", vibe: "City food, beach hotels, and easy warm-water practice", spots: ["My Khe", "Non Nuoc", "China Beach"] },
+  { name: "Cherating", area: "Malaysia", months: ["Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["beginner", "intermediate"], budget: "low", tropical: true, directions: ["left"], quality: 2, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Warm, usually 27-30C", wave: "Monsoon-season soft lefts and beach peaks", vibe: "Short-season novelty, longboards, local food, and easy waves", spots: ["Cherating Point", "Club Med", "Kuantan"] },
+  { name: "Phuket West Coast", area: "Thailand", months: ["May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "medium", tropical: true, directions: ["left", "right"], quality: 2, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Warm, usually 28-30C", wave: "Monsoon beach breaks with mellow, accessible peaks", vibe: "Thailand food, resorts, rain-season windows, and friendly surf", spots: ["Kata Beach", "Kalim", "Surin", "Nai Harn"] },
+  { name: "Taitung / Jinzun", area: "Taiwan", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["beginner", "intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["rock", "sand"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Mild to warm, usually 22-28C", wave: "Pacific reefs and cobblestone breaks with consistent swell", vibe: "Green mountains, hot springs, and quality East Coast waves", spots: ["Jinzun Harbor", "Donghe", "Dulan"] },
+  { name: "Yilan / Wushi", area: "Taiwan", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand"], wavePower: "mellow", crowdFactor: "High on weekends", waterTemp: "Mild to warm, usually 21-28C", wave: "Accessible beach breaks close to Taipei", vibe: "Train access, night markets, and forgiving northeast-coast peaks", spots: ["Wushi Harbor", "Toucheng", "Waiao"] },
+  { name: "Chiba / Ichinomiya", area: "Japan", months: ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov"], levels: ["beginner", "intermediate", "advanced"], budget: "high", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["sand"], wavePower: "decent", crowdFactor: "High", waterTemp: "Cool to warm, usually 15-25C", wave: "Consistent Pacific beach breaks with contest-quality peaks", vibe: "Tokyo access, clean towns, ramen, and daily sandbar checks", spots: ["Shida Shita", "Ichinomiya", "Hebara"] },
+  { name: "Shonan", area: "Japan", months: ["Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "high", tropical: false, directions: ["left", "right"], quality: 2, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Very high", waterTemp: "Mild to warm, usually 18-26C", wave: "Small, crowded beach breaks near Tokyo", vibe: "Easy trains, city beach culture, and mellow longboard days", spots: ["Kugenuma", "Enoshima", "Chigasaki"] },
+  { name: "Miyazaki", area: "Japan", months: ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov"], levels: ["beginner", "intermediate", "advanced"], budget: "high", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["sand", "reef"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Mild to warm, usually 18-27C", wave: "Warm-ish Japanese beach breaks and reef points", vibe: "Friendly south Japan surf culture, good food, and reliable Pacific swell", spots: ["Kisakihama", "Okuragahama", "Aoshima"] },
+  { name: "Shikoku / Kochi", area: "Japan", months: ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov"], levels: ["intermediate", "advanced"], budget: "high", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["reef", "sand", "rock"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Mild to warm, usually 17-26C", wave: "River mouths, reefs, and typhoon-season quality", vibe: "Rural Japan, clear rivers, and powerful Pacific setups", spots: ["Ikumi", "Kaifu", "Niyodo"] },
+  { name: "Yangyang", area: "South Korea", months: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 2, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Cold to mild, usually 6-20C", wave: "East Sea beach breaks with growing surf-town energy", vibe: "Korean cafes, cold winters, and mellow beach-break sessions", spots: ["Jukdo Beach", "Surfyy Beach", "Ingu"] },
+  { name: "Riyue Bay", area: "Hainan, China", months: ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], levels: ["beginner", "intermediate"], budget: "medium", tropical: true, directions: ["left", "right"], quality: 3, bottom: ["sand", "reef"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Warm, usually 23-28C", wave: "Warm-water beach and point-style waves", vibe: "Tropical China, resorts, and approachable winter surf", spots: ["Riyue Bay", "Shimei Bay", "Houhai"] },
+  { name: "Varkala", area: "Kerala, India", months: ["May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "low", tropical: true, directions: ["left", "right"], quality: 2, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Low to medium", waterTemp: "Warm, usually 27-30C", wave: "Monsoon beach breaks under red cliffs", vibe: "Yoga, cliff cafes, warm water, and mellow surf windows", spots: ["Varkala Beach", "Edava", "Kappil"] },
+  { name: "Kovalam", area: "Kerala, India", months: ["May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "low", tropical: true, directions: ["left", "right"], quality: 2, bottom: ["sand", "rock"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Warm, usually 27-30C", wave: "Warm-water beach peaks and small points", vibe: "South India food, palm beaches, and casual monsoon sessions", spots: ["Lighthouse Beach", "Kovalam Point", "Hawa Beach"] },
+  { name: "Mulki / Mantra", area: "Karnataka, India", months: ["May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner"], budget: "low", tropical: true, directions: ["left", "right"], quality: 1, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Low", waterTemp: "Warm, usually 27-30C", wave: "Soft beach-break waves for learning", vibe: "Surf-school retreat, rivers, palm trees, and easy beginner days", spots: ["Mulki", "Sasihithlu", "Tannirbhavi"] },
+  { name: "Southern Atolls", area: "Maldives", months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "high", tropical: true, directions: ["left", "right"], quality: 5, bottom: ["reef"], wavePower: "decent", crowdFactor: "Low to medium", waterTemp: "Tropical, usually 27-30C", wave: "High-quality tropical reef passes with boat access", vibe: "Remote atolls, blue water, and less crowded Maldives surf", spots: ["Beacons", "Tiger Stripes", "Antiques", "Love Charms"] },
+  { name: "Laamu Atoll", area: "Maldives", months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "high", tropical: true, directions: ["left", "right"], quality: 4, bottom: ["reef"], wavePower: "decent", crowdFactor: "Low to medium", waterTemp: "Tropical, usually 27-30C", wave: "Resort and boat-access reef setups with clean walls", vibe: "Luxury lagoon base, warm water, and polished reef logistics", spots: ["Ying Yang", "Machine", "Refugee's"] },
+  { name: "Huvadhoo Atoll", area: "Maldives", months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "high", tropical: true, directions: ["left", "right"], quality: 5, bottom: ["reef"], wavePower: "decent", crowdFactor: "Low", waterTemp: "Tropical, usually 27-30C", wave: "Remote, consistent reef passes with many setups", vibe: "Boat-trip focus, fewer people, and high-quality tropical options", spots: ["Blue Bowls", "Five Islands", "Castaways", "Beacons"] },
+  { name: "Samoa South Coast", area: "Samoa", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["advanced"], budget: "high", tropical: true, directions: ["left", "right"], quality: 4, bottom: ["reef"], wavePower: "chargers only", crowdFactor: "Low to medium", waterTemp: "Tropical, usually 27-30C", wave: "Powerful reef passes with shallow consequence", vibe: "Polynesian villages, reef passes, and advanced-only respect", spots: ["Boulders", "Coconuts", "Salani", "Aganoa"] },
+  { name: "Tonga Ha'apai", area: "Tonga", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["advanced"], budget: "high", tropical: true, directions: ["left", "right"], quality: 4, bottom: ["reef"], wavePower: "chargers only", crowdFactor: "Low", waterTemp: "Tropical, usually 25-28C", wave: "Remote reef breaks with serious logistics", vibe: "Open-ocean islands, whales in season, and uncrowded reef missions", spots: ["Ha'atafu", "Eua", "Ha'apai Reefs"] },
+  { name: "Vanuatu Efate", area: "Vanuatu", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "high", tropical: true, directions: ["left", "right"], quality: 3, bottom: ["reef"], wavePower: "decent", crowdFactor: "Low", waterTemp: "Tropical, usually 26-29C", wave: "Tropical reefs with swell-window sensitivity", vibe: "Island culture, reef checks, and quiet South Pacific exploration", spots: ["Pango Point", "Erakor", "Forari"] },
+  { name: "New Caledonia", area: "South Pacific", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "high", tropical: true, directions: ["left", "right"], quality: 4, bottom: ["reef"], wavePower: "decent", crowdFactor: "Low", waterTemp: "Warm, usually 23-27C", wave: "Barrier-reef passes with boat access and clear water", vibe: "French-Pacific food, lagoons, and remote reef logistics", spots: ["Dumbea", "Tenia", "Ouano"] },
+  { name: "Byron Bay", area: "Australia", months: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"], levels: ["beginner", "intermediate"], budget: "high", tropical: false, directions: ["right"], quality: 4, bottom: ["sand", "rock"], wavePower: "mellow", crowdFactor: "Very high", waterTemp: "Mild to warm, usually 20-26C", wave: "Long right points and beginner beaches", vibe: "Wellness town, longboards, cafes, and crowded beautiful points", spots: ["The Pass", "Wategos", "Tallows", "Broken Head"] },
+  { name: "Sydney Northern Beaches", area: "Australia", months: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"], levels: ["beginner", "intermediate", "advanced"], budget: "high", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["sand", "reef"], wavePower: "decent", crowdFactor: "Very high", waterTemp: "Mild to warm, usually 18-24C", wave: "Urban beaches, reefs, and point corners with many moods", vibe: "City surf, good coffee, high crowds, and constant options", spots: ["Manly", "Freshwater", "Dee Why", "Narrabeen"] },
+  { name: "Newcastle", area: "Australia", months: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"], levels: ["beginner", "intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["sand", "reef"], wavePower: "decent", crowdFactor: "Medium to high", waterTemp: "Mild to warm, usually 18-24C", wave: "Consistent beaches and reef corners with city access", vibe: "Working surf city, ocean baths, and quality everyday waves", spots: ["Merewether", "Dixon Park", "Bar Beach"] },
+  { name: "South Coast NSW", area: "Australia", months: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"], levels: ["intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["reef", "sand"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Mild, usually 17-23C", wave: "Reefs, beaches, and points through national-park coastline", vibe: "Road-trip bays, forested headlands, and flexible swell windows", spots: ["Ulladulla", "Mollymook", "Bendalong", "Aussie Pipe"] },
+  { name: "Torquay / Surf Coast", area: "Victoria, Australia", months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate", "advanced"], budget: "high", tropical: false, directions: ["right"], quality: 5, bottom: ["reef", "sand"], wavePower: "decent", crowdFactor: "High", waterTemp: "Cool, usually 13-19C", wave: "Right reefs and beaches with deep surf culture", vibe: "Classic Australian surf history, cold water, and powerful points", spots: ["Bells Beach", "Winki Pop", "Jan Juc", "Point Addis"] },
+  { name: "Mornington Peninsula", area: "Victoria, Australia", months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "high", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["reef", "sand"], wavePower: "decent", crowdFactor: "Medium to high", waterTemp: "Cool, usually 13-19C", wave: "Powerful back-beach peaks and reef corners", vibe: "Melbourne weekend missions, wineries, and raw Southern Ocean surf", spots: ["Gunnamatta", "Rye", "Portsea"] },
+  { name: "Fleurieu Peninsula", area: "South Australia", months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["reef", "sand"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Cool, usually 13-19C", wave: "Cold-water reefs and beaches with wind-sensitive windows", vibe: "South Australian coast, wine country, and mixed-level surf checks", spots: ["Middleton", "Waitpinga", "Parsons", "Boomer"] },
+  { name: "Perth / Trigg", area: "Western Australia", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "high", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand", "reef"], wavePower: "mellow", crowdFactor: "High", waterTemp: "Cool to mild, usually 17-22C", wave: "Urban beach breaks and small reef peaks", vibe: "City beach lifestyle, sunsets, and easy logistics", spots: ["Trigg", "Scarborough", "Cottesloe"] },
+  { name: "Rottnest Island", area: "Western Australia", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "high", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["reef"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Cool to mild, usually 17-22C", wave: "Island reefs with cleaner swell exposure than Perth", vibe: "Bike paths, clear water, and weekend island reef checks", spots: ["Strickland Bay", "Cathedrals", "Riceys"] },
+  { name: "Tasmania East Coast", area: "Australia", months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"], levels: ["intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["reef", "sand"], wavePower: "decent", crowdFactor: "Low", waterTemp: "Cold, usually 11-16C", wave: "Cold-water reefs and beaches in remote scenery", vibe: "Empty beaches, wild weather, and rugged island exploration", spots: ["Eaglehawk Neck", "Bicheno", "Friendly Beaches"] },
+  { name: "Whangamata", area: "New Zealand", months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"], levels: ["intermediate", "advanced"], budget: "high", tropical: false, directions: ["left"], quality: 4, bottom: ["sand"], wavePower: "decent", crowdFactor: "High when on", waterTemp: "Cool, usually 14-21C", wave: "Famous left bar with long walls when sand lines up", vibe: "Kiwi beach town, long lefts, and timing-dependent sandbars", spots: ["Whangamata Bar", "Onemana", "Pauanui"] },
+  { name: "Bay of Islands", area: "New Zealand", months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"], levels: ["beginner", "intermediate"], budget: "high", tropical: false, directions: ["left", "right"], quality: 2, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Low to medium", waterTemp: "Mild, usually 15-22C", wave: "Scenic beach breaks that need swell direction", vibe: "Island scenery, sailing towns, and softer Northland surf", spots: ["Ahipara", "Taupo Bay", "Tokerau"] },
+  { name: "Sumner / Christchurch", area: "New Zealand", months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"], levels: ["beginner", "intermediate"], budget: "high", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Cold, usually 10-16C", wave: "City beach breaks and nearby reefs", vibe: "South Island city comfort, cold water, and easy daily paddles", spots: ["Sumner", "New Brighton", "Taylors Mistake"] },
+  { name: "Wairarapa Coast", area: "New Zealand", months: ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"], levels: ["intermediate", "advanced"], budget: "high", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["reef", "rock"], wavePower: "decent", crowdFactor: "Low", waterTemp: "Cold, usually 11-17C", wave: "Remote reefs and points with raw swell exposure", vibe: "Windy farm roads, empty lineups, and committed cold-water exploration", spots: ["Castlepoint", "Riversdale", "Ngawi"] },
+  { name: "Huanchaco", area: "Peru", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "low", tropical: false, directions: ["left"], quality: 3, bottom: ["rock", "sand"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Cool, usually 16-21C", wave: "Long lefts and mellow point-style sections near town", vibe: "Ancient reed boats, seafood, and relaxed northern Peru surf", spots: ["Huanchaco", "El Elio", "Huanchaquito"] },
+  { name: "Cerro Azul", area: "Peru", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "low", tropical: false, directions: ["left"], quality: 3, bottom: ["sand", "rock"], wavePower: "mellow", crowdFactor: "Medium", waterTemp: "Cool, usually 16-21C", wave: "Long mellow left near Lima with pier sections", vibe: "Easy Lima escape, longboard walls, and simple coastal food", spots: ["Cerro Azul", "Puerto Viejo", "Asia"] },
+  { name: "Arica", area: "Chile", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep"], levels: ["advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["reef", "rock"], wavePower: "chargers only", crowdFactor: "Medium to high", waterTemp: "Cool, usually 15-20C", wave: "Powerful desert reefs with barrels and shallow consequence", vibe: "Desert city, heavy reefs, and expert-level commitment", spots: ["El Gringo", "El Buey", "Las Machas"] },
+  { name: "Matanzas", area: "Chile", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left"], quality: 3, bottom: ["sand", "rock"], wavePower: "decent", crowdFactor: "Medium", waterTemp: "Cold, usually 11-16C", wave: "Windy lefts and cold-water point-style setups", vibe: "Kites, cliffs, seafood, and wind-aware surf windows", spots: ["Matanzas", "Puertecillo", "Topocalma"] },
+  { name: "La Paloma", area: "Uruguay", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand", "rock"], wavePower: "mellow", crowdFactor: "Low to medium", waterTemp: "Cool, usually 12-22C", wave: "South Atlantic beaches and points with mellow-to-punchy peaks", vibe: "Quiet towns, mate, open beaches, and low-key surf culture", spots: ["La Aguada", "La Pedrera", "Santa Teresa"] },
+  { name: "Mar del Plata", area: "Argentina", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 3, bottom: ["sand", "reef"], wavePower: "decent", crowdFactor: "High", waterTemp: "Cool, usually 10-20C", wave: "Urban Atlantic beach breaks and reef corners", vibe: "Argentine city surf, cafes, and cold winter consistency", spots: ["Biologia", "Waikiki", "Playa Grande"] },
+  { name: "Florianopolis", area: "Brazil", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate", "advanced"], budget: "medium", tropical: false, directions: ["left", "right"], quality: 4, bottom: ["sand", "rock"], wavePower: "decent", crowdFactor: "High", waterTemp: "Mild, usually 17-25C", wave: "Island beach breaks, points, and powerful sandbars", vibe: "Brazilian island life, nightlife, food, and many surf checks", spots: ["Joaquina", "Mole", "Campeche", "Santinho"] },
+  { name: "Ubatuba", area: "Brazil", months: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"], levels: ["beginner", "intermediate"], budget: "medium", tropical: true, directions: ["left", "right"], quality: 3, bottom: ["sand", "rock"], wavePower: "mellow", crowdFactor: "Medium to high", waterTemp: "Warm, usually 21-26C", wave: "Rainforest-backed beach breaks and mellow points", vibe: "Green coast, acai, family beaches, and many small coves", spots: ["Itamambuca", "Felix", "Vermelha", "Toninhas"] },
+];
+
+destinations.push(...additionalSurfAreas.map(createAdditionalDestination));
+
+function createAdditionalDestination(entry) {
+  return {
+    season: readableSeason(entry.months),
+    tagline: entry.tagline || areaTagline(entry),
+    description:
+      entry.description ||
+      `${entry.name} is a surf area in ${entry.area} with ${entry.wave.toLowerCase()}. It fits ${levelRangeLabel(
+        entry.levels,
+      ).toLowerCase()} surfers when the season and local conditions line up.`,
+    image: `https://source.unsplash.com/1800x1200/?${encodeURIComponent(`${entry.name} ${entry.area} surf waves`)}`,
+    caption: `${entry.name} surf area.`,
+    query: `${entry.name} ${entry.area} surf waves`,
+    map: `${entry.name} ${entry.area}`,
+    ...entry,
+  };
+}
+
+function readableSeason(seasonMonths) {
+  if (!seasonMonths.length) return "Season varies";
+  return `${seasonMonths[0]} to ${seasonMonths[seasonMonths.length - 1]}`;
+}
+
+function areaTagline(entry) {
+  const level = entry.levels.includes("beginner")
+    ? "progression"
+    : entry.wavePower === "chargers only"
+      ? "serious surf"
+      : "surf-trip";
+
+  return `${titleCase(level)} area`;
+}
+
 const surfDetailsByName = {
   "Puerto Escondido": {
     wavePower: "chargers only",
@@ -2309,9 +2447,10 @@ const surfDetailsByName = {
     waterTemp: "Warm, usually 27-30C",
   },
   Popoyo: {
-    wavePower: "chargers only",
-    crowdFactor: "Medium",
+    wavePower: "decent",
+    crowdFactor: "Medium, heavier at Outer Reef",
     waterTemp: "Warm, usually 26-29C",
+    consistencyBase: 82,
   },
   "Northwest Australia": {
     wavePower: "chargers only",
@@ -2470,8 +2609,9 @@ const surfDetailsByName = {
   },
   "Bocas del Toro": {
     wavePower: "decent",
-    crowdFactor: "Medium",
+    crowdFactor: "High in season and on July pulses",
     waterTemp: "Warm, usually 27-29C",
+    consistencyBase: 58,
   },
   Raglan: {
     wavePower: "decent",
@@ -2505,10 +2645,11 @@ const surfDetailsByName = {
   },
 };
 
-destinations.forEach((destination) => {
+destinations.forEach((destination, index) => {
   Object.assign(
     destination,
     {
+      index,
       wavePower: "decent",
       crowdFactor: "Medium",
       waterTemp: "Seasonal",
@@ -2521,6 +2662,8 @@ destinations.forEach((destination) => {
 const state = {
   selected: 0,
   currentPage: 1,
+  moreInfoOpen: false,
+  monthMetric: "consistency",
   carouselTimer: null,
   carouselPhotoIndex: 0,
   carouselPhotos: [],
@@ -2542,6 +2685,7 @@ const elements = {
   description: document.querySelector("#destinationDescription"),
   waveDescription: document.querySelector("#waveDescription"),
   spotDescription: document.querySelector("#spotDescription"),
+  moreInfo: document.querySelector("#moreInfo"),
   spotGuide: document.querySelector("#spotGuide"),
   facts: document.querySelector("#destinationFacts"),
   monthGuide: document.querySelector("#monthGuide"),
@@ -2684,8 +2828,6 @@ function getFilters() {
     direction: directionFromValue(formData.get("direction")),
     tropical: elements.tropical.checked,
     minConsistency: Number(formData.get("minConsistency") || 0),
-    swellMin: Number(formData.get("swellMin") || 0),
-    swellMax: Number(formData.get("swellMax") || 12),
     maxCrowd: Number(formData.get("maxCrowd") || 0),
     nonSurfPartner: formData.get("nonSurfPartner") === "on",
     origin: String(formData.get("origin") || "").trim(),
@@ -2701,7 +2843,7 @@ function scoreDestination(destination, filters) {
 
   if (destination.months.includes(filters.month)) score += 4;
   if (destination.levels.includes(filters.level)) score += 4;
-  if (destination.budget === filters.budget) score += 3;
+  if (filters.budget === "any" || destination.budget === filters.budget) score += 3;
   if (!filters.tropical || destination.tropical) score += 3;
   if (filters.tropical && !destination.tropical) score -= 4;
   if (filters.direction === "any") score += 1;
@@ -2713,16 +2855,17 @@ function scoreDestination(destination, filters) {
     budgetOrder.indexOf(destination.budget) - budgetOrder.indexOf(filters.budget),
   );
 
-  return score - budgetGap;
+  return filters.budget === "any" ? score : score - budgetGap;
 }
 
 function getRankedDestinations() {
   const filters = getFilters();
 
   return destinations
+    .filter((destination) => destinationMatchesCore(destination, filters))
     .map((destination, index) => ({
       ...destination,
-      index,
+      index: destination.index,
       score: scoreDestination(destination, filters),
       matchPercent: matchPercentage(destination, filters),
     }))
@@ -2731,33 +2874,23 @@ function getRankedDestinations() {
 
 function matchPercentage(destination, filters) {
   const budgetOrder = ["low", "medium", "high"];
-  const budgetGap = Math.abs(
-    budgetOrder.indexOf(destination.budget) - budgetOrder.indexOf(filters.budget),
-  );
+  const budgetGap =
+    filters.budget === "any"
+      ? 0
+      : Math.abs(budgetOrder.indexOf(destination.budget) - budgetOrder.indexOf(filters.budget));
   const conditions = monthlyConditionMetrics(destination, filters.month);
   let score = 0;
-  let total = 100;
+  let total = filters.budget === "any" ? 80 : 100;
 
   if (destination.months.includes(filters.month)) score += 25;
   if (destination.levels.includes(filters.level)) score += 25;
-  score += Math.max(0, 20 - budgetGap * 10);
+  if (filters.budget !== "any") score += Math.max(0, 20 - budgetGap * 10);
   if (filters.direction === "any" || destination.directions.includes(filters.direction)) score += 15;
   if (!filters.tropical || destination.tropical) score += 15;
 
   if (filters.minConsistency > 0) {
     total += 15;
     score += thresholdScore(conditions.consistencyPercent, filters.minConsistency, 15, 0.45);
-  }
-
-  if (hasSwellFilter(filters)) {
-    total += 15;
-    score += rangeOverlapScore(
-      conditions.waveMin,
-      conditions.waveMax,
-      filters.swellMin || 0,
-      filters.swellMax || 12,
-      15,
-    );
   }
 
   if (filters.maxCrowd > 0) {
@@ -2773,25 +2906,27 @@ function matchPercentage(destination, filters) {
   return Math.round((score / total) * 100);
 }
 
-function destinationMatchesFilters(destination, filters) {
+function destinationMatchesCore(destination, filters) {
   const directionMatches =
     filters.direction === "any" || destination.directions.includes(filters.direction);
 
   return (
     destination.months.includes(filters.month) &&
     destination.levels.includes(filters.level) &&
-    destination.budget === filters.budget &&
     (!filters.tropical || destination.tropical) &&
     directionMatches
   );
 }
 
-function hasSwellFilter(filters) {
-  return filters.swellMin > 0 || filters.swellMax < 12;
+function destinationMatchesFilters(destination, filters) {
+  return (
+    destinationMatchesCore(destination, filters) &&
+    (filters.budget === "any" || destination.budget === filters.budget)
+  );
 }
 
 function hasOptionalConditionFilters(filters) {
-  return filters.minConsistency > 0 || hasSwellFilter(filters) || filters.maxCrowd > 0 || filters.nonSurfPartner;
+  return filters.minConsistency > 0 || filters.maxCrowd > 0 || filters.nonSurfPartner;
 }
 
 function thresholdScore(value, minimum, weight, missPenalty) {
@@ -2838,8 +2973,10 @@ function renderFeature(destination, filters) {
     elements.description.textContent = destination.description;
     elements.waveDescription.textContent = waveDescription(destination);
     elements.spotDescription.textContent = spotDescription(destination);
-    elements.spotGuide.innerHTML = spotGuide(destination);
     startPhotoCarousel(destination, photos);
+    elements.moreInfo.hidden = !state.moreInfoOpen;
+    elements.moreInfo.classList.toggle("is-open", state.moreInfoOpen);
+    elements.spotGuide.innerHTML = spotGuide(destination);
     elements.monthGuide.innerHTML = monthlyGuide(destination, filters.month);
     elements.reviews.innerHTML = areaReviews(destination);
 
@@ -2850,6 +2987,8 @@ function renderFeature(destination, filters) {
       ["Water temp", destination.waterTemp],
       ["Bottom", bottomLabel(destination.bottom)],
       ["Season", destination.season],
+      ["Consistency", consistencyFact(destination, filters.month)],
+      ["Level range", levelRangeLabel(destination.levels)],
       ["Wave type", destination.wave],
       ["Wave length", waveLengthLabel(destination)],
       ["Direction", directionLabel(destination.directions)],
@@ -2867,12 +3006,12 @@ function renderFeature(destination, filters) {
       .join("");
 
     elements.actions.innerHTML = `
+      <button class="action-link info-toggle" type="button" data-action="toggle-more">
+        ${state.moreInfoOpen ? "Hide details" : "Show more"}
+      </button>
       <a class="action-link" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(
         destination.query,
       )}" target="_blank" rel="noreferrer">Surf photos</a>
-      <a class="action-link secondary" href="https://www.google.com/maps/search/${encodeURIComponent(
-        destination.map,
-      )}" target="_blank" rel="noreferrer">Open map</a>
       <a class="action-link secondary" href="https://www.youtube.com/results?search_query=${encodeURIComponent(
         `${destination.query} waves`,
       )}" target="_blank" rel="noreferrer">Watch waves</a>
@@ -2880,6 +3019,36 @@ function renderFeature(destination, filters) {
 
     elements.feature.classList.remove("is-changing");
   }, 170);
+}
+
+function renderEmptyFeature(filters) {
+  stopPhotoCarousel();
+  elements.feature.classList.remove("is-changing");
+  elements.matchTitle.textContent = "No matching area yet";
+  elements.matchReason.textContent =
+    "The results now only show areas that match month, level, tropical choice, and wave direction.";
+  elements.tagline.textContent = "Try relaxing one core filter";
+  elements.name.textContent = "No match";
+  elements.description.textContent =
+    "There are no surf areas in the database that fit this exact core setup. Budget, consistency, crowds, and partner fit are softer preferences, but month, level, tropical water, and wave direction are strict.";
+  elements.waveDescription.textContent = "";
+  elements.spotDescription.textContent = "";
+  elements.facts.innerHTML = "";
+  elements.actions.innerHTML = "";
+  elements.moreInfo.hidden = true;
+  elements.spotGuide.innerHTML = "";
+  elements.monthGuide.innerHTML = "";
+  elements.reviews.innerHTML = "";
+  elements.image.src = "https://source.unsplash.com/1600x1200/?surfing,ocean,waves";
+  elements.image.alt = "Ocean waves";
+  elements.caption.textContent = "";
+  elements.photoDots.innerHTML = "";
+  elements.heroMedia.style.backgroundImage =
+    'linear-gradient(135deg, rgba(6, 50, 58, 0.9), rgba(0, 125, 143, 0.62)), url("https://source.unsplash.com/1800x1200/?surfing,ocean,waves")';
+
+  if (filters.budget !== "any") {
+    elements.matchReason.textContent += " Budget is still used in the match percentage, but it will not hide otherwise good areas.";
+  }
 }
 
 function startPhotoCarousel(destination, photos) {
@@ -2939,8 +3108,16 @@ function renderPhotoDots(total, activeIndex) {
 }
 
 function renderCards(ranked, filters) {
+  if (!ranked.length) {
+    elements.resultsCount.textContent =
+      "No surf areas match that month, level, tropical choice, and wave direction. Change one core filter and try again.";
+    elements.cardStrip.innerHTML = "";
+    renderPagination(0);
+    return;
+  }
+
   const exactMatches = ranked.filter((destination) => destinationMatchesFilters(destination, filters));
-  const sortedDestinations = sortDestinations(ranked, getSortMode());
+  const sortedDestinations = sortDestinations(ranked, getSortMode(), filters);
   const pageCount = Math.max(1, Math.ceil(sortedDestinations.length / resultsPerPage));
   state.currentPage = Math.min(Math.max(1, state.currentPage), pageCount);
   const pageStart = (state.currentPage - 1) * resultsPerPage;
@@ -2953,10 +3130,10 @@ function renderCards(ranked, filters) {
     : exactMatches.length
     ? optionalConditionsActive
       ? `${exactMatches.length} core ${exactMatches.length === 1 ? "match" : "matches"} found. Optional condition choices are reflected in the percentages.`
-      : `${exactMatches.length} exact ${exactMatches.length === 1 ? "match" : "matches"} found. Showing all ${ranked.length} areas with match percentages.`
+      : `${exactMatches.length} exact ${exactMatches.length === 1 ? "match" : "matches"} found. Showing matching areas with percentages.`
     : optionalConditionsActive
-      ? `No exact core matches yet. Showing all ${ranked.length} areas ranked by your optional condition choices.`
-      : `No exact matches yet. Showing all ${ranked.length} areas with match percentages.`;
+      ? `No exact budget matches yet. Showing core matches ranked by your optional condition choices.`
+      : `No exact budget matches yet. Showing core matches with match percentages.`;
 
   elements.resultsCount.textContent += ` Page ${state.currentPage} of ${pageCount}, showing ${visibleDestinations.length} of ${ranked.length} areas.`;
 
@@ -2980,6 +3157,11 @@ function renderCards(ranked, filters) {
 }
 
 function renderPagination(pageCount) {
+  if (pageCount < 2) {
+    elements.pagination.innerHTML = "";
+    return;
+  }
+
   elements.pagination.innerHTML = Array.from({ length: pageCount }, (_, index) => {
     const page = index + 1;
     const activeClass = page === state.currentPage ? " is-active" : "";
@@ -2988,16 +3170,16 @@ function renderPagination(pageCount) {
   }).join("");
 }
 
-function sortDestinations(destinationsToSort, sortMode) {
+function sortDestinations(destinationsToSort, sortMode, filters) {
   const sorted = [...destinationsToSort];
 
   sorted.sort((a, b) => {
     if (sortMode === "quality") return b.quality - a.quality || b.matchPercent - a.matchPercent;
-    if (sortMode === "crowds") return crowdScore(a) - crowdScore(b) || b.matchPercent - a.matchPercent;
-    if (sortMode === "consistency") return consistencyScore(b) - consistencyScore(a) || b.quality - a.quality;
+    if (sortMode === "crowds") return monthlyCrowdSortScore(a, filters) - monthlyCrowdSortScore(b, filters) || b.matchPercent - a.matchPercent;
+    if (sortMode === "consistency") return monthlyConsistencySortScore(b, filters) - monthlyConsistencySortScore(a, filters) || b.quality - a.quality;
     if (sortMode === "budget") return budgetScore(a) - budgetScore(b) || b.matchPercent - a.matchPercent;
-    if (sortMode === "power") return powerScore(b) - powerScore(a) || b.quality - a.quality;
-    if (sortMode === "reviews") return reviewScore(b) - reviewScore(a) || b.matchPercent - a.matchPercent;
+    if (sortMode === "powerFit") return powerFitScore(b, filters.level) - powerFitScore(a, filters.level) || b.matchPercent - a.matchPercent;
+    if (sortMode === "partner") return partnerFitScore(b) - partnerFitScore(a) || b.matchPercent - a.matchPercent;
     if (sortMode === "distance") return distanceScore(a) - distanceScore(b) || b.matchPercent - a.matchPercent;
 
     return b.matchPercent - a.matchPercent || b.score - a.score || a.name.localeCompare(b.name);
@@ -3020,6 +3202,14 @@ function consistencyScore(destination) {
   return destination.months.length * 10 + destination.quality;
 }
 
+function monthlyConsistencySortScore(destination, filters) {
+  return monthlyConditionMetrics(destination, filters.month).consistencyPercent;
+}
+
+function monthlyCrowdSortScore(destination, filters) {
+  return monthlyConditionMetrics(destination, filters.month).crowdLevel;
+}
+
 function budgetScore(destination) {
   return { low: 1, medium: 2, high: 3 }[destination.budget] || 2;
 }
@@ -3028,8 +3218,14 @@ function powerScore(destination) {
   return { mellow: 1, decent: 2, "chargers only": 3 }[destination.wavePower] || 2;
 }
 
-function reviewScore(destination) {
-  return destination.quality * 2 + consistencyScore(destination) / 12 + (6 - crowdScore(destination));
+function powerFitScore(destination, level) {
+  const scores = {
+    beginner: { mellow: 3, decent: 2, "chargers only": 0 },
+    intermediate: { mellow: 2, decent: 3, "chargers only": 1 },
+    advanced: { mellow: 1, decent: 2, "chargers only": 3 },
+  };
+
+  return (scores[level] || scores.intermediate)[destination.wavePower] || 1;
 }
 
 function distanceScore(destination) {
@@ -3090,16 +3286,38 @@ function destinationCoordinate(destination) {
     [/new zealand|raglan|piha|taranaki|gisborne|kaikoura|dunedin|maunganui/, [-40.9006, 174.886]],
     [/australia|gold coast|margaret|bells|noosa|cactus|northwest/, [-25.2744, 133.7751]],
     [/south africa|jeffreys|durban/, [-30.5595, 22.9375]],
+    [/angola|cabo ledo|kwanza/, [-11.2027, 17.8739]],
+    [/senegal|dakar/, [14.4974, -14.4524]],
+    [/ghana|busua/, [7.9465, -1.0232]],
+    [/liberia|robertsport/, [6.4281, -9.4295]],
     [/mozambique|tofo|ponta/, [-18.6657, 35.5296]],
     [/cape verde|sal/, [16.5388, -23.0418]],
     [/mauritius|tamarin|le morne|black rocks/, [-20.3484, 57.5522]],
     [/maldives|male atolls|central atolls/, [3.2028, 73.2207]],
-    [/philippines|siargao/, [12.8797, 121.774]],
+    [/samoa/, [-13.759, -172.1046]],
+    [/tonga/, [-21.1789, -175.1982]],
+    [/vanuatu/, [-15.3767, 166.9592]],
+    [/new caledonia/, [-20.9043, 165.618]],
+    [/philippines|siargao|baler|la union|samar|guiuan/, [12.8797, 121.774]],
+    [/vietnam|da nang/, [14.0583, 108.2772]],
+    [/malaysia|cherating/, [4.2105, 101.9758]],
+    [/thailand|phuket/, [15.87, 100.9925]],
+    [/taiwan|taitung|yilan|wushi|jinzun/, [23.6978, 120.9605]],
+    [/japan|chiba|shonan|miyazaki|shikoku/, [36.2048, 138.2529]],
+    [/korea|yangyang/, [35.9078, 127.7669]],
+    [/china|hainan|riyue/, [35.8617, 104.1954]],
+    [/india|varkala|kovalam|mulki/, [20.5937, 78.9629]],
     [/ireland|bundoran/, [53.1424, -7.6921]],
     [/scotland|thurso/, [56.4907, -4.2026]],
     [/barbados|soup bowl/, [13.1939, -59.5432]],
     [/puerto rico|rincon/, [18.2208, -66.5901]],
     [/canada|tofino/, [56.1304, -106.3468]],
+    [/united kingdom|cornwall|croyde|gower|scarborough|wales|england/, [55.3781, -3.436]],
+    [/norway|hoddevik|lofoten/, [60.472, 8.4689]],
+    [/iceland|reykjanes/, [64.9631, -19.0208]],
+    [/italy|sardinia|sicily/, [41.8719, 12.5674]],
+    [/uruguay|la paloma/, [-32.5228, -55.7658]],
+    [/argentina|mar del plata/, [-38.4161, -63.6167]],
   ];
   const match = regions.find(([pattern]) => pattern.test(value));
 
@@ -3128,7 +3346,9 @@ function buildReason(destination, filters) {
     ? `${levelVibe(filters.level)} wave choice`
     : "a stretch option if conditions line up";
   const budgetPhrase =
-    destination.budget === filters.budget
+    filters.budget === "any"
+      ? "budget-flexible planning"
+      : destination.budget === filters.budget
       ? `${budgetVibe(filters.budget)} trip feel`
       : `${titleCase(destination.budget)}-budget area with a different spend than your filter`;
   const extras = [];
@@ -3147,10 +3367,6 @@ function buildReason(destination, filters) {
 
   if (filters.minConsistency > 0) {
     extras.push(`a preference for ${filters.minConsistency}%+ consistency`);
-  }
-
-  if (hasSwellFilter(filters)) {
-    extras.push(`${swellRangeLabel(filters)} surf`);
   }
 
   if (filters.maxCrowd > 0) {
@@ -3207,15 +3423,6 @@ function budgetVibe(budget) {
   };
 
   return labels[budget] || budget;
-}
-
-function swellRangeLabel(filters) {
-  const min = filters.swellMin || 0;
-  const max = filters.swellMax || 12;
-
-  if (min > 0 && max < 12) return `${Math.min(min, max)}-${Math.max(min, max)} ft`;
-  if (min > 0) return `${min} ft+`;
-  return `up to ${max} ft`;
 }
 
 function crowdChoiceLabel(level) {
@@ -3295,7 +3502,7 @@ function spotGuide(destination) {
 }
 
 function knownSpots(destination) {
-  const spotNames = spotCatalog[destination.name] || inferSpotNames(destination);
+  const spotNames = destination.spots || spotCatalog[destination.name] || inferSpotNames(destination);
 
   return spotNames.map((name, index) => ({
     name,
@@ -3356,37 +3563,80 @@ function mapSearchUrl(query) {
 
 function monthlyGuide(destination, selectedMonth) {
   const rows = months.map((month) => monthlyConditions(destination, month));
-  const cells = rows
+  const metric = monthMetricConfig(state.monthMetric);
+  const bars = rows
     .map((row) => {
+      const details = monthMetricDetails(row, metric.key);
       const selectedClass = row.month === selectedMonth ? " is-selected" : "";
       const seasonClass = row.inSeason ? "" : " is-offseason";
+      const height = Math.max(8, Math.round((details.value / metric.max) * 100));
 
       return `
-        <span class="month-name${selectedClass}${seasonClass}">${row.month}</span>
-        <span class="${selectedClass}${seasonClass}">${escapeHtml(row.waterTemp)}</span>
-        <span class="${selectedClass}${seasonClass}">${escapeHtml(row.crowds)}</span>
-        <span class="${selectedClass}${seasonClass}">${escapeHtml(row.waveSize)}</span>
-        <span class="${selectedClass}${seasonClass}">${escapeHtml(row.airTemp)}</span>
-        <span class="${selectedClass}${seasonClass}">${escapeHtml(row.consistency)}</span>
+        <span class="plot-bar${selectedClass}${seasonClass}">
+          <i style="--bar-height: ${height}%"></i>
+          <b>${row.month}</b>
+          <small>${escapeHtml(details.label)}</small>
+        </span>
       `;
     })
     .join("");
 
   return `
-    <h4>Month-by-month conditions</h4>
-    <div class="month-scroller">
-      <div class="month-table">
-        <span class="month-head">Month</span>
-        <span class="month-head">Water</span>
-        <span class="month-head">Crowds</span>
-        <span class="month-head">Waves</span>
-        <span class="month-head">Air</span>
-        <span class="month-head">Consistency</span>
-        ${cells}
-      </div>
+    <div class="month-panel-head">
+      <h4>Month-by-month conditions</h4>
+      <label>
+        <span>Show</span>
+        <select class="month-metric-select" aria-label="Choose monthly metric">
+          ${["consistency", "wave", "water", "air", "crowds"]
+            .map((key) => {
+              const option = monthMetricConfig(key);
+              return `<option value="${key}"${metric.key === key ? " selected" : ""}>${option.label}</option>`;
+            })
+            .join("")}
+        </select>
+      </label>
     </div>
-    <p class="month-note">Planning estimates for the wider area. Check a live forecast before booking or paddling out.</p>
+    <div class="month-plot" role="img" aria-label="${escapeHtml(metric.label)} by month">
+      <div class="plot-scale">
+        <span>${escapeHtml(metric.topLabel)}</span>
+        <span>${escapeHtml(metric.bottomLabel)}</span>
+      </div>
+      <div class="plot-bars">${bars}</div>
+    </div>
+    <p class="month-note">Planning estimates for the wider area, calibrated from season windows, wave exposure, power, and crowd notes. Check a live forecast before booking or paddling out.</p>
   `;
+}
+
+function monthMetricConfig(key) {
+  const configs = {
+    consistency: { key: "consistency", label: "Consistency", max: 100, topLabel: "100%", bottomLabel: "0%" },
+    wave: { key: "wave", label: "Wave size", max: 12, topLabel: "12 ft", bottomLabel: "0 ft" },
+    water: { key: "water", label: "Water temp", max: 32, topLabel: "32C", bottomLabel: "0C" },
+    air: { key: "air", label: "Air temp", max: 36, topLabel: "36C", bottomLabel: "0C" },
+    crowds: { key: "crowds", label: "Crowds", max: 5, topLabel: "Busy", bottomLabel: "Empty" },
+  };
+
+  return configs[key] || configs.consistency;
+}
+
+function monthMetricDetails(row, key) {
+  if (key === "wave") {
+    return { value: (row.waveMin + row.waveMax) / 2, label: row.waveSize };
+  }
+
+  if (key === "water") {
+    return { value: averageRange(row.waterTemp), label: row.waterTemp };
+  }
+
+  if (key === "air") {
+    return { value: averageRange(row.airTemp), label: row.airTemp };
+  }
+
+  if (key === "crowds") {
+    return { value: row.crowdLevel, label: row.crowds };
+  }
+
+  return { value: row.consistencyPercent, label: row.consistency };
 }
 
 function monthlyConditions(destination, month) {
@@ -3395,6 +3645,10 @@ function monthlyConditions(destination, month) {
   return {
     month,
     inSeason: metrics.inSeason,
+    crowdLevel: metrics.crowdLevel,
+    waveMin: metrics.waveMin,
+    waveMax: metrics.waveMax,
+    consistencyPercent: metrics.consistencyPercent,
     waterTemp: monthlyWaterTemp(destination, month),
     crowds: monthlyCrowds(destination, metrics.inSeason, metrics.nearSeason),
     waveSize: monthlyWaveSize(destination, metrics.inSeason, metrics.nearSeason),
@@ -3485,9 +3739,18 @@ function monthlyConsistency(destination, inSeason, nearSeason) {
 }
 
 function monthlyConsistencyPercent(destination, inSeason, nearSeason) {
-  if (inSeason) return Math.min(96, 62 + destination.quality * 6);
-  if (nearSeason) return Math.min(72, 42 + destination.quality * 5);
-  return Math.min(48, 18 + destination.quality * 5);
+  const base = destination.consistencyBase || destinationReliability(destination);
+  if (inSeason) return Math.max(35, Math.min(94, base));
+  if (nearSeason) return Math.max(25, Math.min(74, base - 18));
+  return Math.max(12, Math.min(52, base - 38));
+}
+
+function destinationReliability(destination) {
+  const powerAdjustment = { mellow: 6, decent: 3, "chargers only": -4 }[destination.wavePower] || 0;
+  const seasonWindowAdjustment = Math.min(destination.months.length, 8) * 1.4;
+  const crowdPenalty = crowdScore(destination) >= 4 ? -3 : 0;
+
+  return Math.round(46 + destination.quality * 7 + seasonWindowAdjustment + powerAdjustment + crowdPenalty);
 }
 
 function tempRange(value, fallback) {
@@ -3495,6 +3758,13 @@ function tempRange(value, fallback) {
   if (!matches || matches.length < 2) return fallback;
 
   return [Number(matches[0]), Number(matches[1])];
+}
+
+function averageRange(value) {
+  const matches = String(value).match(/-?\d+/g);
+  if (!matches || matches.length < 2) return Number(matches?.[0] || 0);
+
+  return (Number(matches[0]) + Number(matches[1])) / 2;
 }
 
 function airTempRange(destination) {
@@ -3523,59 +3793,71 @@ function seasonalTempOffset(destination, month, amplitude) {
 }
 
 function areaReviews(destination) {
-  const crowd = crowdScore(destination);
-  const cost = budgetScore(destination);
-  const consistency = consistencyScore(destination);
-  const tripRating = Math.min(5, Math.max(3, Math.round((destination.quality + (6 - cost)) / 2)));
-  const crowdRating = Math.max(1, 6 - crowd);
-  const consistencyRating = Math.min(5, Math.max(2, Math.round(consistency / 18)));
-  const travelNote =
-    destination.budget === "low"
-      ? "Easy to keep costs down if you choose simple rooms and local food."
-      : destination.budget === "medium"
-        ? "Good balance between comfort, food, rentals, and surf access."
-        : "Works better with a bigger trip budget, especially for boats, guides, or premium stays.";
-  const crowdNote =
-    crowd >= 4
-      ? "The area can get busy, so dawn sessions and flexible spot checks matter."
-      : crowd <= 2
-        ? "Usually more breathing room than the famous lineups, though the best days still pull people in."
-        : "Expect a normal surf-trip crowd: manageable if you move with the tide and wind.";
-
-  const reviews = [
-    {
-      title: "Trip fit",
-      rating: tripRating,
-      text: `${destination.name} is strongest for ${destination.vibe.toLowerCase()}. ${travelNote}`,
-    },
-    {
-      title: "Crowd reality",
-      rating: crowdRating,
-      text: crowdNote,
-    },
-    {
-      title: "Season confidence",
-      rating: consistencyRating,
-      text: `${destination.season} is the main window. The wider the month range, the easier it is to plan without chasing a perfect forecast.`,
-    },
-  ];
+  const reviews = storedReviews(destination.name);
 
   return `
-    <h4>Area reviews</h4>
-    <div class="review-grid">
-      ${reviews
-        .map(
-          (review) => `
-            <article class="review-card">
-              <span class="review-score">${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}</span>
-              <strong>${escapeHtml(review.title)}</strong>
-              <p>${escapeHtml(review.text)}</p>
-            </article>
-          `,
-        )
-        .join("")}
-    </div>
+    <h4>Traveler reviews</h4>
+    <form class="review-form" data-destination="${escapeHtml(destination.name)}">
+      <label>
+        <span>Name</span>
+        <input name="reviewer" type="text" maxlength="40" placeholder="Optional" />
+      </label>
+      <label>
+        <span>Rating</span>
+        <select name="rating" aria-label="Trip rating">
+          <option value="5">5 stars</option>
+          <option value="4">4 stars</option>
+          <option value="3">3 stars</option>
+          <option value="2">2 stars</option>
+          <option value="1">1 star</option>
+        </select>
+      </label>
+      <label class="review-text">
+        <span>Your note</span>
+        <textarea name="text" rows="3" maxlength="280" placeholder="How was the area for the trip?"></textarea>
+      </label>
+      <button type="submit">Add review</button>
+      <small>Reviews are saved on this device for now. There is no public backend yet.</small>
+    </form>
+    ${
+      reviews.length
+        ? `<div class="review-grid">${reviews
+            .map(
+              (review) => `
+                <article class="review-card">
+                  <span class="review-score">${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}</span>
+                  <strong>${escapeHtml(review.reviewer || "Surf traveler")}</strong>
+                  <p>${escapeHtml(review.text)}</p>
+                </article>
+              `,
+            )
+            .join("")}</div>`
+        : `<p class="empty-reviews">No traveler reviews yet. Add one after you have been there.</p>`
+    }
   `;
+}
+
+function storedReviews(destinationName) {
+  try {
+    const allReviews = JSON.parse(localStorage.getItem("wavecompassAreaReviews") || "{}");
+    return Array.isArray(allReviews[destinationName]) ? allReviews[destinationName] : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveReview(destinationName, review) {
+  try {
+    const allReviews = JSON.parse(localStorage.getItem("wavecompassAreaReviews") || "{}");
+    const existing = Array.isArray(allReviews[destinationName]) ? allReviews[destinationName] : [];
+    allReviews[destinationName] = [review, ...existing].slice(0, 8);
+    localStorage.setItem("wavecompassAreaReviews", JSON.stringify(allReviews));
+  } catch {
+    localStorage.setItem(
+      "wavecompassAreaReviews",
+      JSON.stringify({ [destinationName]: [review] }),
+    );
+  }
 }
 
 function accessDescription(destination) {
@@ -3592,6 +3874,20 @@ function accessDescription(destination) {
 
 function cardWaveDescription(destination) {
   return `${qualityLabel(destination.quality)} / ${titleCase(destination.wavePower)} / ${bottomLabel(destination.bottom)}`;
+}
+
+function consistencyFact(destination, selectedMonth) {
+  const metrics = monthlyConditionMetrics(destination, selectedMonth);
+  const label =
+    metrics.consistencyPercent >= 78
+      ? "High"
+      : metrics.consistencyPercent >= 58
+        ? "Good"
+        : metrics.consistencyPercent >= 40
+          ? "Possible"
+          : "Low";
+
+  return `${label} in ${selectedMonth} (${metrics.consistencyPercent}% estimate)`;
 }
 
 function waveLengthLabel(destination) {
@@ -3699,23 +3995,28 @@ function bottomLabel(bottom) {
   return bottom.map(titleCase).join(" / ");
 }
 
+function levelRangeLabel(levels) {
+  return levels.map(titleCase).join(" / ");
+}
+
 function destinationPhotos(destination) {
   const queries = [
-    `${destination.query} surfing waves`,
-    `${destination.query} surfer on wave`,
-    `${destination.name} surf break waves`,
-    `${destination.query} lineup ocean wave`,
+    { query: `${destination.query} surfer riding wave`, spot: `${destination.name} waves` },
+    { query: `${destination.query} surfing barrel wave`, spot: `${destination.name} surf` },
+    { query: `${destination.name} ${destination.area} surfer on wave`, spot: `${destination.name} lineup` },
+    { query: `${destination.query} surf break ocean wave`, spot: `${destination.name} break` },
+    { query: `${destination.name} ${destination.area} coastline beach scenery`, spot: `${destination.name} scenery` },
   ];
 
-  return queries.map((query, index) => ({
-    src: sourcePhotoUrl(query, destination.index, index),
-    spot: destination.name,
-    source: "Unsplash surf photo search",
+  return queries.map((photo, index) => ({
+    src: sourcePhotoUrl(photo.query, destination.index, index),
+    spot: photo.spot,
+    source: index === 4 ? "Unsplash scenery search" : "Unsplash surf photo search",
   }));
 }
 
 function placePhotoUrl(destination, photoIndex = 0) {
-  return sourcePhotoUrl(`${destination.query} surfing waves`, destination.index, photoIndex);
+  return sourcePhotoUrl(`${destination.query} surfer riding wave`, destination.index, photoIndex);
 }
 
 function sourcePhotoUrl(query, destinationIndex = 0, photoIndex = 0) {
@@ -3766,10 +4067,39 @@ function updateDirectionControl() {
   elements.direction.style.setProperty("--direction-fill", fill);
 }
 
+function autoFillOrigin() {
+  const input = elements.form.querySelector('input[name="origin"]');
+  if (!input || input.value) return;
+
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const timezoneOrigins = {
+    "Asia/Jerusalem": "Tel Aviv",
+    "Europe/London": "London",
+    "Europe/Paris": "Paris",
+    "Europe/Madrid": "Madrid",
+    "Europe/Lisbon": "Lisbon",
+    "America/New_York": "New York",
+    "America/Los_Angeles": "Los Angeles",
+    "America/Miami": "Miami",
+    "Australia/Sydney": "Sydney",
+    "Australia/Melbourne": "Melbourne",
+    "Pacific/Auckland": "Auckland",
+  };
+
+  input.value = timezoneOrigins[timezone] || "";
+}
+
 function render(preferredIndex = null) {
   updateDirectionControl();
   const filters = getFilters();
   const ranked = getRankedDestinations();
+
+  if (!ranked.length) {
+    renderEmptyFeature(filters);
+    renderCards(ranked, filters);
+    return;
+  }
+
   const selected =
     preferredIndex === null
       ? ranked[0]
@@ -3783,6 +4113,7 @@ function render(preferredIndex = null) {
 
 elements.form.addEventListener("change", () => {
   state.currentPage = 1;
+  state.moreInfoOpen = false;
   render();
 });
 
@@ -3790,6 +4121,7 @@ elements.form.addEventListener("input", (event) => {
   if (event.target.name !== "origin") return;
 
   state.currentPage = 1;
+  state.moreInfoOpen = false;
   render(state.selected);
 });
 
@@ -3802,6 +4134,7 @@ elements.sortInputs.forEach((input) =>
 
 elements.direction.addEventListener("input", () => {
   state.currentPage = 1;
+  state.moreInfoOpen = false;
   render();
 });
 
@@ -3809,8 +4142,44 @@ elements.cardStrip.addEventListener("click", (event) => {
   const card = event.target.closest(".spot-card");
   if (!card) return;
 
+  state.moreInfoOpen = false;
   render(Number(card.dataset.index));
   document.querySelector(".results-band").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+elements.actions.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-action='toggle-more']");
+  if (!button) return;
+
+  state.moreInfoOpen = !state.moreInfoOpen;
+  render(state.selected);
+});
+
+elements.monthGuide.addEventListener("change", (event) => {
+  if (!event.target.classList.contains("month-metric-select")) return;
+
+  state.monthMetric = event.target.value;
+  render(state.selected);
+});
+
+elements.reviews.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.target.closest(".review-form");
+  if (!form) return;
+
+  const formData = new FormData(form);
+  const text = String(formData.get("text") || "").trim();
+  if (!text) return;
+
+  saveReview(form.dataset.destination, {
+    reviewer: String(formData.get("reviewer") || "").trim(),
+    rating: Number(formData.get("rating") || 5),
+    text,
+    createdAt: new Date().toISOString(),
+  });
+
+  state.moreInfoOpen = true;
+  render(state.selected);
 });
 
 elements.pagination.addEventListener("click", (event) => {
@@ -3841,4 +4210,5 @@ const currentMonth = new Date().toLocaleString("en-US", { month: "short" });
 const currentMonthInput = [...elements.monthInputs].find((input) => input.value === currentMonth);
 if (currentMonthInput) currentMonthInput.checked = true;
 
+autoFillOrigin();
 render();

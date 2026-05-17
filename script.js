@@ -2665,6 +2665,7 @@ const state = {
   currentPage: 1,
   moreInfoOpen: false,
   monthMetric: "consistency",
+  renderVersion: 0,
   carouselTimer: null,
   carouselPhotoIndex: 0,
   carouselPhotos: [],
@@ -2912,11 +2913,14 @@ function destinationMatchesCore(destination, filters) {
     filters.direction === "any" || destination.directions.includes(filters.direction);
 
   return (
+    destinationMatchesSearch(destination, filters) &&
     destination.months.includes(filters.month) &&
-    destination.levels.includes(filters.level) &&
-    (!filters.tropical || destination.tropical) &&
     directionMatches
   );
+}
+
+function destinationMatchesSearch(destination, filters) {
+  return destination.levels.includes(filters.level) && (!filters.tropical || destination.tropical);
 }
 
 function destinationMatchesFilters(destination, filters) {
@@ -2951,20 +2955,24 @@ function rangeOverlapScore(rangeMin, rangeMax, preferredMin, preferredMax, weigh
   return Math.max(0, Math.min(weight, weight - Math.max(0, distance) * 4));
 }
 
-function setBackground(destination) {
+function setBackground(destination, renderVersion = state.renderVersion) {
   elements.heroMedia.classList.add("is-changing");
 
   window.setTimeout(() => {
+    if (renderVersion !== state.renderVersion) return;
+
     elements.heroMedia.style.backgroundImage = `url("${placePhotoUrl(destination, 1)}"), url("${destination.image}")`;
     elements.heroMedia.classList.remove("is-changing");
   }, 180);
 }
 
-function renderFeature(destination, filters) {
+function renderFeature(destination, filters, renderVersion = state.renderVersion) {
   elements.feature.classList.add("is-changing");
   stopPhotoCarousel();
 
   window.setTimeout(() => {
+    if (renderVersion !== state.renderVersion) return;
+
     const photos = destinationPhotos(destination);
 
     elements.matchTitle.textContent = `${destination.name}, ${destination.area}`;
@@ -3023,7 +3031,9 @@ function renderFeature(destination, filters) {
   }, 170);
 }
 
-function renderEmptyFeature(filters) {
+function renderEmptyFeature(filters, renderVersion = state.renderVersion) {
+  if (renderVersion !== state.renderVersion) return;
+
   stopPhotoCarousel();
   elements.feature.classList.remove("is-changing");
   elements.matchTitle.textContent = "No matching area yet";
@@ -3137,7 +3147,11 @@ function renderCards(ranked, filters) {
       ? `No exact budget matches yet. Showing core matches ranked by your optional condition choices.`
       : `No exact budget matches yet. Showing core matches with match percentages.`;
 
-  elements.resultsCount.textContent += ` Page ${state.currentPage} of ${pageCount}, showing ${visibleDestinations.length} of ${ranked.length} areas.`;
+  const strictFilterText = filters.tropical
+    ? " Surfer level and tropical water are strict filters."
+    : " Surfer level is a strict filter.";
+
+  elements.resultsCount.textContent += `${strictFilterText} Page ${state.currentPage} of ${pageCount}, showing ${visibleDestinations.length} of ${ranked.length} areas.`;
 
   elements.cardStrip.innerHTML = visibleDestinations
     .map(
@@ -4111,9 +4125,11 @@ function render(preferredIndex = null) {
   updateDirectionControl();
   const filters = getFilters();
   const ranked = getRankedDestinations();
+  state.renderVersion += 1;
+  const renderVersion = state.renderVersion;
 
   if (!ranked.length) {
-    renderEmptyFeature(filters);
+    renderEmptyFeature(filters, renderVersion);
     renderCards(ranked, filters);
     return;
   }
@@ -4124,8 +4140,8 @@ function render(preferredIndex = null) {
       : ranked.find((item) => item.index === preferredIndex) || ranked[0];
 
   state.selected = selected.index;
-  setBackground(selected);
-  renderFeature(selected, filters);
+  setBackground(selected, renderVersion);
+  renderFeature(selected, filters, renderVersion);
   renderCards(ranked, filters);
 }
 

@@ -2690,6 +2690,7 @@ const elements = {
   moreInfo: document.querySelector("#moreInfo"),
   spotGuide: document.querySelector("#spotGuide"),
   facts: document.querySelector("#destinationFacts"),
+  partnerGuide: document.querySelector("#partnerGuide"),
   monthGuide: document.querySelector("#monthGuide"),
   reviews: document.querySelector("#areaReviews"),
   actions: document.querySelector("#destinationActions"),
@@ -3015,6 +3016,9 @@ function renderFeature(destination, filters, renderVersion = state.renderVersion
       )
       .join("");
 
+    elements.partnerGuide.hidden = !filters.nonSurfPartner;
+    elements.partnerGuide.innerHTML = filters.nonSurfPartner ? partnerGuide(destination) : "";
+
     elements.actions.innerHTML = `
       <button class="action-link info-toggle" type="button" data-action="toggle-more">
         ${state.moreInfoOpen ? "Hide details" : "Show more"}
@@ -3046,6 +3050,8 @@ function renderEmptyFeature(filters, renderVersion = state.renderVersion) {
   elements.waveDescription.textContent = "";
   elements.spotDescription.textContent = "";
   elements.facts.innerHTML = "";
+  elements.partnerGuide.hidden = true;
+  elements.partnerGuide.innerHTML = "";
   elements.actions.innerHTML = "";
   elements.moreInfo.hidden = true;
   elements.spotGuide.innerHTML = "";
@@ -3270,6 +3276,66 @@ function partnerFitScore(destination) {
   }
 
   return Math.max(0, Math.min(100, score));
+}
+
+function partnerFriendlyRating(destination) {
+  return Math.max(1, Math.min(5, Math.round(partnerFitScore(destination) / 20)));
+}
+
+function partnerGuide(destination) {
+  const rating = partnerFriendlyRating(destination);
+  const activityText = partnerActivities(destination, rating);
+  const tripadvisorUrl = `https://www.tripadvisor.com/Search?q=${encodeURIComponent(
+    `${destination.name} ${destination.area} things to do restaurants`,
+  )}`;
+
+  return `
+    <div class="partner-guide-head">
+      <span class="control-title">Girlfriend-friendly</span>
+      <strong>${rating}/5</strong>
+    </div>
+    <div class="partner-bar" aria-label="Girlfriend-friendly rating ${rating} out of 5">
+      ${Array.from({ length: 5 }, (_, index) => `<span class="${index < rating ? "is-filled" : ""}"></span>`).join("")}
+    </div>
+    <p>${escapeHtml(activityText)}</p>
+    <a href="${tripadvisorUrl}" target="_blank" rel="noreferrer">Check current activities and restaurants on Tripadvisor</a>
+  `;
+}
+
+function partnerActivities(destination, rating) {
+  const text = `${destination.name} ${destination.area} ${destination.vibe} ${destination.description}`.toLowerCase();
+  const ideas = [];
+
+  if (/city|lisbon|porto|sydney|cape town|dakar|mar del plata|newcastle|da nang|tokyo|japan|taiwan|bali|canggu|waikiki|biarritz|san sebastian|zarautz|cascais|peniche|ericeira|florianopolis/.test(text)) {
+    ideas.push("restaurants, cafes, markets, galleries, shopping, and easy town walks");
+  }
+
+  if (/island|tropical|lagoon|maldives|fiji|tahiti|samoa|tonga|vanuatu|siargao|philippines|bocas|barbados|puerto rico|mauritius|hainan|phuket|sri lanka|bali/.test(text)) {
+    ideas.push("beach time, snorkeling or boat trips, sunset drinks, spas, and island day tours");
+  }
+
+  if (/green|rainforest|mountain|cliff|wild|national|forest|scenic|garden route|new zealand|norway|iceland|canada|tofino|galicia|asturias|cornwall|ireland|wales/.test(text)) {
+    ideas.push("hikes, viewpoints, nature drives, photography stops, and slower scenic days");
+  }
+
+  if (/food|seafood|tagine|cafes|coffee|wine|restaurants|nightlife|bars|old town|medina|culture|music/.test(text)) {
+    ideas.push("food spots, local culture, casual nightlife, and relaxed non-surf afternoons");
+  }
+
+  if (/remote|boat|camp|camping|logistics|reef focus|expert|serious|shallow|desert|long drives|adventure/.test(text)) {
+    ideas.push("simple beach downtime and nature, but fewer polished restaurants or easy non-surf plans");
+  }
+
+  const fallback =
+    rating >= 4
+      ? "Good for a non-surfing travel partner: there should be enough restaurants, beach time, walks, and easy day activities between your sessions."
+      : rating === 3
+        ? "Works if she likes beach towns and slower travel: plan restaurants, short tours, and scenic breaks so the trip is not only surf checks."
+        : "More surf-mission than couple holiday: check restaurant options and non-surf activities carefully before booking.";
+
+  if (!ideas.length) return fallback;
+
+  return `${fallback} Expect ${[...new Set(ideas)].slice(0, 3).join("; ")}.`;
 }
 
 function originCoordinate(origin) {

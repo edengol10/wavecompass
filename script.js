@@ -2734,6 +2734,7 @@ const state = {
   carouselTimer: null,
   carouselPhotoIndex: 0,
   carouselPhotos: [],
+  photoCache: new Map(),
 };
 
 const elements = {
@@ -3050,6 +3051,7 @@ function renderFeature(destination, filters, renderVersion = state.renderVersion
     elements.waveDescription.textContent = waveDescription(destination);
     elements.spotDescription.textContent = spotDescription(destination);
     startPhotoCarousel(destination, photos);
+    loadSourcedPhotos(destination, renderVersion);
     elements.moreInfo.hidden = !state.moreInfoOpen;
     elements.moreInfo.classList.toggle("is-open", state.moreInfoOpen);
     elements.sourceGuide.innerHTML = waveGuideSources(destination);
@@ -3137,6 +3139,7 @@ function renderEmptyFeature(filters, renderVersion = state.renderVersion) {
 }
 
 function startPhotoCarousel(destination, photos) {
+  stopPhotoCarousel();
   state.carouselPhotos = photos;
   state.carouselPhotoIndex = 0;
   showCarouselPhoto(destination, 0, false);
@@ -3163,14 +3166,22 @@ function showCarouselPhoto(destination, photoIndex, animate = true) {
   const updatePhoto = () => {
     state.carouselPhotoIndex = photoIndex;
     elements.image.onerror = () => {
+      if (photo.fallbackSrc && elements.image.src !== photo.fallbackSrc) {
+        elements.image.src = photo.fallbackSrc;
+        return;
+      }
+
       elements.image.onerror = null;
       elements.image.src = destination.image;
     };
     elements.image.src = photo.src;
-    elements.image.alt = `${photo.spot} surfing waves`;
+    elements.image.alt =
+      photo.kind === "Scenery photo"
+        ? `${destination.name} scenery and coastline`
+        : `People surfing ${destination.name}`;
     elements.caption.innerHTML = `
       <strong>${escapeHtml(photo.spot)}</strong>
-      <small>Source: ${escapeHtml(photo.source)}</small>
+      <small>${escapeHtml(photo.kind)} · Source: ${photo.sourceUrl ? `<a href="${escapeHtml(photo.sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(photo.source)}</a>` : escapeHtml(photo.source)}</small>
     `;
     renderPhotoDots(state.carouselPhotos.length, photoIndex);
     elements.featureVisual.classList.remove("is-photo-changing");
@@ -4195,22 +4206,24 @@ function waveLevelFromProfile(destination) {
 
 function destinationPhotos(destination) {
   const queries = [
-    { query: `${destination.query} surfer riding wave`, spot: `${destination.name} waves` },
-    { query: `${destination.query} surfing barrel wave`, spot: `${destination.name} surf` },
-    { query: `${destination.name} ${destination.area} surfer on wave`, spot: `${destination.name} lineup` },
-    { query: `${destination.query} surf break ocean wave`, spot: `${destination.name} break` },
-    { query: `${destination.name} ${destination.area} coastline beach scenery`, spot: `${destination.name} scenery` },
+    { query: `${destination.query} people surfing wave`, kind: "Surf photo", spot: `${destination.name} surf action` },
+    { query: `${destination.query} surfer riding wave`, kind: "Surf photo", spot: `${destination.name} surfer on wave` },
+    { query: `${destination.name} ${destination.area} surfing people wave`, kind: "Surf photo", spot: `${destination.name} lineup` },
+    { query: `${destination.query} surf break surfer`, kind: "Surf photo", spot: `${destination.name} break` },
+    { query: `${destination.name} ${destination.area} coastline beach scenery`, kind: "Scenery photo", spot: `${destination.name} scenery` },
   ];
 
   return queries.map((photo, index) => ({
     src: sourcePhotoUrl(photo.query, destination.index, index),
     spot: photo.spot,
-    source: index === 4 ? "Unsplash scenery search" : "Unsplash surf photo search",
+    kind: photo.kind,
+    source: photo.kind === "Scenery photo" ? "Unsplash scenery search" : "Unsplash surf-action search",
+    sourceUrl: unsplashSearchUrl(photo.query),
   }));
 }
 
 function placePhotoUrl(destination, photoIndex = 0) {
-  return sourcePhotoUrl(`${destination.query} surfer riding wave`, destination.index, photoIndex);
+  return sourcePhotoUrl(`${destination.query} people surfing wave`, destination.index, photoIndex);
 }
 
 function sourcePhotoUrl(query, destinationIndex = 0, photoIndex = 0) {
@@ -4218,6 +4231,118 @@ function sourcePhotoUrl(query, destinationIndex = 0, photoIndex = 0) {
   const signature = (destinationIndex + 1) * 17 + photoIndex * 101;
 
   return `https://source.unsplash.com/1800x1200/?${terms}&sig=${signature}`;
+}
+
+function unsplashSearchUrl(query) {
+  return `https://unsplash.com/s/photos/${encodeURIComponent(query)}`;
+}
+
+async function loadSourcedPhotos(destination, renderVersion) {
+  const cachedPhotos = state.photoCache.get(destination.name);
+
+  if (cachedPhotos) {
+    if (renderVersion === state.renderVersion) startPhotoCarousel(destination, cachedPhotos);
+    return;
+  }
+
+  try {
+    const photos = await openverseDestinationPhotos(destination);
+    state.photoCache.set(destination.name, photos);
+
+    if (renderVersion !== state.renderVersion) return;
+    startPhotoCarousel(destination, photos);
+  } catch {
+    state.photoCache.set(destination.name, destinationPhotos(destination));
+  }
+}
+
+async function openverseDestinationPhotos(destination) {
+  const fallback = destinationPhotos(destination);
+  const knownBreaks = (destination.spots || []).slice(0, 3).join(" ");
+  const surfQueries = [
+    `${destination.name} ${destination.area} surfing surfer wave`,
+    `${knownBreaks} ${destination.area} surfing wave`,
+    `${destination.area} surfing surfer ocean wave`,
+  ].filter((query) => query.trim().length > destination.area.length);
+  const sceneryQueries = [
+    `${destination.name} ${destination.area} coastline beach scenery`,
+    `${destination.name} ${destination.area} landscape coast`,
+    `${destination.area} beach coastline scenery`,
+  ];
+  const [surfPhotos, sceneryPhotos] = await Promise.all([
+    collectOpenversePhotos(surfQueries, destination, "Surf photo", 4),
+    collectOpenversePhotos(sceneryQueries, destination, "Scenery photo", 1),
+  ]);
+  const sourcedPhotos = [
+    ...fillPhotoSlots(surfPhotos, fallback.filter((photo) => photo.kind === "Surf photo"), 4),
+    ...fillPhotoSlots(sceneryPhotos, fallback.filter((photo) => photo.kind === "Scenery photo"), 1),
+  ];
+
+  return sourcedPhotos.length ? sourcedPhotos : fallback;
+}
+
+async function collectOpenversePhotos(queries, destination, kind, limit) {
+  const photos = [];
+  const seenUrls = new Set();
+
+  for (const query of queries) {
+    const results = await openverseSearchPhotos(query, destination, kind, limit);
+
+    results.forEach((photo) => {
+      if (!seenUrls.has(photo.src) && photos.length < limit) {
+        seenUrls.add(photo.src);
+        photos.push(photo);
+      }
+    });
+
+    if (photos.length >= limit) break;
+  }
+
+  return photos;
+}
+
+async function openverseSearchPhotos(query, destination, kind, limit) {
+  const endpoint = `https://api.openverse.org/v1/images/?${new URLSearchParams({
+    q: query,
+    page_size: String(Math.max(limit * 3, 6)),
+  }).toString()}`;
+  const response = await fetch(endpoint, { headers: { Accept: "application/json" } });
+
+  if (!response.ok) return [];
+
+  const data = await response.json();
+  const seenUrls = new Set();
+
+  return (data.results || [])
+    .filter((item) => item.url && !seenUrls.has(item.url))
+    .map((item) => {
+      seenUrls.add(item.url);
+      return openversePhoto(item, destination, kind);
+    })
+    .filter(Boolean)
+    .slice(0, limit);
+}
+
+function openversePhoto(item, destination, kind) {
+  const creator = item.creator || item.provider || item.source || "Openverse";
+  const license = item.license_version ? `${item.license} ${item.license_version}` : item.license;
+  const sourceParts = [creator, item.source || item.provider, license].filter(Boolean);
+
+  return {
+    src: item.url,
+    fallbackSrc: item.thumbnail,
+    spot:
+      kind === "Scenery photo"
+        ? `${destination.name} scenery`
+        : `People surfing ${destination.name}`,
+    kind,
+    source: sourceParts.join(" / "),
+    sourceUrl: item.foreign_landing_url || item.url,
+  };
+}
+
+function fillPhotoSlots(sourcedPhotos, fallbackPhotos, total) {
+  return Array.from({ length: total }, (_, index) => sourcedPhotos[index] || fallbackPhotos[index]).filter(Boolean);
 }
 
 function escapeHtml(value) {
